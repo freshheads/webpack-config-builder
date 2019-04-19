@@ -8,7 +8,8 @@
         "build:watch": "tsc --watch",
         "test:watch": "jest --watch --notify --config=jest.config.js --detectOpenHandles",
         "prettier:check": "prettier --check './**/*.{js,ts,json,md}'",
-        "prettier:write": "prettier --write './**/*.{js,ts,json,md}'"
+        "prettier:write": "prettier --write './**/*.{js,ts,json,md}'",
+        "install": "npm run build"
     },
     "keywords": [],
     "author": "",
