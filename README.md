@@ -16,7 +16,7 @@ const {
     TargetAdapter,
     ModeAdapter,
     WatchOptionsAdapter,
-} = require('@gnoesiboe/webpack-config-builder');
+} = require('@freshheads/webpack-config-builder');
 
 const nodeEnv = process.env.NODE_ENV || 'production';
 const isProduction = nodeEnv === 'production';
@@ -57,7 +57,7 @@ builder
             poll: true,
         })
     );
-    
+
 const config = builder.build();
 
 module.exports = config;
