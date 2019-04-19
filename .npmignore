@@ -1,0 +1,6 @@
+node_modules
+tests
+lib
+.prettierrc
+jest.config.jest
+tsconfig.json
