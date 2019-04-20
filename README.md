@@ -1,25 +1,52 @@
-# webpack-config-builder
+# Webpack config builder
 
 Uses an adapter pattern to build webpack configurations. This makes it possible for teams to create and maintain their base webpack setup and be able to update it from a central git repo, instead of having to change every project individually.
 
-**Example:**
+## Documentation
+
+-   [Installation](#installation)
+-   [Configuration](#configuration)
+-   [API](#api)
+-   [Adapters](#adapters)
+-   [Development](#development)
+
+## Installation
+
+As expected:
+
+```bash
+npm install @freshheads/webpack-config-builder --save-dev
+```
+
+## Configuration
+
+Example:
 
 ```javascript
 // webpack.config.js
 
 const {
     Builder,
-    FreshheadsDefaultDevtoolAdapter: DevtoolAdapter,
-    FreshheadsDefaultOutputAdapter: OutputAdapter,
+
+    // general adapters
     ResolveAdapter,
     EntryAdapter,
     TargetAdapter,
     ModeAdapter,
     WatchOptionsAdapter,
+
+    // Freshheads specific adapters, that contain Freshheads defaults
+    FreshheadsDefaultDevtoolAdapter: DevtoolAdapter,
+    FreshheadsDefaultOutputAdapter: OutputAdapter,
+    FreshheadsDefaultOptimizationAdapter: OptimizationAdapter,
+    FreshheadsDefaultRulesAdapter: RulesAdapter,
+    FreshheadsDefaultPluginsAdapter: PluginsAdapter,
 } = require('@freshheads/webpack-config-builder');
 
+const path = require('path');
+const outputPath = path.resolve(__dirname, 'build');
 const nodeEnv = process.env.NODE_ENV || 'production';
-const isProduction = nodeEnv === 'production';
+const isProduction = nodeEnv !== 'dev';
 
 const builder = new Builder({
     env: nodeEnv,
@@ -31,13 +58,6 @@ builder
             app: [
                 path.resolve(__dirname, 'src/scss/app.scss'),
                 path.resolve(__dirname, 'src/js/index.tsx'),
-            ],
-            legacy: [
-                path.resolve(__dirname, './src/scss/legacy/app.scss'),
-                path.resolve(__dirname, 'src/js/legacy/app.js'),
-            ],
-            picturefill: [
-                path.resolve(__dirname, 'src/js/legacy/picturefill.js'),
             ],
         })
     )
@@ -56,12 +76,67 @@ builder
             ignored: /node_modules/,
             poll: true,
         })
+    )
+    .add(new OptimizationAdapter())
+    .add(
+        new RulesAdapter({
+            typescript: {
+                enabled: true,
+            },
+        })
+    )
+    .add(
+        new PluginsAdapter({
+            copy: {
+                enabled: true,
+                images: true,
+            },
+        })
     );
 
-const config = builder.build();
-
-module.exports = config;
+module.exports = builder.build();
 ```
+
+## API
+
+### Builder
+
+Instantiation:
+
+| Parameter       | Required | Default                 | Description                                                                    |
+| --------------- | -------- | ----------------------- | ------------------------------------------------------------------------------ |
+| `builderConfig` | `false`  | `{ env: 'production' }` | Configuration for the builder. See [description](#types)                       |
+| `webpackConfig` | `fase`   | `{}`                    | Initial state of the webpack configuration. Leave empty to start from scratch. |
+
+Methods:
+
+| Name                             | Description                                                                                                                             |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `add(adapter: Adapter): Builder` | Adds an adapter to the builder, and adds it to the queue of to be executed adapters.                                                    |
+| `build()`                        | Executes all with `add()` added adapters, and executes them one by one, passing in the webpack configuration and builder configuration. |
+
+### Types
+
+Also see Typescript definitions in the [repository](https://github.com/freshheads/webpack-config-builder).
+
+```typescript
+export enum Environment {
+    Dev = 'dev',
+    Production = 'production',
+}
+
+type BuilderConfig {
+    env: Environment;
+}
+```
+
+## Adapters
+
+### General
+
+For the general adapters, see the [Webpack documentation](https://webpack.js.org/configuration). They should be pretty easy to apply as each adapter represents an entry key of the webpack config.
+
+### Freshheads defaults
 
 ## Development
 
