@@ -60,8 +60,8 @@ export default class DefaultPluginsAdapter implements Adapter {
 
     constructor(config: Partial<Config> = {}) {
         this.config = {
-            ...config,
             ...DEFAULT_CONFIG,
+            ...config,
         };
     }
 
