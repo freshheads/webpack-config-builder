@@ -58,7 +58,7 @@ export default class DefaultTSLintRuleAdapter implements Adapter {
     private validateAllRequiredModulesAreInstalled() {
         if (!checkIfModuleIsInstalled('tslint-loader')) {
             throw new Error(
-                "The 'tslint-loader'-module needs to be installed for loading images and fonts"
+                "The 'tslint-loader'-module needs to be installed for this adapter to work"
             );
         }
     }
