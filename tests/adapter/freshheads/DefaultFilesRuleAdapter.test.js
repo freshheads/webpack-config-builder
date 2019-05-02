@@ -1,14 +1,10 @@
-const {
-    Builder,
-    FreshheadsDefaultFilesRuleAdapter,
-} = require('../../../build/index');
+const { FreshheadsDefaultFilesRuleAdapter } = require('../../../build/index');
 
 describe('FreshheadsDefaultOutputAdapter', () => {
-    let builder, adapter, builderConfig;
+    let adapter, builderConfig;
 
     beforeEach(() => {
         builderConfig = { env: 'production' };
-        builder = new Builder(builderConfig);
         adapter = new FreshheadsDefaultFilesRuleAdapter();
     });
 
