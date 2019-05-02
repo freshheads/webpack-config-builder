@@ -21,7 +21,6 @@ import DefaultCssRuleAdapter, {
     Config as CssConfig,
     DEFAULT_CONFIG as DEFAULT_CSS_CONFIG,
 } from './DefaultCssRuleAdapter';
-import path from 'path';
 
 type EnabledConfig = {
     enabled: boolean;
