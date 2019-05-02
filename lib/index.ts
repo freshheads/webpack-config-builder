@@ -37,6 +37,9 @@ export {
     default as FreshheadsDefaultTypescriptRuleAdapter,
 } from './adapter/freshheads/DefaultTypescriptRuleAdapter';
 export {
+    default as FreshheadsDefaultTSLintRuleAdapter,
+} from './adapter/freshheads/DefaultTSLintRuleAdapter';
+export {
     default as FreshheadsDefaultCleanPluginAdapter,
 } from './adapter/freshheads/DefaultCleanPluginAdapter';
 export {
