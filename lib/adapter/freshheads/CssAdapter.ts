@@ -17,7 +17,7 @@ export const DEFAULT_CONFIG: Config = {
     },
 };
 
-export default class DefaultCssRuleAdapter implements Adapter {
+export default class CssAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
