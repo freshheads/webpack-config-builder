@@ -3,7 +3,7 @@ import { Configuration, Plugin, ProvidePlugin } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 
-export default class DefaultProvidePluginAdapter implements Adapter {
+export default class MakeJQueryGloballyAvailableAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
         builderConfig: BuilderConfig,
