@@ -3,25 +3,34 @@ import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig } from '../../Builder';
 import { Configuration, RuleSetRule, RuleSetCondition } from 'webpack';
 import path from 'path';
+import deepmerge = require('deepmerge');
+import webpack = require('webpack');
 
 export type Config = {
     include: RuleSetCondition;
     babelConfigurationFilePath: string;
+    linting: {
+        enabled: boolean;
+        configurationPath: string;
+    };
 };
 
 export const DEFAULT_CONFIG: Config = {
     include: [path.resolve(process.cwd(), 'src/js')],
     babelConfigurationFilePath: path.resolve(process.cwd(), 'babel.config.js'),
+    linting: {
+        enabled: true,
+        configurationPath: path.resolve(process.cwd(), '.eslintrc'),
+    },
 };
 
 export default class JavascriptAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
-        this.config = {
-            ...DEFAULT_CONFIG,
-            ...config,
-        };
+        this.config = deepmerge(DEFAULT_CONFIG, config, {
+            arrayMerge: (destinationArray, sourceArray) => sourceArray,
+        });
     }
 
     public apply(
@@ -37,7 +46,35 @@ export default class JavascriptAdapter implements Adapter {
             };
         }
 
-        const rule: RuleSetRule = {
+        webpackConfig.module.rules.push(this.createFileLoaderRule());
+
+        if (this.config.linting.enabled) {
+            webpackConfig.module.rules.push(this.createLintingRule());
+        }
+
+        next();
+    }
+
+    private createLintingRule(): RuleSetRule {
+        this.validateAllLinitingModulesAreInstalled();
+
+        return {
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            enforce: 'pre',
+            use: [
+                {
+                    loader: 'eslint-loader',
+                    options: {
+                        configFile: this.config.linting.configurationPath,
+                    },
+                },
+            ],
+        };
+    }
+
+    private createFileLoaderRule(): RuleSetRule {
+        return {
             test: /\.jsx?$/,
             include: this.config.include,
             use: [
@@ -52,10 +89,20 @@ export default class JavascriptAdapter implements Adapter {
                 },
             ],
         };
+    }
 
-        webpackConfig.module.rules.push(rule);
+    private validateAllLinitingModulesAreInstalled() {
+        if (!checkIfModuleIsInstalled('eslint')) {
+            throw new Error(
+                "The 'eslint'-module needs to be installed for this adapter to work"
+            );
+        }
 
-        next();
+        if (!checkIfModuleIsInstalled('eslint-loader')) {
+            throw new Error(
+                "The 'eslint-loader'-module needs to be installed for this adapter to work"
+            );
+        }
     }
 
     private validateAllRequiredModulesAreInstalled() {

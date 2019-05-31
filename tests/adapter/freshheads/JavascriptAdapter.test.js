@@ -16,27 +16,45 @@ describe('FreshheadsJavascriptAdapter', () => {
 
             const rules = webpackConfig.module.rules;
 
-            expect(rules).toHaveLength(1);
+            expect(rules).toHaveLength(2);
 
-            const rule = rules.pop();
+            const firstRule = rules[0];
 
-            expect(rule).toHaveProperty('test');
-            expect(rule).toHaveProperty('use');
+            expect(firstRule).toHaveProperty('test');
+            expect(firstRule).toHaveProperty('use');
 
-            expect(Array.isArray(rule.use)).toBe(true);
+            expect(Array.isArray(firstRule.use)).toBe(true);
 
-            const use = rule.use;
+            const firstRuleUse = firstRule.use;
 
-            expect(use).toHaveLength(1);
+            expect(firstRuleUse).toHaveLength(1);
 
-            const firstUse = rule.use[0];
+            const firstRuleOnlyUse = firstRule.use[0];
 
-            expect(firstUse).toHaveProperty('loader', 'babel-loader');
-            expect(firstUse).toHaveProperty('options');
+            expect(firstRuleOnlyUse).toHaveProperty('loader', 'babel-loader');
+            expect(firstRuleOnlyUse).toHaveProperty('options');
 
-            const options = firstUse.options;
+            const options = firstRuleOnlyUse.options;
 
             expect(options).toHaveProperty('configFile', expectConfigFilePath);
+
+            const secondRule = rules[1];
+
+            expect(secondRule).toHaveProperty('test');
+            expect(secondRule).toHaveProperty('use');
+
+            expect(Array.isArray(secondRule.use)).toBe(true);
+
+            const secondRuleUse = secondRule.use;
+
+            expect(secondRuleUse).toHaveLength(1);
+
+            const secondRuleUseOnlyUse = secondRule.use[0];
+
+            expect(secondRuleUseOnlyUse).toHaveProperty(
+                'loader',
+                'eslint-loader'
+            );
         });
     });
 
@@ -46,6 +64,9 @@ describe('FreshheadsJavascriptAdapter', () => {
             const adapter = new FreshheadsJavascriptAdapter({
                 include: ['./test', './anders'],
                 babelConfigurationFilePath: expectedBabelConfigPath,
+                linting: {
+                    enabled: false,
+                },
             });
             const webpackConfig = {};
 
@@ -58,7 +79,7 @@ describe('FreshheadsJavascriptAdapter', () => {
 
             expect(rules).toHaveLength(1);
 
-            const rule = rules.pop();
+            const rule = rules[0];
 
             expect(rule).toHaveProperty('test');
             expect(rule).toHaveProperty('use');
