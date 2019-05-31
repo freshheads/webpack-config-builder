@@ -62,7 +62,7 @@ const DEFAULT_CONFIG: Config = {
         ...DEFAULT_JAVASCRIPT_CONFIG,
     },
     javascriptLinting: {
-        enabled: false,
+        enabled: true,
         ...DEFAULT_JAVASCRIPT_LINTING_CONFIG
     },
     typescript: {
