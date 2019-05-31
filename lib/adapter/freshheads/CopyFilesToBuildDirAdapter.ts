@@ -1,7 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, Plugin } from 'webpack';
 import { BuilderConfig } from '../../Builder';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import path from 'path';
 
 export type Config = {
@@ -46,6 +45,8 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
         }
 
         if (patterns.length > 0) {
+            const CopyWebpackPlugin = require('copy-webpack-plugin');
+
             if (typeof webpackConfig.plugins === 'undefined') {
                 webpackConfig.plugins = [];
             }

@@ -3,7 +3,6 @@ import { Configuration, RuleSetRule } from 'webpack';
 import deepmerge from 'deepmerge';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig, Environment } from '../../Builder';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { Builder } from '../..';
 
@@ -94,6 +93,8 @@ export default class CssAdapter implements Adapter {
         if (typeof webpackConfig.plugins === 'undefined') {
             return false;
         }
+
+        const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
         const plugins = webpackConfig.plugins;
 

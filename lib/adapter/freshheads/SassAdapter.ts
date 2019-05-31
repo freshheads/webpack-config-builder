@@ -3,11 +3,9 @@ import deepmerge from 'deepmerge';
 import { Adapter, NextCallback } from '../Adapter';
 import { BuilderConfig, Environment } from '../../Builder';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { Builder } from '../..';
 import path from 'path';
-import StylelintBarePlugin from 'stylelint-bare-webpack-plugin';
 
 export type Config = {
     cssLoaderOptions: { [key: string]: any };
@@ -74,6 +72,8 @@ export default class SassAdapter implements Adapter {
     }
 
     private createLintingPlugin(): Plugin {
+        const StylelintBarePlugin = require('stylelint-bare-webpack-plugin');
+
         return new StylelintBarePlugin({
             configFile: this.config.linting.configurationPath,
             files: path.resolve(process.cwd(), 'src/scss/**/*.s?(c|a)ss'),
@@ -112,6 +112,8 @@ export default class SassAdapter implements Adapter {
         if (typeof webpackConfig.plugins === 'undefined') {
             return false;
         }
+
+        const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
         const plugins = webpackConfig.plugins;
 
