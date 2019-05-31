@@ -64,8 +64,8 @@ export {
     default as FreshheadsDefaultUglifyPluginAdapter,
 } from './adapter/freshheads/DefaultUglifyPluginAdapter';
 export {
-    default as FreshheadsDefaultStylelintPluginAdapter,
-} from './adapter/freshheads/DefaultStylelintPluginAdapter';
+    default as FreshheadsStyleLintingAdapter,
+} from './adapter/freshheads/StyleLintingAdapter';
 export {
     default as FreshheadsDefaultRulesAdapter,
 } from './adapter/freshheads/DefaultRulesAdapter';

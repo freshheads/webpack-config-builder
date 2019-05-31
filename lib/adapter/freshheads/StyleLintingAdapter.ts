@@ -14,7 +14,7 @@ export const DEFAULT_CONFIG = {
     rcPath: path.resolve(process.cwd(), '.stylelintrc'),
 };
 
-export default class DefaultStylelintPluginAdapter implements Adapter {
+export default class StyleLintingAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {

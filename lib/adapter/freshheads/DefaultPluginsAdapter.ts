@@ -10,10 +10,10 @@ import CopyFilesToBuildDirAdapter, {
     DEFAULT_CONFIG as DEFAULT_COPY_CONFIG,
 } from './CopyFilesToBuildDirAdapter';
 import DefaultUglifyPluginAdapter from './DefaultUglifyPluginAdapter';
-import DefaultStylelintPluginAdapter, {
+import StyleLintingAdapter, {
     Config as StylelintConfig,
     DEFAULT_CONFIG as DEFAULT_STYLELINT_CONFIG,
-} from './DefaultStylelintPluginAdapter';
+} from './StyleLintingAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -100,9 +100,7 @@ export default class DefaultPluginsAdapter implements Adapter {
             }
         } else {
             if (this.config.stylelint.enabled) {
-                builder.add(
-                    new DefaultStylelintPluginAdapter(this.config.stylelint)
-                );
+                builder.add(new StyleLintingAdapter(this.config.stylelint));
             }
         }
 

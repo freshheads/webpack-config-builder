@@ -1,15 +1,15 @@
 const {
-    FreshheadsDefaultStylelintPluginAdapter,
+    FreshheadsStyleLintingAdapter,
     Builder,
 } = require('../../../build/index');
 const StylelintBarePlugin = require('stylelint-bare-webpack-plugin');
 
-describe('FreshheadsDefaultStylelintPluginAdapter', () => {
+describe('FreshheadsStyleLintingAdapter', () => {
     describe('When applied', () => {
         var adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultStylelintPluginAdapter();
+            adapter = new FreshheadsStyleLintingAdapter();
         });
 
         it('should add the plugin to the webpack configuration', () => {
