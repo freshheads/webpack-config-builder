@@ -1,9 +1,9 @@
 const {
     Builder,
-    FreshheadsDefaultESLintRuleAdapter,
+    FreshheadsJavascriptLintingAdapter,
 } = require('../../../build/index');
 
-describe('FreshheadsDefaultESLintRuleAdapter', () => {
+describe('FreshheadsJavascriptLintingAdapter', () => {
     let builderConfig;
 
     beforeEach(() => {
@@ -12,7 +12,7 @@ describe('FreshheadsDefaultESLintRuleAdapter', () => {
 
     describe('Without additional configuration supplied', () => {
         it('should set the correct defaults', () => {
-            const adapter = new FreshheadsDefaultESLintRuleAdapter();
+            const adapter = new FreshheadsJavascriptLintingAdapter();
             const webpackConfig = {};
 
             adapter.apply(webpackConfig, builderConfig, () => {});
@@ -45,7 +45,7 @@ describe('FreshheadsDefaultESLintRuleAdapter', () => {
     describe('With extra configuration applied', () => {
         it('should add the correct rule configuration', () => {
             const otherConfigurationPath = './eslintrc';
-            const adapter = new FreshheadsDefaultESLintRuleAdapter({
+            const adapter = new FreshheadsJavascriptLintingAdapter({
                 configurationPath: otherConfigurationPath,
             });
             const webpackConfig = {};
@@ -86,7 +86,7 @@ describe('FreshheadsDefaultESLintRuleAdapter', () => {
                 done();
             };
 
-            const adapter = new FreshheadsDefaultESLintRuleAdapter();
+            const adapter = new FreshheadsJavascriptLintingAdapter();
 
             adapter.apply({}, builderConfig, callback);
         });
