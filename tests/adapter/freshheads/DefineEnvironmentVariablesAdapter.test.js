@@ -1,14 +1,14 @@
 const {
-    FreshheadsDefaultDefinePluginAdapter,
+    FreshheadsDefineEnvironmentVariablesAdapter,
 } = require('../../../build/index');
 const { DefinePlugin } = require('webpack');
 
-describe('FreshheadsDefaultDefinePluginAdapter', () => {
+describe('FreshheadsDefineEnvironmentVariablesAdapter', () => {
     describe('When applied', () => {
         var adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultDefinePluginAdapter();
+            adapter = new FreshheadsDefineEnvironmentVariablesAdapter();
         });
 
         it('should add the plugin to the webpack config plugins', () => {

@@ -2,7 +2,7 @@ import { Adapter, NextCallback } from '../Adapter';
 import { DefinePlugin, Configuration, Plugin } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 
-export default class DefaultDefinePluginAdapter implements Adapter {
+export default class DefineEnvironmentVariablesAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
         builderConfig: BuilderConfig,
