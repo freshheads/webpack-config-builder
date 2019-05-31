@@ -9,10 +9,10 @@ import LoadReferencedFilesAdapter, {
     Config as FilesConfig,
     DEFAULT_CONFIG as DEFAULT_FILES_CONFIG,
 } from './LoadReferencedFilesAdapter';
-import DefaultJavascriptRuleAdapter, {
+import JavascriptAdapter, {
     Config as JavascriptConfig,
     DEFAULT_CONFIG as DEFAULT_JAVASCRIPT_CONFIG,
-} from './DefaultJavascriptRuleAdapter';
+} from './JavascriptAdapter';
 import DefaultTypescriptRuleAdapter, {
     Config as TypescriptConfig,
     DEFAULT_CONFIG as DEFAULT_TYPESCRIPT_CONFIG,
@@ -105,9 +105,7 @@ export default class DefaultRulesAdapter implements Adapter {
         }
 
         if (this.config.javascript.enabled) {
-            builder.add(
-                new DefaultJavascriptRuleAdapter(this.config.javascript)
-            );
+            builder.add(new JavascriptAdapter(this.config.javascript));
         }
 
         if (this.config.javascriptLinting.enabled) {
