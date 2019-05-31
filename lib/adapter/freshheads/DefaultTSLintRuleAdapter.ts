@@ -3,7 +3,6 @@ import path from 'path';
 import { BuilderConfig } from '../../Builder';
 import { Configuration, RuleSetRule } from 'webpack';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
-import webpack = require('webpack');
 
 export type Config = {
     configurationPath: string;
