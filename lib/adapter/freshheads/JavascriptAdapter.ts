@@ -3,8 +3,7 @@ import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig } from '../../Builder';
 import { Configuration, RuleSetRule, RuleSetCondition } from 'webpack';
 import path from 'path';
-import deepmerge = require('deepmerge');
-import webpack = require('webpack');
+import deepmerge from 'deepmerge';
 
 export type Config = {
     include: RuleSetCondition;

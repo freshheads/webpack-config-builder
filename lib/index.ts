@@ -37,9 +37,6 @@ export {
     default as FreshheadsTypescriptAdapter,
 } from './adapter/freshheads/TypescriptAdapter';
 export {
-    default as FreshheadsTypescriptLintingAdapter,
-} from './adapter/freshheads/TypescriptLintingAdapter';
-export {
     default as FreshheadsCleanBuildDirectoryAdapter,
 } from './adapter/freshheads/CleanBuildDirectoryAdapter';
 export {
