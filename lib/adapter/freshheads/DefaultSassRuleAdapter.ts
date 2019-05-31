@@ -25,7 +25,7 @@ export default class DefaultSassRuleAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
-        this.config = deepmerge(DEFAULT_CONFIG, config);
+        this.config = deepmerge<Config>(DEFAULT_CONFIG, config);
     }
 
     public apply(
