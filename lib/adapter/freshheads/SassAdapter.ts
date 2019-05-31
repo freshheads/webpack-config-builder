@@ -21,7 +21,7 @@ export const DEFAULT_CONFIG: Config = {
     },
 };
 
-export default class DefaultSassRuleAdapter implements Adapter {
+export default class SassAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {

@@ -25,8 +25,8 @@ export {
     default as FreshheadsLoadReferencedFilesAdapter,
 } from './adapter/freshheads/LoadReferencedFilesAdapter';
 export {
-    default as FreshheadsDefaultSassRuleAdapter,
-} from './adapter/freshheads/DefaultSassRuleAdapter';
+    default as FreshheadsSassAdapter,
+} from './adapter/freshheads/SassAdapter';
 export {
     default as FreshheadsCssAdapter,
 } from './adapter/freshheads/CssAdapter';

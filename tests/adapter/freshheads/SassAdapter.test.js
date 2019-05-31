@@ -1,15 +1,15 @@
 const {
-    FreshheadsDefaultSassRuleAdapter,
+    FreshheadsSassAdapter,
     FreshheadsExtractCssPluginAdapter,
     Builder,
 } = require('../../../build/index');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-describe('FreshheadsDefaultSassRuleAdapter', () => {
+describe('FreshheadsSassAdapter', () => {
     describe('With default configuration', () => {
         describe('...environment independent', () => {
             it('should set the correct defaults', () => {
-                const adapter = new FreshheadsDefaultSassRuleAdapter();
+                const adapter = new FreshheadsSassAdapter();
                 const webpackConfig = {};
 
                 adapter.apply(webpackConfig, { env: 'production' }, () => {});
@@ -50,7 +50,7 @@ describe('FreshheadsDefaultSassRuleAdapter', () => {
 
         describe('..for the production environment', () => {
             it('should set the correct defaults', () => {
-                const adapter = new FreshheadsDefaultSassRuleAdapter();
+                const adapter = new FreshheadsSassAdapter();
                 const webpackConfig = {};
 
                 adapter.apply(webpackConfig, { env: 'production' }, () => {});
@@ -69,7 +69,7 @@ describe('FreshheadsDefaultSassRuleAdapter', () => {
 
         describe('..for the development environment', () => {
             it('should set the correct defaults', () => {
-                const adapter = new FreshheadsDefaultSassRuleAdapter();
+                const adapter = new FreshheadsSassAdapter();
                 const webpackConfig = {};
 
                 adapter.apply(webpackConfig, { env: 'dev' }, () => {});
@@ -90,7 +90,7 @@ describe('FreshheadsDefaultSassRuleAdapter', () => {
             it('should add it to the plugins', () => {
                 const builder = new Builder();
 
-                builder.add(new FreshheadsDefaultSassRuleAdapter());
+                builder.add(new FreshheadsSassAdapter());
 
                 const webpackConfig = builder.build();
 
@@ -110,7 +110,7 @@ describe('FreshheadsDefaultSassRuleAdapter', () => {
                 const builder = new Builder();
 
                 builder
-                    .add(new FreshheadsDefaultSassRuleAdapter())
+                    .add(new FreshheadsSassAdapter())
                     .add(new FreshheadsExtractCssPluginAdapter());
 
                 const webpackConfig = builder.build();
@@ -140,7 +140,7 @@ describe('FreshheadsDefaultSassRuleAdapter', () => {
                 },
             };
 
-            const adapter = new FreshheadsDefaultSassRuleAdapter(config);
+            const adapter = new FreshheadsSassAdapter(config);
             const webpackConfig = {};
 
             adapter.apply(webpackConfig, { env: 'production' }, () => {});
@@ -182,7 +182,7 @@ describe('FreshheadsDefaultSassRuleAdapter', () => {
 
     describe('When done', () => {
         it("should call the 'next' callback", done => {
-            const adapter = new FreshheadsDefaultSassRuleAdapter();
+            const adapter = new FreshheadsSassAdapter();
 
             const callback = () => {
                 done();
