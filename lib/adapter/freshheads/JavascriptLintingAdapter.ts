@@ -12,7 +12,7 @@ export const DEFAULT_CONFIG: Config = {
     configurationPath: path.resolve(process.cwd(), '.eslintrc'),
 };
 
-export default class DefaultESLintRuleAdapter implements Adapter {
+export default class JavascriptLintingAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {

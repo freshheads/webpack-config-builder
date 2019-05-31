@@ -25,10 +25,10 @@ import DefaultTSLintRuleAdapter, {
     Config as TypescriptLintConfig,
     DEFAULT_CONFIG as DEFAULT_TYPESCRIPT_LINTING_CONFIG,
 } from './DefaultTSLintRuleAdapter';
-import DefaultESLintRuleAdapter, {
+import JavascriptLintingAdapter, {
     Config as JavascriptLintConfig,
     DEFAULT_CONFIG as DEFAULT_JAVASCRIPT_LINTING_CONFIG,
-} from './DefaultESLintRuleAdapter';
+} from './JavascriptLintingAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -112,7 +112,7 @@ export default class DefaultRulesAdapter implements Adapter {
 
         if (this.config.javascriptLinting.enabled) {
             builder.add(
-                new DefaultESLintRuleAdapter(this.config.javascriptLinting)
+                new JavascriptLintingAdapter(this.config.javascriptLinting)
             );
         }
 
