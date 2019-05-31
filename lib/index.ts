@@ -43,8 +43,8 @@ export {
     default as FreshheadsDefaultTSLintRuleAdapter,
 } from './adapter/freshheads/DefaultTSLintRuleAdapter';
 export {
-    default as FreshheadsDefaultCleanPluginAdapter,
-} from './adapter/freshheads/DefaultCleanPluginAdapter';
+    default as FreshheadsDefaultCleanBuildDirectoryAdapter,
+} from './adapter/freshheads/CleanBuildDirectoryAdapter';
 export {
     default as FreshheadsDefaultCopyPluginAdapter,
 } from './adapter/freshheads/DefaultCopyPluginAdapter';

@@ -1,11 +1,13 @@
-const { FreshheadsDefaultCleanPluginAdapter } = require('../../../build/index');
+const {
+    FreshheadsDefaultCleanBuildDirectoryAdapter,
+} = require('../../../build/index');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-describe('FreshheadsDefaultCleanPluginAdapter', () => {
+describe('FreshheadsDefaultCleanBuildDirectoryAdapter', () => {
     var adapter;
 
     beforeEach(() => {
-        adapter = new FreshheadsDefaultCleanPluginAdapter();
+        adapter = new FreshheadsDefaultCleanBuildDirectoryAdapter();
     });
 
     describe('When applied', () => {

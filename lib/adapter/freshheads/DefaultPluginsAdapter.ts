@@ -1,7 +1,7 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
 import Builder, { BuilderConfig, Environment } from '../../Builder';
-import DefaultCleanPluginAdapter from './DefaultCleanPluginAdapter';
+import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
 import DefaultStatsWriterPluginAdapter from './DefaultStatsWriterPluginAdapter';
 import DefaultDefinePluginAdapter from './DefaultDefinePluginAdapter';
 import DefaultProvidePluginAdapter from './DefaultProvidePluginAdapter';
@@ -73,7 +73,7 @@ export default class DefaultPluginsAdapter implements Adapter {
         const builder = new Builder(builderConfig, webpackConfig);
 
         if (this.config.clean.enabled) {
-            builder.add(new DefaultCleanPluginAdapter());
+            builder.add(new CleanBuildDirectoryAdapter());
         }
 
         if (this.config.statsWriter.enabled) {
