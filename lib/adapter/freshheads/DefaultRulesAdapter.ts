@@ -1,10 +1,10 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
 import Builder, { BuilderConfig } from '../../Builder';
-import DefaultSassRuleAdapter, {
+import SassAdapter, {
     Config as SassConfig,
     DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
-} from './DefaultSassRuleAdapter';
+} from './SassAdapter';
 import LoadReferencedFilesAdapter, {
     Config as FilesConfig,
     DEFAULT_CONFIG as DEFAULT_FILES_CONFIG,
@@ -97,7 +97,7 @@ export default class DefaultRulesAdapter implements Adapter {
         }
 
         if (this.config.sass.enabled) {
-            builder.add(new DefaultSassRuleAdapter(this.config.sass));
+            builder.add(new SassAdapter(this.config.sass));
         }
 
         if (this.config.css.enabled) {
