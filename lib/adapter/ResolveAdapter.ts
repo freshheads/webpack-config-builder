@@ -1,6 +1,7 @@
 import { Adapter, NextCallback } from './Adapter';
 import { Resolve, Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
+import { warn } from '../utility/messageHelper';
 
 export default class ResolveAdapter implements Adapter {
     private config: Resolve;
@@ -23,9 +24,7 @@ export default class ResolveAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.resolve) {
-            throw new Error(
-                'A webpack resolve configuration is already set. If set again, it will replace the previous one.'
-            );
+            warn('A webpack resolve configuration is already set. If set again, it will replace the previous one.');
         }
     }
 }

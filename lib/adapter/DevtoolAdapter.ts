@@ -1,6 +1,7 @@
 import { Adapter, NextCallback } from './Adapter';
 import { Configuration, Options } from 'webpack';
 import { BuilderConfig } from '../Builder';
+import { warn } from '../utility/messageHelper';
 
 export default class DevtoolAdapter implements Adapter {
     private tool: Options.Devtool;
@@ -23,9 +24,7 @@ export default class DevtoolAdapter implements Adapter {
 
     private validateNoOtherDevtoolIsApplied(webpackConfig: Configuration) {
         if (webpackConfig.devtool) {
-            throw new Error(
-                'A webpack devtool is already set. If set again, it will replace the previous one.'
-            );
+            warn('A webpack devtool is already set. If set again, it will replace the previous one.');
         }
     }
 }

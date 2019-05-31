@@ -4,6 +4,7 @@ import path from 'path';
 import StylelintBarePlugin from 'stylelint-bare-webpack-plugin';
 import { BuilderConfig, Environment } from '../../Builder';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
+import { warn } from '../../utility/messageHelper';
 
 export type Config = {
     rcPath: string;
@@ -59,9 +60,7 @@ export default class DefaultStylelintPluginAdapter implements Adapter {
         builderConfig: BuilderConfig
     ) {
         if (builderConfig.env === Environment.Production) {
-            throw new Error(
-                'Application of this adapter does not make sense in a production context'
-            );
+            warn('Application of DefaultStylelintPluginAdapter does not make sense in a production context');
         }
     }
 }

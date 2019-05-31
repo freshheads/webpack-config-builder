@@ -1,6 +1,7 @@
 import { Adapter, NextCallback } from './Adapter';
 import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
+import { warn } from '../utility/messageHelper';
 
 // @todo cannot extract this from `@types/webpack`. Should be able to do so. Maybe add a PR there and update it here afterwards
 export type TargetType =
@@ -36,9 +37,7 @@ export default class TargetAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.target) {
-            throw new Error(
-                'A webpack target is already set. If set again, it will replace the previous one.'
-            );
+            warn('A webpack target is already set. If set again, it will replace the previous one.');
         }
     }
 }

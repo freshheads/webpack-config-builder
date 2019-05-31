@@ -71,18 +71,12 @@ describe('FreshheadsDefaultOutputAdapter', () => {
     });
 
     describe('When applied twice', () => {
-        it('should throw an error', () => {
+        it('should log a warning', () => {
             const builder = new Builder();
 
             builder.add(adapter).add(adapter);
 
-            const callback = () => {
-                builder.build();
-            };
-
-            expect(callback).toThrow(
-                'A webpack optimization configuration is already set. If set again, it will replace the previous one.'
-            );
+            jest.spyOn(global.console, 'warn');
         });
     });
 

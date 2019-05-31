@@ -1,6 +1,7 @@
 import { Adapter, NextCallback } from './Adapter';
 import { Configuration, Options } from 'webpack';
 import { BuilderConfig } from '../Builder';
+import { warn } from '../utility/messageHelper';
 
 export default class OptimizationAdapter implements Adapter {
     private config: Options.Optimization;
@@ -23,9 +24,7 @@ export default class OptimizationAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.optimization) {
-            throw new Error(
-                'A webpack optimization configuration is already set. If set again, it will replace the previous one.'
-            );
+            warn('A webpack optimization configuration is already set. If set again, it will replace the previous one.');
         }
     }
 }

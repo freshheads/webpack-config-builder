@@ -1,6 +1,7 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { BuilderConfig, Environment } from '../../Builder';
 import { Configuration } from 'webpack';
+import { warn } from '../../utility/messageHelper';
 
 export default class DefaultOutputAdapter implements Adapter {
     private path: string;
@@ -40,9 +41,7 @@ export default class DefaultOutputAdapter implements Adapter {
 
     private validateNoOtherOutputIsSet(webpackConfig: Configuration) {
         if (webpackConfig.output) {
-            throw new Error(
-                'A webpack output is already set. If set again, it will replace the previous one.'
-            );
+            warn('A webpack output is already set. If set again, it will replace the previous one.');
         }
     }
 }

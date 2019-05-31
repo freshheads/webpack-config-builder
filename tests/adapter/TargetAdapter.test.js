@@ -23,19 +23,15 @@ describe('TargetAdapter', () => {
 
     describe('When applied within a builder', () => {
         describe('..and applied twice', () => {
-            it('should throw an error', () => {
+            it('should log a warning', () => {
                 const builder = new Builder(builderConfig);
 
                 builder.add(new TargetAdapter('web'));
                 builder.add(new TargetAdapter('node'));
 
-                const callback = () => {
-                    builder.build();
-                };
+                builder.build();
 
-                expect(callback).toThrow(
-                    'A webpack target is already set. If set again, it will replace the previous one.'
-                );
+                jest.spyOn(global.console, 'warn');
             });
         });
     });

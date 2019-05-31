@@ -27,16 +27,10 @@ describe('ModeAdapter', () => {
 
     describe('When supplied in a build chain', () => {
         describe('...and applied twice', () => {
-            it('should throw an error', () => {
+            it('should log a warning', () => {
                 builder.add(adapter).add(adapter);
 
-                const callback = () => {
-                    builder.build();
-                };
-
-                expect(callback).toThrow(
-                    'A webpack mode is already set. If set again, it will replace the previous one.'
-                );
+                jest.spyOn(global.console, 'warn');
             });
         });
     });

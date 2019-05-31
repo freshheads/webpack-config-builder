@@ -16,7 +16,7 @@ import DefaultStylelintPluginAdapter, {
 } from './DefaultStylelintPluginAdapter';
 
 type EnabledConfig = {
-    enabled: true;
+    enabled: boolean;
 };
 
 export type Config = {

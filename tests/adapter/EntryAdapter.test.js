@@ -36,16 +36,10 @@ describe('EntryAdapter', () => {
                 builder.add(new EntryAdapter('./../app.scss'));
             });
 
-            it('should throw an error', () => {
-                const callback = () => {
-                    const config = builder.build();
+            it('should log a warning', () => {
+                builder.build();
 
-                    console.log('config', config);
-                };
-
-                expect(callback).toThrow(
-                    'A webpack entry is already set. If set again, it will replace the previous one.'
-                );
+                jest.spyOn(global.console, 'warn');
             });
         });
     });
