@@ -28,7 +28,7 @@ export {
     default as FreshheadsDefaultSassRuleAdapter,
 } from './adapter/freshheads/DefaultSassRuleAdapter';
 export {
-    default as FreshheadsDefaultCssAdapter,
+    default as FreshheadsCssAdapter,
 } from './adapter/freshheads/CssAdapter';
 export {
     default as FreshheadsDefaultJavascriptRuleAdapter,
@@ -43,10 +43,10 @@ export {
     default as FreshheadsDefaultTSLintRuleAdapter,
 } from './adapter/freshheads/DefaultTSLintRuleAdapter';
 export {
-    default as FreshheadsDefaultCleanBuildDirectoryAdapter,
+    default as FreshheadsCleanBuildDirectoryAdapter,
 } from './adapter/freshheads/CleanBuildDirectoryAdapter';
 export {
-    default as FreshheadsDefaultCopyFilesToBuildDirAdapter,
+    default as FreshheadsCopyFilesToBuildDirAdapter,
 } from './adapter/freshheads/CopyFilesToBuildDirAdapter';
 export {
     default as FreshheadsDefaultStatsWriterPluginAdapter,
@@ -58,7 +58,7 @@ export {
     default as FreshheadsDefaultProvidePluginAdapter,
 } from './adapter/freshheads/DefaultProvidePluginAdapter';
 export {
-    default as FreshheadsDefaultExtractCssPluginAdapter,
+    default as FreshheadsExtractCssPluginAdapter,
 } from './adapter/freshheads/ExtractCssPluginAdapter';
 export {
     default as FreshheadsDefaultUglifyPluginAdapter,
