@@ -27,7 +27,7 @@ export default class JavascriptAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
-        this.config = deepmerge(DEFAULT_CONFIG, config, {
+        this.config = deepmerge<Config>(DEFAULT_CONFIG, config, {
             arrayMerge: (destinationArray, sourceArray) => sourceArray,
         });
     }
