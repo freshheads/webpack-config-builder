@@ -1,5 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, RuleSetRule } from 'webpack';
+import deepmerge from 'deepmerge';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig, Environment } from '../../Builder';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -20,12 +21,7 @@ export default class DefaultCssRuleAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
-        this.config = {
-            cssLoaderOptions: {
-                ...DEFAULT_CONFIG.cssLoaderOptions,
-                ...config.cssLoaderOptions,
-            },
-        };
+        this.config = deepmerge(DEFAULT_CONFIG, config);
     }
 
     public apply(

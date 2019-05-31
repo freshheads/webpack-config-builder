@@ -122,6 +122,32 @@ describe('FreshheadsDefaultCssRuleAdapter', () => {
         });
     });
 
+    describe('With custom configuration', () => {
+        it('should deepmerge config', () => {
+            const config = {
+                cssLoaderOptions: {
+                    url: true,
+                },
+            };
+
+            const adapter = new FreshheadsDefaultCssRuleAdapter(config);
+            const webpackConfig = {};
+
+            adapter.apply(webpackConfig, { env: 'dev' }, () => {});
+
+            const rule = webpackConfig.module.rules.pop();
+            const use = rule.use;
+
+            expect(use[1]).toEqual({
+                loader: 'css-loader',
+                options: {
+                    sourceMap: true,
+                    url: true,
+                },
+            });
+        });
+    });
+
     describe('When done', () => {
         it("should call the 'next' callback", done => {
             const adapter = new FreshheadsDefaultCssRuleAdapter();
