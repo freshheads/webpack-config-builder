@@ -65,8 +65,6 @@ describe('FreshheadsJavascriptAdapter', () => {
 
                 adapter.apply(webpackConfig, { env: 'production' }, () => {});
 
-                console.log(webpackConfig);
-
                 expect(webpackConfig).toHaveProperty('plugins');
 
                 const plugins = webpackConfig.plugins;
