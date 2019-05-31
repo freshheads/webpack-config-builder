@@ -19,8 +19,8 @@ export {
     default as FreshheadsDefaultOutputAdapter,
 } from './adapter/freshheads/DefaultOutputAdapter';
 export {
-    default as FreshheadsDefaultOptimizationAdapter,
-} from './adapter/freshheads/DefaultOptimizationAdapter';
+    default as FreshheadsOptimizationAdapter,
+} from './adapter/freshheads/OptimizationAdapter';
 export {
     default as FreshheadsLoadReferencedFilesAdapter,
 } from './adapter/freshheads/LoadReferencedFilesAdapter';
