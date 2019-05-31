@@ -1,6 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import { Configuration, RuleSetRule, RuleSetCondition } from 'webpack';
 import path from 'path';
 import deepmerge from 'deepmerge';
@@ -47,7 +47,10 @@ export default class JavascriptAdapter implements Adapter {
 
         webpackConfig.module.rules.push(this.createFileLoaderRule());
 
-        if (this.config.linting.enabled) {
+        if (
+            this.config.linting.enabled &&
+            builderConfig.env !== Environment.Production
+        ) {
             webpackConfig.module.rules.push(this.createLintingRule());
         }
 

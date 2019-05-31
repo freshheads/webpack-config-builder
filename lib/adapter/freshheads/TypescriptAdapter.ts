@@ -1,6 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, RuleSetCondition, RuleSetRule } from 'webpack';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import path from 'path';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import deepmerge from 'deepmerge';
@@ -45,7 +45,10 @@ export default class TypescriptAdapter implements Adapter {
 
         webpackConfig.module.rules.push(this.createLoadingRule());
 
-        if (this.config.linting.enabled) {
+        if (
+            this.config.linting.enabled &&
+            builderConfig.env !== Environment.Production
+        ) {
             webpackConfig.module.rules.push(this.createLintingRule());
         }
 

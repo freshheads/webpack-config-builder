@@ -6,7 +6,7 @@ describe('FreshheadsDefaultRulesAdapter', () => {
 
         beforeEach(() => {
             adapter = new FreshheadsDefaultRulesAdapter();
-            builderConfig = { env: 'production' };
+            builderConfig = { env: 'dev' };
         });
 
         it('should contain all rules for all default adapters', () => {

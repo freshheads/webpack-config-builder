@@ -9,7 +9,7 @@ describe('FreshheadsJavascriptAdapter', () => {
             });
             const webpackConfig = {};
 
-            adapter.apply(webpackConfig, { env: 'production' }, () => {});
+            adapter.apply(webpackConfig, { env: 'dev' }, () => {});
 
             expect(webpackConfig).toHaveProperty('module.rules');
             expect(Array.isArray(webpackConfig.module.rules)).toBe(true);
@@ -70,7 +70,7 @@ describe('FreshheadsJavascriptAdapter', () => {
             });
             const webpackConfig = {};
 
-            adapter.apply(webpackConfig, { env: 'production' }, () => {});
+            adapter.apply(webpackConfig, { env: 'dev' }, () => {});
 
             expect(webpackConfig).toHaveProperty('module.rules');
             expect(Array.isArray(webpackConfig.module.rules)).toBe(true);
