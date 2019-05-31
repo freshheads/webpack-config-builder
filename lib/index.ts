@@ -49,8 +49,8 @@ export {
     default as FreshheadsCopyFilesToBuildDirAdapter,
 } from './adapter/freshheads/CopyFilesToBuildDirAdapter';
 export {
-    default as FreshheadsDefaultStatsWriterPluginAdapter,
-} from './adapter/freshheads/DefaultStatsWriterPluginAdapter';
+    default as FreshheadsWriteBuildStatsToFileAdapter,
+} from './adapter/freshheads/WriteBuildStatsToFileAdapter';
 export {
     default as FreshheadsDefineEnvironmentVariablesAdapter,
 } from './adapter/freshheads/DefineEnvironmentVariablesAdapter';

@@ -1,14 +1,14 @@
 const {
-    FreshheadsDefaultStatsWriterPluginAdapter,
+    FreshheadsWriteBuildStatsToFileAdapter,
 } = require('../../../build/index');
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
-describe('FreshheadsDefaultStatsWriterPluginAdapter', () => {
+describe('FreshheadsWriteBuildStatsToFileAdapter', () => {
     describe('When applied', () => {
         var adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultStatsWriterPluginAdapter();
+            adapter = new FreshheadsWriteBuildStatsToFileAdapter();
         });
 
         it('should add the StartsWriterPlugin to the webpack configuration', () => {
