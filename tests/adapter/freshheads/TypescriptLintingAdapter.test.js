@@ -1,9 +1,9 @@
 const {
     Builder,
-    FreshheadsDefaultTSLintRuleAdapter,
+    FreshheadsTypescriptLintingAdapter,
 } = require('../../../build/index');
 
-describe('FreshheadsDefaultTSLintRuleAdapter', () => {
+describe('FreshheadsTypescriptLintingAdapter', () => {
     let builderConfig;
 
     beforeEach(() => {
@@ -12,7 +12,7 @@ describe('FreshheadsDefaultTSLintRuleAdapter', () => {
 
     describe('Without additional configuration supplied', () => {
         it('should set the correct defaults', () => {
-            const adapter = new FreshheadsDefaultTSLintRuleAdapter();
+            const adapter = new FreshheadsTypescriptLintingAdapter();
             const webpackConfig = {};
 
             adapter.apply(webpackConfig, builderConfig, () => {});
@@ -45,7 +45,7 @@ describe('FreshheadsDefaultTSLintRuleAdapter', () => {
     describe('With extra configuration applied', () => {
         it('should add the correct rule configuration', () => {
             const otherConfigurationPath = './tsconfig.json';
-            const adapter = new FreshheadsDefaultTSLintRuleAdapter({
+            const adapter = new FreshheadsTypescriptLintingAdapter({
                 configurationPath: otherConfigurationPath,
             });
             const webpackConfig = {};
@@ -86,7 +86,7 @@ describe('FreshheadsDefaultTSLintRuleAdapter', () => {
                 done();
             };
 
-            const adapter = new FreshheadsDefaultTSLintRuleAdapter();
+            const adapter = new FreshheadsTypescriptLintingAdapter();
 
             adapter.apply({}, builderConfig, callback);
         });

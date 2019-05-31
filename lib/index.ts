@@ -40,8 +40,8 @@ export {
     default as FreshheadsJavascriptLintingAdapter,
 } from './adapter/freshheads/JavascriptLintingAdapter';
 export {
-    default as FreshheadsDefaultTSLintRuleAdapter,
-} from './adapter/freshheads/DefaultTSLintRuleAdapter';
+    default as FreshheadsTypescriptLintingAdapter,
+} from './adapter/freshheads/TypescriptLintingAdapter';
 export {
     default as FreshheadsCleanBuildDirectoryAdapter,
 } from './adapter/freshheads/CleanBuildDirectoryAdapter';

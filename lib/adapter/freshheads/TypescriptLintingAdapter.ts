@@ -12,7 +12,7 @@ export const DEFAULT_CONFIG: Config = {
     configurationPath: path.resolve(process.cwd(), 'tslint.json'),
 };
 
-export default class DefaultTSLintRuleAdapter implements Adapter {
+export default class TypescriptLintingAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
