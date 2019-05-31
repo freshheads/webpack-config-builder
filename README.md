@@ -37,7 +37,7 @@ const {
 
     // Freshheads specific adapters, that contain Freshheads defaults
     FreshheadsSourcemapAdapter: SourcemapAdapter,
-    FreshheadsDefaultOutputAdapter: OutputAdapter,
+    FreshheadsOutputAdapter: OutputAdapter,
     FreshheadsOptimizationAdapter: OptimizationAdapter,
     FreshheadsDefaultRulesAdapter: RulesAdapter,
     FreshheadsDefaultPluginsAdapter: PluginsAdapter,

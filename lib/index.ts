@@ -16,8 +16,8 @@ export {
     default as FreshheadsSourcemapAdapter,
 } from './adapter/freshheads/SourcemapAdapter';
 export {
-    default as FreshheadsDefaultOutputAdapter,
-} from './adapter/freshheads/DefaultOutputAdapter';
+    default as FreshheadsOutputAdapter,
+} from './adapter/freshheads/OutputAdapter';
 export {
     default as FreshheadsOptimizationAdapter,
 } from './adapter/freshheads/OptimizationAdapter';

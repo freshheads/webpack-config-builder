@@ -3,7 +3,7 @@ import { BuilderConfig, Environment } from '../../Builder';
 import { Configuration } from 'webpack';
 import { warn } from '../../utility/messageHelper';
 
-export default class DefaultOutputAdapter implements Adapter {
+export default class OutputAdapter implements Adapter {
     private path: string;
     private publicPath: string;
 
