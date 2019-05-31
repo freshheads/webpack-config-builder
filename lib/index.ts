@@ -61,8 +61,8 @@ export {
     default as FreshheadsExtractCssPluginAdapter,
 } from './adapter/freshheads/ExtractCssPluginAdapter';
 export {
-    default as FreshheadsDefaultUglifyPluginAdapter,
-} from './adapter/freshheads/DefaultUglifyPluginAdapter';
+    default as FreshheadsMinimizeJavascriptAdapter,
+} from './adapter/freshheads/MinimizeJavascriptAdapter';
 export {
     default as FreshheadsStyleLintingAdapter,
 } from './adapter/freshheads/StyleLintingAdapter';

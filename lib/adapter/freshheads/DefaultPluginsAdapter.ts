@@ -9,7 +9,7 @@ import CopyFilesToBuildDirAdapter, {
     Config as CopyConfig,
     DEFAULT_CONFIG as DEFAULT_COPY_CONFIG,
 } from './CopyFilesToBuildDirAdapter';
-import DefaultUglifyPluginAdapter from './DefaultUglifyPluginAdapter';
+import MinimizeJavascriptAdapter from './MinimizeJavascriptAdapter';
 import StyleLintingAdapter, {
     Config as StylelintConfig,
     DEFAULT_CONFIG as DEFAULT_STYLELINT_CONFIG,
@@ -96,7 +96,7 @@ export default class DefaultPluginsAdapter implements Adapter {
 
         if (isProduction) {
             if (this.config.uglify.enabled) {
-                builder.add(new DefaultUglifyPluginAdapter());
+                builder.add(new MinimizeJavascriptAdapter());
             }
         } else {
             if (this.config.stylelint.enabled) {

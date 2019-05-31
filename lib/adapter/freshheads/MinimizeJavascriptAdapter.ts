@@ -4,7 +4,7 @@ import { BuilderConfig, Environment } from '../../Builder';
 import UglifyjsPlugin from 'uglifyjs-webpack-plugin';
 import { warn } from '../../utility/messageHelper';
 
-export default class DefaultUglifyPluginAdapter implements Adapter {
+export default class MinimizeJavascriptAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
         builderConfig: BuilderConfig,

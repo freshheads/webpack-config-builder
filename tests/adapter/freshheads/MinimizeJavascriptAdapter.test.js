@@ -1,14 +1,12 @@
-const {
-    FreshheadsDefaultUglifyPluginAdapter,
-} = require('../../../build/index');
+const { FreshheadsMinimizeJavascriptAdapter } = require('../../../build/index');
 const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
 
-describe('FreshheadsDefaultUglifyPluginAdapter', () => {
+describe('FreshheadsMinimizeJavascriptAdapter', () => {
     describe('When applied', () => {
         var adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultUglifyPluginAdapter();
+            adapter = new FreshheadsMinimizeJavascriptAdapter();
         });
 
         it('should add the UglifyJsPlugin to the webpack configuration', () => {
