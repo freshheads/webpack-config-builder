@@ -21,7 +21,7 @@ describe('FreshheadsDefaultRulesAdapter', () => {
 
             expect(Array.isArray(rules)).toBe(true);
 
-            expect(rules).toHaveLength(4);
+            expect(rules).toHaveLength(5);
 
             rules.forEach(rule => {
                 expect(rule).toHaveProperty('use');
