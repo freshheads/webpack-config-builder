@@ -1,14 +1,14 @@
 const {
-    FreshheadsDefaultProvidePluginAdapter,
+    FreshheadsMakeJQueryGloballyAvailableAdapter,
 } = require('../../../build/index');
 const { ProvidePlugin } = require('webpack');
 
-describe('FreshheadsDefaultProvidePluginAdapter', () => {
+describe('FreshheadsMakeJQueryGloballyAvailableAdapter', () => {
     describe('When applied', () => {
         var adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultProvidePluginAdapter();
+            adapter = new FreshheadsMakeJQueryGloballyAvailableAdapter();
         });
 
         it('should add the DefinePlugin to the webpack plugin configuration', () => {

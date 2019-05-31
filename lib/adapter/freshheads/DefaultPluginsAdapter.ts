@@ -4,7 +4,7 @@ import Builder, { BuilderConfig, Environment } from '../../Builder';
 import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
 import DefaultStatsWriterPluginAdapter from './DefaultStatsWriterPluginAdapter';
 import DefineEnvironmentVariablesAdapter from './DefineEnvironmentVariablesAdapter';
-import DefaultProvidePluginAdapter from './DefaultProvidePluginAdapter';
+import MakeJQueryGloballyAvailableAdapter from './MakeJQueryGloballyAvailableAdapter';
 import CopyFilesToBuildDirAdapter, {
     Config as CopyConfig,
     DEFAULT_CONFIG as DEFAULT_COPY_CONFIG,
@@ -85,7 +85,7 @@ export default class DefaultPluginsAdapter implements Adapter {
         }
 
         if (this.config.provide.enabled) {
-            builder.add(new DefaultProvidePluginAdapter());
+            builder.add(new MakeJQueryGloballyAvailableAdapter());
         }
 
         if (this.config.copy.enabled) {
