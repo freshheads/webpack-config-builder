@@ -1,12 +1,14 @@
-const { FreshheadsDefaultCopyPluginAdapter } = require('../../../build/index');
+const {
+    FreshheadsDefaultCopyFilesToBuildDirAdapter,
+} = require('../../../build/index');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-describe('FreshheadsDefaultCopyPluginAdapter', () => {
+describe('FreshheadsDefaultCopyFilesToBuildDirAdapter', () => {
     describe('When applied without patterns', () => {
         var adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultCopyPluginAdapter();
+            adapter = new FreshheadsDefaultCopyFilesToBuildDirAdapter();
         });
 
         describe('...and with no other plugins applied', () => {
@@ -50,7 +52,7 @@ describe('FreshheadsDefaultCopyPluginAdapter', () => {
         var adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultCopyPluginAdapter({
+            adapter = new FreshheadsDefaultCopyFilesToBuildDirAdapter({
                 images: true,
             });
         });

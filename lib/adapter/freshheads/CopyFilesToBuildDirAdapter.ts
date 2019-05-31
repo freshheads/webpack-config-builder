@@ -12,7 +12,7 @@ export const DEFAULT_CONFIG: Config = {
     images: false,
 };
 
-export default class DefaultCopyPluginAdapter implements Adapter {
+export default class CopyFilesToBuildDirAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config>) {
