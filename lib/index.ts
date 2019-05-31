@@ -31,8 +31,8 @@ export {
     default as FreshheadsCssAdapter,
 } from './adapter/freshheads/CssAdapter';
 export {
-    default as FreshheadsDefaultJavascriptRuleAdapter,
-} from './adapter/freshheads/DefaultJavascriptRuleAdapter';
+    default as FreshheadsJavascriptAdapter,
+} from './adapter/freshheads/JavascriptAdapter';
 export {
     default as FreshheadsDefaultTypescriptRuleAdapter,
 } from './adapter/freshheads/DefaultTypescriptRuleAdapter';

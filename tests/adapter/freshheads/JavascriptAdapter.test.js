@@ -1,12 +1,10 @@
-const {
-    FreshheadsDefaultJavascriptRuleAdapter,
-} = require('../../../build/index');
+const { FreshheadsJavascriptAdapter } = require('../../../build/index');
 
-describe('FreshheadsDefaultJavascriptRuleAdapter', () => {
+describe('FreshheadsJavascriptAdapter', () => {
     describe('Without customn configuration', () => {
         it('should set the correct defaults', () => {
             const expectConfigFilePath = './babel.config.js';
-            const adapter = new FreshheadsDefaultJavascriptRuleAdapter({
+            const adapter = new FreshheadsJavascriptAdapter({
                 babelConfigurationFilePath: expectConfigFilePath,
             });
             const webpackConfig = {};
@@ -45,7 +43,7 @@ describe('FreshheadsDefaultJavascriptRuleAdapter', () => {
     describe('With custom configuration', () => {
         it('should set the correct defaults', () => {
             const expectedBabelConfigPath = './babel.config.js';
-            const adapter = new FreshheadsDefaultJavascriptRuleAdapter({
+            const adapter = new FreshheadsJavascriptAdapter({
                 include: ['./test', './anders'],
                 babelConfigurationFilePath: expectedBabelConfigPath,
             });
@@ -89,7 +87,7 @@ describe('FreshheadsDefaultJavascriptRuleAdapter', () => {
 
     describe('When done', () => {
         it("should call the 'next' callback", done => {
-            const adapter = new FreshheadsDefaultJavascriptRuleAdapter();
+            const adapter = new FreshheadsJavascriptAdapter();
 
             const callback = () => {
                 done();

@@ -14,7 +14,7 @@ export const DEFAULT_CONFIG: Config = {
     babelConfigurationFilePath: path.resolve(process.cwd(), 'babel.config.js'),
 };
 
-export default class DefaultJavascriptRuleAdapter implements Adapter {
+export default class JavascriptAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
