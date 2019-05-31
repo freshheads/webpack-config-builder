@@ -1,13 +1,13 @@
 const {
     Builder,
     DevtoolAdapter,
-    FreshheadsDefaultDevtoolAdapter,
+    FreshheadsSourcemapAdapter,
 } = require('../../../build/index');
 
-describe('FreshheadsDefaultDevtoolAdapter', () => {
+describe('FreshheadsSourcemapAdapter', () => {
     describe('For the production environment', () => {
         it('should set the correct sourcemap tool', () => {
-            const adapter = new FreshheadsDefaultDevtoolAdapter();
+            const adapter = new FreshheadsSourcemapAdapter();
             const webpackConfig = {};
 
             adapter.apply(webpackConfig, { env: 'production' }, () => {});
@@ -20,7 +20,7 @@ describe('FreshheadsDefaultDevtoolAdapter', () => {
 
     describe('For the development environment', () => {
         it('should set the correct sourcemap tool', () => {
-            const adapter = new FreshheadsDefaultDevtoolAdapter();
+            const adapter = new FreshheadsSourcemapAdapter();
             const webpackConfig = {};
 
             adapter.apply(webpackConfig, { env: 'dev' }, () => {});
@@ -34,7 +34,7 @@ describe('FreshheadsDefaultDevtoolAdapter', () => {
     describe('When applied twice', () => {
         it('should log a warning', () => {
             const builder = new Builder();
-            const adapter = new FreshheadsDefaultDevtoolAdapter();
+            const adapter = new FreshheadsSourcemapAdapter();
 
             builder.add(adapter).add(adapter);
 
@@ -48,7 +48,7 @@ describe('FreshheadsDefaultDevtoolAdapter', () => {
         it('should log a warning', () => {
             const builder = new Builder();
             const regularAdapter = new DevtoolAdapter();
-            const freshheadsAdapter = new FreshheadsDefaultDevtoolAdapter();
+            const freshheadsAdapter = new FreshheadsSourcemapAdapter();
 
             builder.add(regularAdapter).add(freshheadsAdapter);
 
@@ -60,7 +60,7 @@ describe('FreshheadsDefaultDevtoolAdapter', () => {
 
     describe('When done', () => {
         it("should call the 'next' callback", done => {
-            const adapter = new FreshheadsDefaultDevtoolAdapter();
+            const adapter = new FreshheadsSourcemapAdapter();
 
             const callback = () => {
                 done();

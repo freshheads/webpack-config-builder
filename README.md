@@ -36,7 +36,7 @@ const {
     WatchOptionsAdapter,
 
     // Freshheads specific adapters, that contain Freshheads defaults
-    FreshheadsDefaultDevtoolAdapter: DevtoolAdapter,
+    FreshheadsSourcemapAdapter: SourcemapAdapter,
     FreshheadsDefaultOutputAdapter: OutputAdapter,
     FreshheadsDefaultOptimizationAdapter: OptimizationAdapter,
     FreshheadsDefaultRulesAdapter: RulesAdapter,
@@ -63,7 +63,7 @@ builder
     )
     .add(new TargetAdapter('web'))
     .add(new ModeAdapter(isProduction ? 'production' : 'development'))
-    .add(new DevtoolAdapter())
+    .add(new SourcemapAdapter())
     .add(new OutputAdapter(outputPath, '/assets/frontend/build'))
     .add(
         new ResolveAdapter({

@@ -13,8 +13,8 @@ export { default as ModuleAdapter } from './adapter/ModuleAdapter';
 
 // Freshheads specific adapters @todo move to seperate library
 export {
-    default as FreshheadsDefaultDevtoolAdapter,
-} from './adapter/freshheads/DefaultDevtoolAdapter';
+    default as FreshheadsSourcemapAdapter,
+} from './adapter/freshheads/SourcemapAdapter';
 export {
     default as FreshheadsDefaultOutputAdapter,
 } from './adapter/freshheads/DefaultOutputAdapter';

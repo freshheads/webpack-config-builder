@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
 import { warn } from '../../utility/messageHelper';
 
-export default class DefaultDevtoolAdapter implements Adapter {
+export default class SourcemapAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
         builderConfig: BuilderConfig,
