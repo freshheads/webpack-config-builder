@@ -39,7 +39,7 @@ const {
     FreshheadsSourcemapAdapter: SourcemapAdapter,
     FreshheadsOutputAdapter: OutputAdapter,
     FreshheadsOptimizationAdapter: OptimizationAdapter,
-    FreshheadsDefaultRulesAdapter: RulesAdapter,
+    FreshheadsDefaultStackAdapter: RulesAdapter,
     FreshheadsDefaultPluginsAdapter: PluginsAdapter,
 } = require('@freshheads/webpack-config-builder');
 

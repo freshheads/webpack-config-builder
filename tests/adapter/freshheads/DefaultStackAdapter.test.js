@@ -1,11 +1,11 @@
-const { FreshheadsDefaultRulesAdapter } = require('../../../build/index');
+const { FreshheadsDefaultStackAdapter } = require('../../../build/index');
 
-describe('FreshheadsDefaultRulesAdapter', () => {
+describe('FreshheadsDefaultStackAdapter', () => {
     describe('When applied', () => {
         var adapter, builderConfig;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultRulesAdapter();
+            adapter = new FreshheadsDefaultStackAdapter();
             builderConfig = { env: 'dev' };
         });
 

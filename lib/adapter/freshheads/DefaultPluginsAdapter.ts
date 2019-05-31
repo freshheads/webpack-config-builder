@@ -1,9 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
-import Builder, { BuilderConfig, Environment } from '../../Builder';
-import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
-import WriteBuildStatsToFileAdapter from './WriteBuildStatsToFileAdapter';
-import DefineEnvironmentVariablesAdapter from './DefineEnvironmentVariablesAdapter';
+import Builder, { BuilderConfig } from '../../Builder';
 import MakeJQueryGloballyAvailableAdapter from './MakeJQueryGloballyAvailableAdapter';
 import CopyFilesToBuildDirAdapter, {
     Config as CopyConfig,
@@ -57,18 +54,6 @@ export default class DefaultPluginsAdapter implements Adapter {
         next: NextCallback
     ) {
         const builder = new Builder(builderConfig, webpackConfig);
-
-        if (this.config.clean.enabled) {
-            builder.add(new CleanBuildDirectoryAdapter());
-        }
-
-        if (this.config.statsWriter.enabled) {
-            builder.add(new WriteBuildStatsToFileAdapter());
-        }
-
-        if (this.config.define.enabled) {
-            builder.add(new DefineEnvironmentVariablesAdapter());
-        }
 
         if (this.config.provide.enabled) {
             builder.add(new MakeJQueryGloballyAvailableAdapter());
