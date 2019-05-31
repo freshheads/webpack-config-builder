@@ -1,6 +1,6 @@
 const {
     Builder,
-    FreshheadsDefaultOptimizationAdapter,
+    FreshheadsOptimizationAdapter,
 } = require('../../../build/index');
 
 describe('FreshheadsDefaultOutputAdapter', () => {
@@ -9,7 +9,7 @@ describe('FreshheadsDefaultOutputAdapter', () => {
     beforeEach(() => {
         builderConfig = { env: 'production' };
         builder = new Builder(builderConfig);
-        adapter = new FreshheadsDefaultOptimizationAdapter();
+        adapter = new FreshheadsOptimizationAdapter();
     });
 
     describe('Without additional configuration supplied', () => {
@@ -30,7 +30,7 @@ describe('FreshheadsDefaultOutputAdapter', () => {
 
     describe('With additional configuration supplied', () => {
         it('should set the correct output configuration', () => {
-            const alternateAdapter = new FreshheadsDefaultOptimizationAdapter({
+            const alternateAdapter = new FreshheadsOptimizationAdapter({
                 minimize: false,
             });
             const webpackConfig = {};
@@ -48,7 +48,7 @@ describe('FreshheadsDefaultOutputAdapter', () => {
         });
 
         it('should set the correct output configuration with deepmerge', () => {
-            const alternateAdapter = new FreshheadsDefaultOptimizationAdapter({
+            const alternateAdapter = new FreshheadsOptimizationAdapter({
                 minimize: false,
                 splitChunks: {
                     maxSize: 0,
