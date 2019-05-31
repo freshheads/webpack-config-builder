@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 import Builder, { BuilderConfig, Environment } from '../../Builder';
 import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
 import DefaultStatsWriterPluginAdapter from './DefaultStatsWriterPluginAdapter';
-import DefaultDefinePluginAdapter from './DefaultDefinePluginAdapter';
+import DefineEnvironmentVariablesAdapter from './DefineEnvironmentVariablesAdapter';
 import DefaultProvidePluginAdapter from './DefaultProvidePluginAdapter';
 import CopyFilesToBuildDirAdapter, {
     Config as CopyConfig,
@@ -81,7 +81,7 @@ export default class DefaultPluginsAdapter implements Adapter {
         }
 
         if (this.config.define.enabled) {
-            builder.add(new DefaultDefinePluginAdapter());
+            builder.add(new DefineEnvironmentVariablesAdapter());
         }
 
         if (this.config.provide.enabled) {

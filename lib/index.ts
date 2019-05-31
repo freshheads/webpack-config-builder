@@ -52,8 +52,8 @@ export {
     default as FreshheadsDefaultStatsWriterPluginAdapter,
 } from './adapter/freshheads/DefaultStatsWriterPluginAdapter';
 export {
-    default as FreshheadsDefaultDefinePluginAdapter,
-} from './adapter/freshheads/DefaultDefinePluginAdapter';
+    default as FreshheadsDefineEnvironmentVariablesAdapter,
+} from './adapter/freshheads/DefineEnvironmentVariablesAdapter';
 export {
     default as FreshheadsDefaultProvidePluginAdapter,
 } from './adapter/freshheads/DefaultProvidePluginAdapter';
