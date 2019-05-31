@@ -55,8 +55,10 @@ export {
     default as FreshheadsExtractCssPluginAdapter,
 } from './adapter/freshheads/ExtractCssPluginAdapter';
 export {
-    default as FreshheadsDefaultRulesAdapter,
-} from './adapter/freshheads/DefaultRulesAdapter';
+    default as FreshheadsDefaultStackAdapter,
+} from './adapter/freshheads/DefaultStackAdapter';
+
+// @todo remove
 export {
     default as FreshheadsDefaultPluginsAdapter,
 } from './adapter/freshheads/DefaultPluginsAdapter';

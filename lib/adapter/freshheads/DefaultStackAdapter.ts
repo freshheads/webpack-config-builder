@@ -6,7 +6,7 @@ import SassAdapter, {
     DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
 } from './SassAdapter';
 import LoadReferencedFilesAdapter, {
-    Config as FilesConfig,
+    Config as LoadReferencedFilesConfig,
     DEFAULT_CONFIG as DEFAULT_FILES_CONFIG,
 } from './LoadReferencedFilesAdapter';
 import JavascriptAdapter, {
@@ -21,13 +21,16 @@ import CssAdapter, {
     Config as CssConfig,
     DEFAULT_CONFIG as DEFAULT_CSS_CONFIG,
 } from './CssAdapter';
+import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
+import WriteBuildStatsToFileAdapter from './WriteBuildStatsToFileAdapter';
+import DefineEnvironmentVariablesAdapter from './DefineEnvironmentVariablesAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
 };
 
 export type Config = {
-    files: EnabledConfig & FilesConfig;
+    loadReferencedFiles: EnabledConfig & LoadReferencedFilesConfig;
     sass: EnabledConfig & SassConfig;
     css: EnabledConfig & CssConfig;
     javascript: EnabledConfig & JavascriptConfig;
@@ -35,7 +38,7 @@ export type Config = {
 };
 
 const DEFAULT_CONFIG: Config = {
-    files: {
+    loadReferencedFiles: {
         enabled: true,
         ...DEFAULT_FILES_CONFIG,
     },
@@ -57,7 +60,7 @@ const DEFAULT_CONFIG: Config = {
     },
 };
 
-export default class DefaultRulesAdapter implements Adapter {
+export default class DefaultsStackAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
@@ -74,8 +77,15 @@ export default class DefaultRulesAdapter implements Adapter {
     ) {
         const builder = new Builder(builderConfig, webpackConfig);
 
-        if (this.config.files.enabled) {
-            builder.add(new LoadReferencedFilesAdapter(this.config.files));
+        builder
+            .add(new CleanBuildDirectoryAdapter())
+            .add(new WriteBuildStatsToFileAdapter())
+            .add(new DefineEnvironmentVariablesAdapter());
+
+        if (this.config.loadReferencedFiles.enabled) {
+            builder.add(
+                new LoadReferencedFilesAdapter(this.config.loadReferencedFiles)
+            );
         }
 
         if (this.config.sass.enabled) {
