@@ -28,8 +28,8 @@ export {
     default as FreshheadsDefaultSassRuleAdapter,
 } from './adapter/freshheads/DefaultSassRuleAdapter';
 export {
-    default as FreshheadsDefaultCssRuleAdapter,
-} from './adapter/freshheads/DefaultCssRuleAdapter';
+    default as FreshheadsDefaultCssAdapter,
+} from './adapter/freshheads/CssAdapter';
 export {
     default as FreshheadsDefaultJavascriptRuleAdapter,
 } from './adapter/freshheads/DefaultJavascriptRuleAdapter';

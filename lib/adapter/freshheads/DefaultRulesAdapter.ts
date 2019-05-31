@@ -17,17 +17,17 @@ import DefaultTypescriptRuleAdapter, {
     Config as TypescriptConfig,
     DEFAULT_CONFIG as DEFAULT_TYPESCRIPT_CONFIG,
 } from './DefaultTypescriptRuleAdapter';
-import DefaultCssRuleAdapter, {
+import CssAdapter, {
     Config as CssConfig,
     DEFAULT_CONFIG as DEFAULT_CSS_CONFIG,
-} from './DefaultCssRuleAdapter';
+} from './CssAdapter';
 import DefaultTSLintRuleAdapter, {
     Config as TypescriptLintConfig,
     DEFAULT_CONFIG as DEFAULT_TYPESCRIPT_LINTING_CONFIG,
 } from './DefaultTSLintRuleAdapter';
 import DefaultESLintRuleAdapter, {
     Config as JavascriptLintConfig,
-    DEFAULT_CONFIG as DEFAULT_JAVASCRIPT_LINTING_CONFIG
+    DEFAULT_CONFIG as DEFAULT_JAVASCRIPT_LINTING_CONFIG,
 } from './DefaultESLintRuleAdapter';
 
 type EnabledConfig = {
@@ -63,7 +63,7 @@ const DEFAULT_CONFIG: Config = {
     },
     javascriptLinting: {
         enabled: true,
-        ...DEFAULT_JAVASCRIPT_LINTING_CONFIG
+        ...DEFAULT_JAVASCRIPT_LINTING_CONFIG,
     },
     typescript: {
         enabled: false,
@@ -101,7 +101,7 @@ export default class DefaultRulesAdapter implements Adapter {
         }
 
         if (this.config.css.enabled) {
-            builder.add(new DefaultCssRuleAdapter(this.config.css));
+            builder.add(new CssAdapter(this.config.css));
         }
 
         if (this.config.javascript.enabled) {
