@@ -21,10 +21,6 @@ import CssAdapter, {
     Config as CssConfig,
     DEFAULT_CONFIG as DEFAULT_CSS_CONFIG,
 } from './CssAdapter';
-import TypescriptLintingAdapter, {
-    Config as TypescriptLintConfig,
-    DEFAULT_CONFIG as DEFAULT_TYPESCRIPT_LINTING_CONFIG,
-} from './TypescriptLintingAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -36,7 +32,6 @@ export type Config = {
     css: EnabledConfig & CssConfig;
     javascript: EnabledConfig & JavascriptConfig;
     typescript: EnabledConfig & TypescriptConfig;
-    typescriptLinting: EnabledConfig & TypescriptLintConfig;
 };
 
 const DEFAULT_CONFIG: Config = {
@@ -59,10 +54,6 @@ const DEFAULT_CONFIG: Config = {
     typescript: {
         enabled: false,
         ...DEFAULT_TYPESCRIPT_CONFIG,
-    },
-    typescriptLinting: {
-        enabled: false,
-        ...DEFAULT_TYPESCRIPT_LINTING_CONFIG,
     },
 };
 
@@ -101,12 +92,6 @@ export default class DefaultRulesAdapter implements Adapter {
 
         if (this.config.typescript.enabled) {
             builder.add(new TypescriptAdapter(this.config.typescript));
-        }
-
-        if (this.config.typescriptLinting.enabled) {
-            builder.add(
-                new TypescriptLintingAdapter(this.config.typescriptLinting)
-            );
         }
 
         builder.build();

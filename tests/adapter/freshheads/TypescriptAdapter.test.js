@@ -13,24 +13,40 @@ describe('FreshheadsTypescriptAdapter', () => {
 
             const rules = webpackConfig.module.rules;
 
-            expect(rules).toHaveLength(1);
+            expect(rules).toHaveLength(2);
 
-            const rule = rules.pop();
+            const firstRule = rules[0];
 
-            expect(rule).toHaveProperty('test');
-            expect(rule).toHaveProperty('include');
-            expect(rule).toHaveProperty('use');
+            expect(firstRule).toHaveProperty('test');
+            expect(firstRule).toHaveProperty('include');
+            expect(firstRule).toHaveProperty('use');
 
-            expect(Array.isArray(rule.use)).toBe(true);
+            expect(Array.isArray(firstRule.use)).toBe(true);
 
-            const use = rule.use;
+            const firstRuleOnlyUse = firstRule.use;
 
-            expect(use).toHaveLength(1);
+            expect(firstRuleOnlyUse).toHaveLength(1);
 
-            const firstUse = use[0];
+            const firstRuleFirstUse = firstRuleOnlyUse[0];
 
-            expect(firstUse).toHaveProperty('loader');
-            expect(firstUse.loader).toBe('ts-loader');
+            expect(firstRuleFirstUse).toHaveProperty('loader');
+            expect(firstRuleFirstUse.loader).toBe('ts-loader');
+
+            const secondRule = rules[1];
+
+            expect(secondRule).toHaveProperty('test');
+            expect(secondRule).toHaveProperty('use');
+
+            expect(Array.isArray(secondRule.use)).toBe(true);
+
+            const secondRuleOnlyUse = secondRule.use;
+
+            expect(secondRuleOnlyUse).toHaveLength(1);
+
+            const secondRuleFirstUse = secondRuleOnlyUse[0];
+
+            expect(secondRuleFirstUse).toHaveProperty('loader');
+            expect(secondRuleFirstUse.loader).toBe('tslint-loader');
         });
     });
 
@@ -39,6 +55,9 @@ describe('FreshheadsTypescriptAdapter', () => {
             const expectedIncludeValue = ['./first', './second'];
             const adapter = new FreshheadsTypescriptAdapter({
                 include: expectedIncludeValue,
+                linting: {
+                    enabled: false,
+                },
             });
             const webpackConfig = {};
 
