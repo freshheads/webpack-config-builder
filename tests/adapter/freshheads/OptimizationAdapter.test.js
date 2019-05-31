@@ -3,7 +3,7 @@ const {
     FreshheadsOptimizationAdapter,
 } = require('../../../build/index');
 
-describe('FreshheadsDefaultOutputAdapter', () => {
+describe('FreshheadsOutputAdapter', () => {
     let builder, adapter, builderConfig;
 
     beforeEach(() => {
