@@ -5,10 +5,10 @@ import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
 import DefaultStatsWriterPluginAdapter from './DefaultStatsWriterPluginAdapter';
 import DefaultDefinePluginAdapter from './DefaultDefinePluginAdapter';
 import DefaultProvidePluginAdapter from './DefaultProvidePluginAdapter';
-import DefaultCopyPluginAdapter, {
+import CopyFilesToBuildDirAdapter, {
     Config as CopyConfig,
     DEFAULT_CONFIG as DEFAULT_COPY_CONFIG,
-} from './DefaultCopyPluginAdapter';
+} from './CopyFilesToBuildDirAdapter';
 import DefaultUglifyPluginAdapter from './DefaultUglifyPluginAdapter';
 import DefaultStylelintPluginAdapter, {
     Config as StylelintConfig,
@@ -89,7 +89,7 @@ export default class DefaultPluginsAdapter implements Adapter {
         }
 
         if (this.config.copy.enabled) {
-            builder.add(new DefaultCopyPluginAdapter(this.config.copy));
+            builder.add(new CopyFilesToBuildDirAdapter(this.config.copy));
         }
 
         const isProduction = builderConfig.env === Environment.Production;
