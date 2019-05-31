@@ -22,8 +22,8 @@ export {
     default as FreshheadsDefaultOptimizationAdapter,
 } from './adapter/freshheads/DefaultOptimizationAdapter';
 export {
-    default as FreshheadsDefaultFilesRuleAdapter,
-} from './adapter/freshheads/DefaultFilesRuleAdapter';
+    default as FreshheadsLoadReferencedFilesAdapter,
+} from './adapter/freshheads/LoadReferencedFilesAdapter';
 export {
     default as FreshheadsDefaultSassRuleAdapter,
 } from './adapter/freshheads/DefaultSassRuleAdapter';

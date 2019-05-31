@@ -5,10 +5,10 @@ import DefaultSassRuleAdapter, {
     Config as SassConfig,
     DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
 } from './DefaultSassRuleAdapter';
-import DefaultFilesRuleAdapter, {
+import LoadReferencedFilesAdapter, {
     Config as FilesConfig,
     DEFAULT_CONFIG as DEFAULT_FILES_CONFIG,
-} from './DefaultFilesRuleAdapter';
+} from './LoadReferencedFilesAdapter';
 import DefaultJavascriptRuleAdapter, {
     Config as JavascriptConfig,
     DEFAULT_CONFIG as DEFAULT_JAVASCRIPT_CONFIG,
@@ -93,7 +93,7 @@ export default class DefaultRulesAdapter implements Adapter {
         const builder = new Builder(builderConfig, webpackConfig);
 
         if (this.config.files.enabled) {
-            builder.add(new DefaultFilesRuleAdapter(this.config.files));
+            builder.add(new LoadReferencedFilesAdapter(this.config.files));
         }
 
         if (this.config.sass.enabled) {

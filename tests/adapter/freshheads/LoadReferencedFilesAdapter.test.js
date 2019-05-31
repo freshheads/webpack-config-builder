@@ -1,11 +1,13 @@
-const { FreshheadsDefaultFilesRuleAdapter } = require('../../../build/index');
+const {
+    FreshheadsLoadReferencedFilesAdapter,
+} = require('../../../build/index');
 
-describe('FreshheadsDefaultOutputAdapter', () => {
+describe('FreshheadsLoadReferencedFilesAdapter', () => {
     let adapter, builderConfig;
 
     beforeEach(() => {
         builderConfig = { env: 'production' };
-        adapter = new FreshheadsDefaultFilesRuleAdapter();
+        adapter = new FreshheadsLoadReferencedFilesAdapter();
     });
 
     describe('Without additional configuration supplied', () => {
@@ -32,7 +34,7 @@ describe('FreshheadsDefaultOutputAdapter', () => {
     describe('With a configuration override supplied', () => {
         it('should set the correct output configuration', () => {
             const alternateTest = /.woff2/;
-            const alternateAdapter = new FreshheadsDefaultFilesRuleAdapter({
+            const alternateAdapter = new FreshheadsLoadReferencedFilesAdapter({
                 test: alternateTest,
             });
             const webpackConfig = {};

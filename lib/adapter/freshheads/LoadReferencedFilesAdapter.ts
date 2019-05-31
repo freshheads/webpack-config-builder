@@ -11,7 +11,7 @@ export const DEFAULT_CONFIG: Config = {
     test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.jpe?g$|\.png$|\.gif$/,
 };
 
-export default class DefaultFilesRuleAdapter implements Adapter {
+export default class LoadReferencedFilesAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
