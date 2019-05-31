@@ -1,14 +1,14 @@
 const {
-    FreshheadsDefaultCssExtractPluginAdapter,
+    FreshheadsDefaultExtractCssPluginAdapter,
 } = require('../../../build/index');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-describe('FreshheadsDefaultCssExtractPluginAdapter', () => {
+describe('FreshheadsDefaultExtractCssPluginAdapter', () => {
     describe('When applied', () => {
         var adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsDefaultCssExtractPluginAdapter();
+            adapter = new FreshheadsDefaultExtractCssPluginAdapter();
         });
 
         it('should add the plugin to the webpack configuration', () => {

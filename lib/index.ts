@@ -58,8 +58,8 @@ export {
     default as FreshheadsDefaultProvidePluginAdapter,
 } from './adapter/freshheads/DefaultProvidePluginAdapter';
 export {
-    default as FreshheadsDefaultCssExtractPluginAdapter,
-} from './adapter/freshheads/DefaultCssExtractPluginAdapter';
+    default as FreshheadsDefaultExtractCssPluginAdapter,
+} from './adapter/freshheads/ExtractCssPluginAdapter';
 export {
     default as FreshheadsDefaultUglifyPluginAdapter,
 } from './adapter/freshheads/DefaultUglifyPluginAdapter';

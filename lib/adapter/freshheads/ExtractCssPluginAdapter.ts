@@ -3,7 +3,7 @@ import { Configuration, Plugin } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-export default class DefaultCssExtractPluginAdapter implements Adapter {
+export default class ExtractCssPluginAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
         builderConfig: BuilderConfig,
