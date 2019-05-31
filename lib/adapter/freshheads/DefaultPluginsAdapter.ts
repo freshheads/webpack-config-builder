@@ -2,7 +2,7 @@ import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
 import Builder, { BuilderConfig, Environment } from '../../Builder';
 import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
-import DefaultStatsWriterPluginAdapter from './DefaultStatsWriterPluginAdapter';
+import WriteBuildStatsToFileAdapter from './WriteBuildStatsToFileAdapter';
 import DefineEnvironmentVariablesAdapter from './DefineEnvironmentVariablesAdapter';
 import MakeJQueryGloballyAvailableAdapter from './MakeJQueryGloballyAvailableAdapter';
 import CopyFilesToBuildDirAdapter, {
@@ -77,7 +77,7 @@ export default class DefaultPluginsAdapter implements Adapter {
         }
 
         if (this.config.statsWriter.enabled) {
-            builder.add(new DefaultStatsWriterPluginAdapter());
+            builder.add(new WriteBuildStatsToFileAdapter());
         }
 
         if (this.config.define.enabled) {

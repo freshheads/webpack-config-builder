@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 import { StatsWriterPlugin } from 'webpack-stats-plugin';
 import { BuilderConfig } from '../../Builder';
 
-export default class DefaultStatsWriterPluginAdapter implements Adapter {
+export default class WriteBuildStatsToFileAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
         buildConfig: BuilderConfig,
