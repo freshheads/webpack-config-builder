@@ -93,39 +93,45 @@ export default class DefaultRulesAdapter implements Adapter {
         const builder = new Builder(builderConfig, webpackConfig);
 
         if (this.config.files.enabled) {
-            builder.add(new DefaultFilesRuleAdapter(this.config.files));
+            const DefaultFilesRuleAdapter = require('./DefaultFilesRuleAdapter');
+
+            builder.add(new DefaultFilesRuleAdapter.default(this.config.files));
         }
 
         if (this.config.sass.enabled) {
-            builder.add(new DefaultSassRuleAdapter(this.config.sass));
+            const DefaultSassRuleAdapter = require('./DefaultSassRuleAdapter');
+
+            builder.add(new DefaultSassRuleAdapter.default(this.config.sass));
         }
 
         if (this.config.css.enabled) {
-            builder.add(new DefaultCssRuleAdapter(this.config.css));
+            const DefaultCssRuleAdapter = require('./DefaultCssRuleAdapter');
+
+            builder.add(new DefaultCssRuleAdapter.default(this.config.css));
         }
 
         if (this.config.javascript.enabled) {
-            builder.add(
-                new DefaultJavascriptRuleAdapter(this.config.javascript)
-            );
+            const DefaultJavascriptRuleAdapter = require('./DefaultJavascriptRuleAdapter');
+
+            builder.add(new DefaultJavascriptRuleAdapter.default(this.config.javascript));
         }
 
         if (this.config.javascriptLinting.enabled) {
-            builder.add(
-                new DefaultESLintRuleAdapter(this.config.javascriptLinting)
-            );
+            const DefaultESLintRuleAdapter = require('./DefaultESLintRuleAdapter');
+
+            builder.add(new DefaultESLintRuleAdapter.default(this.config.javascriptLinting));
         }
 
         if (this.config.typescript.enabled) {
-            builder.add(
-                new DefaultTypescriptRuleAdapter(this.config.typescript)
-            );
+            const DefaultTypescriptRuleAdapter = require('./DefaultTypescriptRuleAdapter');
+
+            builder.add(new DefaultTypescriptRuleAdapter.default(this.config.typescript));
         }
 
         if (this.config.typescriptLinting.enabled) {
-            builder.add(
-                new DefaultTSLintRuleAdapter(this.config.typescriptLinting)
-            );
+            const DefaultTSLintRuleAdapter = require('./DefaultTSLintRuleAdapter');
+
+            builder.add(new DefaultTSLintRuleAdapter.default(this.config.typescriptLinting));
         }
 
         builder.build();
