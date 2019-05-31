@@ -1,4 +1,5 @@
 const { FreshheadsJavascriptAdapter } = require('../../../build/index');
+const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
 
 describe('FreshheadsJavascriptAdapter', () => {
     describe('Without customn configuration', () => {
@@ -55,6 +56,28 @@ describe('FreshheadsJavascriptAdapter', () => {
                 'loader',
                 'eslint-loader'
             );
+        });
+
+        describe('on the production environment', () => {
+            it('should add the uglify plugin', () => {
+                const adapter = new FreshheadsJavascriptAdapter();
+                const webpackConfig = {};
+
+                adapter.apply(webpackConfig, { env: 'production' }, () => {});
+
+                console.log(webpackConfig);
+
+                expect(webpackConfig).toHaveProperty('plugins');
+
+                const plugins = webpackConfig.plugins;
+
+                expect(Array.isArray(plugins)).toBe(true);
+                expect(plugins).toHaveLength(1);
+
+                const onlyPlugin = plugins[0];
+
+                expect(onlyPlugin).toBeInstanceOf(UglifyjsPlugin);
+            });
         });
     });
 

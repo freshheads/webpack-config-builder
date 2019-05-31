@@ -9,7 +9,6 @@ import CopyFilesToBuildDirAdapter, {
     Config as CopyConfig,
     DEFAULT_CONFIG as DEFAULT_COPY_CONFIG,
 } from './CopyFilesToBuildDirAdapter';
-import MinimizeJavascriptAdapter from './MinimizeJavascriptAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -21,7 +20,6 @@ export type Config = {
     define: EnabledConfig;
     provide: EnabledConfig;
     copy: EnabledConfig & CopyConfig;
-    uglify: EnabledConfig;
 };
 
 const DEFAULT_CONFIG: Config = {
@@ -40,9 +38,6 @@ const DEFAULT_CONFIG: Config = {
     copy: {
         enabled: true,
         ...DEFAULT_COPY_CONFIG,
-    },
-    uglify: {
-        enabled: true,
     },
 };
 
@@ -81,12 +76,6 @@ export default class DefaultPluginsAdapter implements Adapter {
 
         if (this.config.copy.enabled) {
             builder.add(new CopyFilesToBuildDirAdapter(this.config.copy));
-        }
-
-        const isProduction = builderConfig.env === Environment.Production;
-
-        if (isProduction && this.config.uglify.enabled) {
-            builder.add(new MinimizeJavascriptAdapter());
         }
 
         builder.build();

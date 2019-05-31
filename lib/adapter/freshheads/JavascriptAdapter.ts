@@ -47,11 +47,24 @@ export default class JavascriptAdapter implements Adapter {
 
         webpackConfig.module.rules.push(this.createFileLoaderRule());
 
-        if (
-            this.config.linting.enabled &&
-            builderConfig.env !== Environment.Production
-        ) {
+        const isProduction = builderConfig.env === Environment.Production;
+
+        if (this.config.linting.enabled && !isProduction) {
             webpackConfig.module.rules.push(this.createLintingRule());
+        }
+
+        if (isProduction) {
+            if (typeof webpackConfig.plugins === 'undefined') {
+                webpackConfig.plugins = [];
+            }
+
+            const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
+
+            webpackConfig.plugins.push(
+                new UglifyjsPlugin({
+                    sourceMap: true,
+                })
+            );
         }
 
         next();
