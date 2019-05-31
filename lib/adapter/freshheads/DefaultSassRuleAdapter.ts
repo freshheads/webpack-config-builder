@@ -1,4 +1,5 @@
 import { Configuration, RuleSetRule, RuleSetUseItem } from 'webpack';
+import deepmerge from 'deepmerge';
 import { Adapter, NextCallback } from '../Adapter';
 import { BuilderConfig, Environment } from '../../Builder';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
@@ -24,16 +25,7 @@ export default class DefaultSassRuleAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
-        this.config = {
-            cssLoaderOptions: {
-                ...DEFAULT_CONFIG.cssLoaderOptions,
-                ...config.cssLoaderOptions,
-            },
-            sassLoaderOptions: {
-                ...DEFAULT_CONFIG.sassLoaderOptions,
-                ...config.sassLoaderOptions,
-            },
-        };
+        this.config = deepmerge(DEFAULT_CONFIG, config);
     }
 
     public apply(

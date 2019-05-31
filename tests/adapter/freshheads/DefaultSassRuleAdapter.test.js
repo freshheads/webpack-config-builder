@@ -129,6 +129,57 @@ describe('FreshheadsDefaultSassRuleAdapter', () => {
         });
     });
 
+    describe('With custom configuration', () => {
+        it('should set the correct config with deepmerge', () => {
+            const config = {
+                cssLoaderOptions: {
+                    exportOnlyLocals: true,
+                },
+                sassLoaderOptions: {
+                    sourceMap: false,
+                },
+            };
+
+            const adapter = new FreshheadsDefaultSassRuleAdapter(config);
+            const webpackConfig = {};
+
+            adapter.apply(webpackConfig, { env: 'production' }, () => {});
+
+            expect(webpackConfig).toHaveProperty('module.rules');
+            expect(Array.isArray(webpackConfig.module.rules)).toBe(true);
+
+            const rules = webpackConfig.module.rules;
+
+            expect(rules).toHaveLength(1);
+
+            const rule = rules.pop();
+
+            expect(rule).toHaveProperty('test');
+            expect(rule).toHaveProperty('use');
+
+            expect(Array.isArray(rule.use)).toBe(true);
+
+            const use = rule.use;
+
+            expect(use).toHaveLength(5);
+
+            expect(use[1]).toEqual({
+                loader: 'css-loader',
+                options: {
+                    exportOnlyLocals: true,
+                    sourceMap: true,
+                },
+            });
+
+            expect(use[4]).toEqual({
+                loader: 'sass-loader',
+                options: {
+                    sourceMap: false,
+                },
+            });
+        });
+    });
+
     describe('When done', () => {
         it("should call the 'next' callback", done => {
             const adapter = new FreshheadsDefaultSassRuleAdapter();
