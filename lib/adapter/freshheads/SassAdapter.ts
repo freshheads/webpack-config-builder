@@ -1,4 +1,4 @@
-import { Configuration, RuleSetRule, RuleSetUseItem } from 'webpack';
+import { Configuration, RuleSetRule, RuleSetUseItem, Plugin } from 'webpack';
 import deepmerge from 'deepmerge';
 import { Adapter, NextCallback } from '../Adapter';
 import { BuilderConfig, Environment } from '../../Builder';
@@ -6,10 +6,16 @@ import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { Builder } from '../..';
+import path from 'path';
+import StylelintBarePlugin from 'stylelint-bare-webpack-plugin';
 
 export type Config = {
     cssLoaderOptions: { [key: string]: any };
     sassLoaderOptions: { [key: string]: any };
+    linting: {
+        enabled: boolean;
+        configurationPath: string;
+    };
 };
 
 export const DEFAULT_CONFIG: Config = {
@@ -18,6 +24,10 @@ export const DEFAULT_CONFIG: Config = {
     },
     sassLoaderOptions: {
         sourceMap: true,
+    },
+    linting: {
+        enabled: true,
+        configurationPath: path.resolve(process.cwd(), '.stylelintrc'),
     },
 };
 
@@ -36,14 +46,42 @@ export default class SassAdapter implements Adapter {
         this.validateAllRequiredModulesAreInstalled();
 
         if (typeof webpackConfig.module === 'undefined') {
-            webpackConfig.module = {
-                rules: [],
-            };
+            webpackConfig.module = { rules: [] };
         }
 
         const isProduction = builderConfig.env === Environment.Production;
 
-        const rule: RuleSetRule = {
+        webpackConfig.module.rules.push(this.createLoaderRule(isProduction));
+
+        if (this.config.linting.enabled && !isProduction) {
+            this.validateAllLintingModulesAreInstalled();
+
+            if (typeof webpackConfig.plugins === 'undefined') {
+                webpackConfig.plugins = [];
+            }
+
+            webpackConfig.plugins.push(this.createLintingPlugin());
+        }
+
+        next();
+
+        if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
+            const internalBuilder = new Builder(builderConfig, webpackConfig);
+            internalBuilder.add(new ExtractCssPluginAdapter());
+
+            internalBuilder.build();
+        }
+    }
+
+    private createLintingPlugin(): Plugin {
+        return new StylelintBarePlugin({
+            configFile: this.config.linting.configurationPath,
+            files: path.resolve(process.cwd(), 'src/scss/**/*.s?(c|a)ss'),
+        });
+    }
+
+    private createLoaderRule(isProduction: boolean): RuleSetRule {
+        return {
             test: /\.scss$/,
             use: [
                 {
@@ -66,17 +104,6 @@ export default class SassAdapter implements Adapter {
                 },
             ],
         };
-
-        webpackConfig.module.rules.push(rule);
-
-        next();
-
-        if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
-            const internalBuilder = new Builder(builderConfig, webpackConfig);
-            internalBuilder.add(new ExtractCssPluginAdapter());
-
-            internalBuilder.build();
-        }
     }
 
     private checkMiniCssExtractPluginIsInWebpackConfig(
@@ -93,6 +120,14 @@ export default class SassAdapter implements Adapter {
                 plugin => plugin instanceof MiniCssExtractPlugin
             ) !== -1
         );
+    }
+
+    private validateAllLintingModulesAreInstalled() {
+        if (!checkIfModuleIsInstalled('stylelint')) {
+            throw new Error(
+                "Expecting module 'stylelint' to be installed as it is required for this adapter to work"
+            );
+        }
     }
 
     private validateAllRequiredModulesAreInstalled() {

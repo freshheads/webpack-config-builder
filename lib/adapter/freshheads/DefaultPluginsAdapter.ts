@@ -10,10 +10,6 @@ import CopyFilesToBuildDirAdapter, {
     DEFAULT_CONFIG as DEFAULT_COPY_CONFIG,
 } from './CopyFilesToBuildDirAdapter';
 import MinimizeJavascriptAdapter from './MinimizeJavascriptAdapter';
-import StyleLintingAdapter, {
-    Config as StylelintConfig,
-    DEFAULT_CONFIG as DEFAULT_STYLELINT_CONFIG,
-} from './StyleLintingAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -26,7 +22,6 @@ export type Config = {
     provide: EnabledConfig;
     copy: EnabledConfig & CopyConfig;
     uglify: EnabledConfig;
-    stylelint: EnabledConfig & StylelintConfig;
 };
 
 const DEFAULT_CONFIG: Config = {
@@ -48,10 +43,6 @@ const DEFAULT_CONFIG: Config = {
     },
     uglify: {
         enabled: true,
-    },
-    stylelint: {
-        enabled: true,
-        ...DEFAULT_STYLELINT_CONFIG,
     },
 };
 
@@ -94,14 +85,8 @@ export default class DefaultPluginsAdapter implements Adapter {
 
         const isProduction = builderConfig.env === Environment.Production;
 
-        if (isProduction) {
-            if (this.config.uglify.enabled) {
-                builder.add(new MinimizeJavascriptAdapter());
-            }
-        } else {
-            if (this.config.stylelint.enabled) {
-                builder.add(new StyleLintingAdapter(this.config.stylelint));
-            }
+        if (isProduction && this.config.uglify.enabled) {
+            builder.add(new MinimizeJavascriptAdapter());
         }
 
         builder.build();
