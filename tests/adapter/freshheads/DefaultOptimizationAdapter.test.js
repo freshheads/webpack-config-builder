@@ -46,6 +46,28 @@ describe('FreshheadsDefaultOutputAdapter', () => {
                 },
             });
         });
+
+        it('should set the correct output configuration with deepmerge', () => {
+            const alternateAdapter = new FreshheadsDefaultOptimizationAdapter({
+                minimize: false,
+                splitChunks: {
+                    maxSize: 0,
+                },
+            });
+            const webpackConfig = {};
+
+            alternateAdapter.apply(webpackConfig, builderConfig, () => {});
+
+            expect(webpackConfig).toEqual({
+                optimization: {
+                    minimize: false,
+                    splitChunks: {
+                        automaticNameDelimiter: '-',
+                        maxSize: 0,
+                    },
+                },
+            });
+        });
     });
 
     describe('When applied twice', () => {
