@@ -27,7 +27,7 @@ export default class ModeAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.mode) {
-            warn('A webpack entry is already set. If set again, it will replace the previous one.');
+            warn('A webpack mode is already set. If set again, it will replace the previous one.');
         }
     }
 }

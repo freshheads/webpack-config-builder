@@ -31,7 +31,7 @@ export default class DefaultUglifyPluginAdapter implements Adapter {
         builderConfig: BuilderConfig
     ) {
         if (builderConfig.env !== Environment.Production) {
-            warn("This plugin doesn't make any sence for non-production environments");
+            warn("DefaultUglifyPluginAdapter doesn't make any sence for non-production environments");
         }
     }
 }

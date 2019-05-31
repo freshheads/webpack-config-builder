@@ -60,7 +60,7 @@ export default class DefaultStylelintPluginAdapter implements Adapter {
         builderConfig: BuilderConfig
     ) {
         if (builderConfig.env === Environment.Production) {
-            warn('Application of this adapter does not make sense in a production context');
+            warn('Application of DefaultStylelintPluginAdapter does not make sense in a production context');
         }
     }
 }
