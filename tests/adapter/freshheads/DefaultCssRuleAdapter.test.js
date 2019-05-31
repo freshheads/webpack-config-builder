@@ -1,6 +1,6 @@
 const {
     FreshheadsDefaultCssRuleAdapter,
-    FreshheadsDefaultCssExtractPluginAdapter,
+    FreshheadsDefaultExtractCssPluginAdapter,
     Builder,
 } = require('../../../build/index');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -104,7 +104,7 @@ describe('FreshheadsDefaultCssRuleAdapter', () => {
 
                 builder
                     .add(new FreshheadsDefaultCssRuleAdapter())
-                    .add(new FreshheadsDefaultCssExtractPluginAdapter());
+                    .add(new FreshheadsDefaultExtractCssPluginAdapter());
 
                 const webpackConfig = builder.build();
 

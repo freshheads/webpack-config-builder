@@ -4,7 +4,7 @@ import { Adapter, NextCallback } from '../Adapter';
 import { BuilderConfig, Environment } from '../../Builder';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import DefaultCssExtractPluginAdapter from './DefaultCssExtractPluginAdapter';
+import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { Builder } from '../..';
 
 export type Config = {
@@ -73,7 +73,7 @@ export default class DefaultSassRuleAdapter implements Adapter {
 
         if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
             const internalBuilder = new Builder(builderConfig, webpackConfig);
-            internalBuilder.add(new DefaultCssExtractPluginAdapter());
+            internalBuilder.add(new ExtractCssPluginAdapter());
 
             internalBuilder.build();
         }

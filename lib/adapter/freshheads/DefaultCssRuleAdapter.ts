@@ -4,7 +4,7 @@ import deepmerge from 'deepmerge';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig, Environment } from '../../Builder';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import DefaultCssExtractPluginAdapter from './DefaultCssExtractPluginAdapter';
+import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { Builder } from '../..';
 
 export type Config = {
@@ -82,7 +82,7 @@ export default class DefaultCssRuleAdapter implements Adapter {
 
         if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
             const internalBuilder = new Builder(builderConfig, webpackConfig);
-            internalBuilder.add(new DefaultCssExtractPluginAdapter());
+            internalBuilder.add(new ExtractCssPluginAdapter());
 
             internalBuilder.build();
         }
