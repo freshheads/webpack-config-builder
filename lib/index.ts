@@ -58,9 +58,6 @@ export {
     default as FreshheadsMinimizeJavascriptAdapter,
 } from './adapter/freshheads/MinimizeJavascriptAdapter';
 export {
-    default as FreshheadsStyleLintingAdapter,
-} from './adapter/freshheads/StyleLintingAdapter';
-export {
     default as FreshheadsDefaultRulesAdapter,
 } from './adapter/freshheads/DefaultRulesAdapter';
 export {
