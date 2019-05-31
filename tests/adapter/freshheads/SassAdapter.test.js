@@ -12,7 +12,7 @@ describe('FreshheadsSassAdapter', () => {
                 const adapter = new FreshheadsSassAdapter();
                 const webpackConfig = {};
 
-                adapter.apply(webpackConfig, { env: 'production' }, () => {});
+                adapter.apply(webpackConfig, { env: 'dev' }, () => {});
 
                 expect(webpackConfig).toHaveProperty('module.rules');
                 expect(Array.isArray(webpackConfig.module.rules)).toBe(true);
@@ -45,6 +45,13 @@ describe('FreshheadsSassAdapter', () => {
                         sourceMap: true,
                     },
                 });
+
+                expect(webpackConfig).toHaveProperty('plugins');
+
+                const plugins = webpackConfig.plugins;
+
+                expect(Array.isArray(webpackConfig.plugins)).toBe(true);
+                expect(webpackConfig.plugins).toHaveLength(2);
             });
         });
 

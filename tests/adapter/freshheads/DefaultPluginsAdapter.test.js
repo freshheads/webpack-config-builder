@@ -37,20 +37,6 @@ describe('FreshheadsDefaultPluginsAdapter', () => {
             });
         });
 
-        describe('..for non-production environments', () => {
-            it('should add the stylelint plugin', () => {
-                const webpackConfig = {};
-
-                adapter.apply(webpackConfig, { env: 'dev' }, () => {});
-
-                const plugins = webpackConfig.plugins;
-
-                const lastPlugin = plugins.pop();
-
-                expect(lastPlugin).toBeInstanceOf(StylelintBarePlugin);
-            });
-        });
-
         it("should call the 'next' callback", done => {
             const callback = () => done();
 
