@@ -2,6 +2,7 @@ import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, Plugin } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
 import UglifyjsPlugin from 'uglifyjs-webpack-plugin';
+import { warn } from '../../utility/messageHelper';
 
 export default class DefaultUglifyPluginAdapter implements Adapter {
     public apply(
@@ -30,9 +31,7 @@ export default class DefaultUglifyPluginAdapter implements Adapter {
         builderConfig: BuilderConfig
     ) {
         if (builderConfig.env !== Environment.Production) {
-            throw new Error(
-                "This plugin doesn't make any sence for non-production environments"
-            );
+            warn("This plugin doesn't make any sence for non-production environments");
         }
     }
 }

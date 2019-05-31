@@ -1,6 +1,7 @@
 import { Adapter, NextCallback } from './Adapter';
 import { Configuration, WatchOptions } from 'webpack';
 import { BuilderConfig } from '../Builder';
+import { warn } from '../utility/messageHelper';
 
 export default class WatchOptionsAdapter implements Adapter {
     private config: WatchOptions;
@@ -23,9 +24,7 @@ export default class WatchOptionsAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.watchOptions) {
-            throw new Error(
-                'A webpack watchOptions configuration is already set. If set again, it will replace the previous one.'
-            );
+            warn('A webpack watchOptions configuration is already set. If set again, it will replace the previous one.');
         }
     }
 }

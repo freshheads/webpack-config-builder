@@ -48,7 +48,7 @@ describe('FreshheadsDefaultOutputAdapter', () => {
     });
 
     describe('When applied twice', () => {
-        it('should throw an error', () => {
+        it('should log a warning', () => {
             const builder = new Builder();
             const adapter = new FreshheadsDefaultOutputAdapter(
                 './../web/build',
@@ -57,18 +57,14 @@ describe('FreshheadsDefaultOutputAdapter', () => {
 
             builder.add(adapter).add(adapter);
 
-            const callback = () => {
-                builder.build();
-            };
+            builder.build();
 
-            expect(callback).toThrow(
-                'A webpack output is already set. If set again, it will replace the previous one.'
-            );
+            jest.spyOn(global.console, 'warn');
         });
     });
 
     describe('When supplied with a regular output adapter', () => {
-        it('should throw an error', () => {
+        it('should log a warning', () => {
             const builder = new Builder();
             const regularAdapter = new OutputAdapter({});
             const freshheadsAdapter = new FreshheadsDefaultOutputAdapter(
@@ -78,13 +74,9 @@ describe('FreshheadsDefaultOutputAdapter', () => {
 
             builder.add(regularAdapter).add(freshheadsAdapter);
 
-            const callback = () => {
-                builder.build();
-            };
+            builder.build();
 
-            expect(callback).toThrow(
-                'A webpack output is already set. If set again, it will replace the previous one.'
-            );
+            jest.spyOn(global.console, 'warn');
         });
     });
 

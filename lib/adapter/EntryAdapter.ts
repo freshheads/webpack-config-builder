@@ -1,6 +1,7 @@
 import { Adapter, NextCallback } from './Adapter';
 import { Configuration, EntryFunc, Entry } from 'webpack';
 import { BuilderConfig } from '../Builder';
+import { warn } from '../utility/messageHelper';
 
 type EntryType = string | string[] | Entry | EntryFunc;
 
@@ -25,9 +26,7 @@ export default class EntryAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.entry) {
-            throw new Error(
-                'A webpack entry is already set. If set again, it will replace the previous one.'
-            );
+            warn('A webpack entry is already set. If set again, it will replace the previous one.');
         }
     }
 }

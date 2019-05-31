@@ -45,19 +45,15 @@ describe('DevtoolAdapter', () => {
 
     describe('When applied with a builder', () => {
         describe('...and added twice', () => {
-            it('should throw an error', () => {
+            it('should log a warning', () => {
                 const builder = new Builder(builderConfig);
 
                 builder.add(new DevtoolAdapter());
                 builder.add(new DevtoolAdapter('source-map'));
 
-                const callback = () => {
-                    builder.build();
-                };
+                builder.build();
 
-                expect(callback).toThrow(
-                    'A webpack devtool is already set. If set again, it will replace the previous one.'
-                );
+                jest.spyOn(global.console, 'warn');
             });
         });
     });

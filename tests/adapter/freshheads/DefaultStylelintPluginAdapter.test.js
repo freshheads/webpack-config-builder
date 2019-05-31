@@ -30,18 +30,14 @@ describe('FreshheadsDefaultStylelintPluginAdapter', () => {
         });
 
         describe('...and on the production environment', () => {
-            it('should throw an error', () => {
-                const callback = () => {
-                    const builder = new Builder({ env: 'production' });
+            it('should log a warning', () => {
+                const builder = new Builder({ env: 'production' });
 
-                    builder.add(adapter);
+                builder.add(adapter);
 
-                    builder.build();
-                };
+                builder.build();
 
-                expect(callback).toThrow(
-                    'Application of this adapter does not make sense in a production context'
-                );
+                jest.spyOn(global.console, 'warn');
             });
         });
 

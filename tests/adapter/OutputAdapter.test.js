@@ -37,7 +37,7 @@ describe('OutputAdapter', () => {
             );
         });
 
-        it('should throw an error when it is applied twice', () => {
+        it('should log a warning', () => {
             builder.add(
                 new OutputAdapter({
                     path: './../web/dist',
@@ -45,13 +45,9 @@ describe('OutputAdapter', () => {
                 })
             );
 
-            const callback = () => {
-                builder.build();
-            };
+            builder.build();
 
-            expect(callback).toThrow(
-                'A webpack output is already set. If set again, it will replace the previous one.'
-            );
+            jest.spyOn(global.console, 'warn');
         });
 
         it('should call the next() callback after updating the config', done => {

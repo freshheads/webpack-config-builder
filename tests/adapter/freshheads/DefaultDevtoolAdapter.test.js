@@ -32,37 +32,29 @@ describe('FreshheadsDefaultDevtoolAdapter', () => {
     });
 
     describe('When applied twice', () => {
-        it('should throw an error', () => {
+        it('should log a warning', () => {
             const builder = new Builder();
             const adapter = new FreshheadsDefaultDevtoolAdapter();
 
             builder.add(adapter).add(adapter);
 
-            const callback = () => {
-                builder.build();
-            };
+            builder.build();
 
-            expect(callback).toThrow(
-                'A webpack devtool is already set. If set again, it will replace the previous one.'
-            );
+            jest.spyOn(global.console, 'warn');
         });
     });
 
     describe('When supplied with a regular devtool adapter', () => {
-        it('should throw an error', () => {
+        it('should log a warning', () => {
             const builder = new Builder();
             const regularAdapter = new DevtoolAdapter();
             const freshheadsAdapter = new FreshheadsDefaultDevtoolAdapter();
 
             builder.add(regularAdapter).add(freshheadsAdapter);
 
-            const callback = () => {
-                builder.build();
-            };
+            builder.build();
 
-            expect(callback).toThrow(
-                'A webpack devtool is already set. If set again, it will replace the previous one.'
-            );
+            jest.spyOn(global.console, 'warn');
         });
     });
 
