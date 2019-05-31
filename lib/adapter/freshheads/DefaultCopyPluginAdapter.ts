@@ -55,7 +55,7 @@ export default class DefaultCopyPluginAdapter implements Adapter {
             };
 
             const pluginInstance: Plugin = new CopyWebpackPlugin(
-                // @ts-ignore -> mutes trange error about 'toType' not being allowd -> @todo fix this some way?
+                // @ts-ignore -> mutes strange error about 'toType' not being allowed -> @todo fix this somehow?
                 patterns,
                 options
             );
