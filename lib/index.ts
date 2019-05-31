@@ -34,8 +34,8 @@ export {
     default as FreshheadsJavascriptAdapter,
 } from './adapter/freshheads/JavascriptAdapter';
 export {
-    default as FreshheadsDefaultTypescriptRuleAdapter,
-} from './adapter/freshheads/DefaultTypescriptRuleAdapter';
+    default as FreshheadsTypescriptAdapter,
+} from './adapter/freshheads/TypescriptAdapter';
 export {
     default as FreshheadsJavascriptLintingAdapter,
 } from './adapter/freshheads/JavascriptLintingAdapter';

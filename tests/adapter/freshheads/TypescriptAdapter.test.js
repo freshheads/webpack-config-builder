@@ -1,11 +1,9 @@
-const {
-    FreshheadsDefaultTypescriptRuleAdapter,
-} = require('../../../build/index');
+const { FreshheadsTypescriptAdapter } = require('../../../build/index');
 
-describe('FreshheadsDefaultTypescriptRuleAdapter', () => {
+describe('FreshheadsTypescriptAdapter', () => {
     describe('Without customn configuration', () => {
         it('should set the correct defaults', () => {
-            const adapter = new FreshheadsDefaultTypescriptRuleAdapter();
+            const adapter = new FreshheadsTypescriptAdapter();
             const webpackConfig = {};
 
             adapter.apply(webpackConfig, { env: 'production' }, () => {});
@@ -39,7 +37,7 @@ describe('FreshheadsDefaultTypescriptRuleAdapter', () => {
     describe('With custom configuration', () => {
         it('should apply it on top of the defaults', () => {
             const expectedIncludeValue = ['./first', './second'];
-            const adapter = new FreshheadsDefaultTypescriptRuleAdapter({
+            const adapter = new FreshheadsTypescriptAdapter({
                 include: expectedIncludeValue,
             });
             const webpackConfig = {};
@@ -61,7 +59,7 @@ describe('FreshheadsDefaultTypescriptRuleAdapter', () => {
 
     describe('When done', () => {
         it("should call the 'next' callback", done => {
-            const adapter = new FreshheadsDefaultTypescriptRuleAdapter();
+            const adapter = new FreshheadsTypescriptAdapter();
 
             const callback = () => {
                 done();

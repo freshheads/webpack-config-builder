@@ -13,10 +13,10 @@ import JavascriptAdapter, {
     Config as JavascriptConfig,
     DEFAULT_CONFIG as DEFAULT_JAVASCRIPT_CONFIG,
 } from './JavascriptAdapter';
-import DefaultTypescriptRuleAdapter, {
+import TypescriptAdapter, {
     Config as TypescriptConfig,
     DEFAULT_CONFIG as DEFAULT_TYPESCRIPT_CONFIG,
-} from './DefaultTypescriptRuleAdapter';
+} from './TypescriptAdapter';
 import CssAdapter, {
     Config as CssConfig,
     DEFAULT_CONFIG as DEFAULT_CSS_CONFIG,
@@ -115,9 +115,7 @@ export default class DefaultRulesAdapter implements Adapter {
         }
 
         if (this.config.typescript.enabled) {
-            builder.add(
-                new DefaultTypescriptRuleAdapter(this.config.typescript)
-            );
+            builder.add(new TypescriptAdapter(this.config.typescript));
         }
 
         if (this.config.typescriptLinting.enabled) {
