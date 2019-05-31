@@ -55,6 +55,12 @@ export default class DefaultESLintRuleAdapter implements Adapter {
     }
 
     private validateAllRequiredModulesAreInstalled() {
+        if (!checkIfModuleIsInstalled('eslint')) {
+            throw new Error(
+                "The 'eslint'-module needs to be installed for this adapter to work"
+            );
+        }
+
         if (!checkIfModuleIsInstalled('eslint-loader')) {
             throw new Error(
                 "The 'eslint-loader'-module needs to be installed for this adapter to work"
