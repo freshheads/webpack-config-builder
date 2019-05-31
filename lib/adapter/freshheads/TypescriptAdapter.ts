@@ -12,7 +12,7 @@ export const DEFAULT_CONFIG: Config = {
     include: [path.resolve(process.cwd(), 'src/js')],
 };
 
-export default class DefaultTypescriptRuleAdapter implements Adapter {
+export default class TypescriptAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
