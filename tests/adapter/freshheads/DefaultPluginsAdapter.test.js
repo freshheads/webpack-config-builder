@@ -1,6 +1,4 @@
 const { FreshheadsDefaultPluginsAdapter } = require('../../../build/index');
-const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
-const StylelintBarePlugin = require('stylelint-bare-webpack-plugin');
 
 describe('FreshheadsDefaultPluginsAdapter', () => {
     describe('When applied without configuration', () => {
@@ -20,21 +18,7 @@ describe('FreshheadsDefaultPluginsAdapter', () => {
             const plugins = webpackConfig.plugins;
 
             expect(Array.isArray(plugins)).toBe(true);
-            expect(plugins).toHaveLength(5);
-        });
-
-        describe('..for the production environment', () => {
-            it('should add the uglify js plugin', () => {
-                const webpackConfig = {};
-
-                adapter.apply(webpackConfig, { env: 'production' }, () => {});
-
-                const plugins = webpackConfig.plugins;
-
-                const lastPlugin = plugins.pop();
-
-                expect(lastPlugin).toBeInstanceOf(UglifyjsPlugin);
-            });
+            expect(plugins).toHaveLength(4);
         });
 
         it("should call the 'next' callback", done => {

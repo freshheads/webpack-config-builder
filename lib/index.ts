@@ -55,9 +55,6 @@ export {
     default as FreshheadsExtractCssPluginAdapter,
 } from './adapter/freshheads/ExtractCssPluginAdapter';
 export {
-    default as FreshheadsMinimizeJavascriptAdapter,
-} from './adapter/freshheads/MinimizeJavascriptAdapter';
-export {
     default as FreshheadsDefaultRulesAdapter,
 } from './adapter/freshheads/DefaultRulesAdapter';
 export {
