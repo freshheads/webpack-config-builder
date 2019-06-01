@@ -1,7 +1,12 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig, Environment } from '../../Builder';
-import { Configuration, RuleSetRule, RuleSetCondition } from 'webpack';
+import {
+    Configuration,
+    RuleSetRule,
+    RuleSetCondition,
+    ProvidePlugin,
+} from 'webpack';
 import path from 'path';
 import deepmerge from 'deepmerge';
 
@@ -12,6 +17,9 @@ export type Config = {
         enabled: boolean;
         configurationPath: string;
     };
+    jQuery: {
+        enabled: boolean;
+    };
 };
 
 export const DEFAULT_CONFIG: Config = {
@@ -20,6 +28,9 @@ export const DEFAULT_CONFIG: Config = {
     linting: {
         enabled: true,
         configurationPath: path.resolve(process.cwd(), '.eslintrc'),
+    },
+    jQuery: {
+        enabled: false,
     },
 };
 
@@ -67,7 +78,29 @@ export default class JavascriptAdapter implements Adapter {
             );
         }
 
+        if (this.config.jQuery.enabled) {
+            if (!checkIfModuleIsInstalled('jquery')) {
+                throw new Error(
+                    "The 'jquery' module needs to be installed for webpack to be able to provide it"
+                );
+            }
+
+            if (typeof webpackConfig.plugins === 'undefined') {
+                webpackConfig.plugins = [];
+            }
+
+            webpackConfig.plugins.push(this.createJqueryProvidePlugin());
+        }
+
         next();
+    }
+
+    private createJqueryProvidePlugin(): ProvidePlugin {
+        return new ProvidePlugin({
+            jQuery: 'jquery',
+            'window.$': 'jquery',
+            'window.jQuery': 'jquery',
+        });
     }
 
     private createLintingRule(): RuleSetRule {

@@ -1,5 +1,6 @@
 const { FreshheadsJavascriptAdapter } = require('../../../build/index');
 const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
+const ProvidePlugin = require('webpack').ProvidePlugin;
 
 describe('FreshheadsJavascriptAdapter', () => {
     describe('Without customn configuration', () => {
@@ -88,6 +89,9 @@ describe('FreshheadsJavascriptAdapter', () => {
                 linting: {
                     enabled: false,
                 },
+                jQuery: {
+                    enabled: true,
+                },
             });
             const webpackConfig = {};
 
@@ -124,6 +128,15 @@ describe('FreshheadsJavascriptAdapter', () => {
                 'configFile',
                 expectedBabelConfigPath
             );
+
+            const plugins = webpackConfig.plugins;
+
+            expect(Array.isArray(plugins)).toBe(true);
+            expect(plugins).toHaveLength(1);
+
+            const onlyPlugin = plugins[0];
+
+            expect(onlyPlugin).toBeInstanceOf(ProvidePlugin);
         });
     });
 
