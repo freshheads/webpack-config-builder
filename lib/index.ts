@@ -49,9 +49,6 @@ export {
     default as FreshheadsDefineEnvironmentVariablesAdapter,
 } from './adapter/freshheads/DefineEnvironmentVariablesAdapter';
 export {
-    default as FreshheadsMakeJQueryGloballyAvailableAdapter,
-} from './adapter/freshheads/MakeJQueryGloballyAvailableAdapter';
-export {
     default as FreshheadsExtractCssPluginAdapter,
 } from './adapter/freshheads/ExtractCssPluginAdapter';
 export {

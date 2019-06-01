@@ -1,7 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
 import Builder, { BuilderConfig } from '../../Builder';
-import MakeJQueryGloballyAvailableAdapter from './MakeJQueryGloballyAvailableAdapter';
 import CopyFilesToBuildDirAdapter, {
     Config as CopyConfig,
     DEFAULT_CONFIG as DEFAULT_COPY_CONFIG,
@@ -12,32 +11,19 @@ type EnabledConfig = {
 };
 
 export type Config = {
-    clean: EnabledConfig;
-    statsWriter: EnabledConfig;
-    define: EnabledConfig;
-    provide: EnabledConfig;
     copy: EnabledConfig & CopyConfig;
 };
 
 const DEFAULT_CONFIG: Config = {
-    clean: {
-        enabled: true,
-    },
-    statsWriter: {
-        enabled: true,
-    },
-    define: {
-        enabled: true,
-    },
-    provide: {
-        enabled: true,
-    },
     copy: {
         enabled: true,
         ...DEFAULT_COPY_CONFIG,
     },
 };
 
+/**
+ * @todo move to default stack adapter + remove this module
+ */
 export default class DefaultPluginsAdapter implements Adapter {
     private config: Config;
 
@@ -54,10 +40,6 @@ export default class DefaultPluginsAdapter implements Adapter {
         next: NextCallback
     ) {
         const builder = new Builder(builderConfig, webpackConfig);
-
-        if (this.config.provide.enabled) {
-            builder.add(new MakeJQueryGloballyAvailableAdapter());
-        }
 
         if (this.config.copy.enabled) {
             builder.add(new CopyFilesToBuildDirAdapter(this.config.copy));
