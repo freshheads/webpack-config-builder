@@ -24,6 +24,10 @@ import CssAdapter, {
 import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
 import WriteBuildStatsToFileAdapter from './WriteBuildStatsToFileAdapter';
 import DefineEnvironmentVariablesAdapter from './DefineEnvironmentVariablesAdapter';
+import CopyFilesToBuildDirAdapter, {
+    Config as CopyFilesConfig,
+    DEFAULT_CONFIG as DEFAULT_COPY_FILES_CONFIG,
+} from './CopyFilesToBuildDirAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -35,6 +39,7 @@ export type Config = {
     css: EnabledConfig & CssConfig;
     javascript: EnabledConfig & JavascriptConfig;
     typescript: EnabledConfig & TypescriptConfig;
+    copyFilesToBuildDir: EnabledConfig & CopyFilesConfig;
 };
 
 const DEFAULT_CONFIG: Config = {
@@ -57,6 +62,10 @@ const DEFAULT_CONFIG: Config = {
     typescript: {
         enabled: false,
         ...DEFAULT_TYPESCRIPT_CONFIG,
+    },
+    copyFilesToBuildDir: {
+        enabled: true,
+        ...DEFAULT_COPY_FILES_CONFIG,
     },
 };
 
@@ -85,6 +94,12 @@ export default class DefaultsStackAdapter implements Adapter {
         if (this.config.loadReferencedFiles.enabled) {
             builder.add(
                 new LoadReferencedFilesAdapter(this.config.loadReferencedFiles)
+            );
+        }
+
+        if (this.config.copyFilesToBuildDir.enabled) {
+            builder.add(
+                new CopyFilesToBuildDirAdapter(this.config.copyFilesToBuildDir)
             );
         }
 

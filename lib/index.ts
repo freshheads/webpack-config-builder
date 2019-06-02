@@ -54,8 +54,3 @@ export {
 export {
     default as FreshheadsDefaultStackAdapter,
 } from './adapter/freshheads/DefaultStackAdapter';
-
-// @todo remove
-export {
-    default as FreshheadsDefaultPluginsAdapter,
-} from './adapter/freshheads/DefaultPluginsAdapter';
