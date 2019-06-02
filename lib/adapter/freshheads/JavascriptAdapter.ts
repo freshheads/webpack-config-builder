@@ -9,10 +9,14 @@ import {
 } from 'webpack';
 import path from 'path';
 import deepmerge from 'deepmerge';
+import { Builder } from '../..';
+import BabelLoaderAdapter, {
+    Config as BabelLoaderConfig,
+    DEFAULT_CONFIG as DEFAULT_BABEL_LOADER_CONFIG,
+} from './BabelLoaderAdapter';
 
 export type Config = {
-    include: RuleSetCondition;
-    babelConfigurationFilePath: string;
+    babelConfig: BabelLoaderConfig;
     linting: {
         enabled: boolean;
         configurationPath: string;
@@ -23,8 +27,7 @@ export type Config = {
 };
 
 export const DEFAULT_CONFIG: Config = {
-    include: [path.resolve(process.cwd(), 'src/js')],
-    babelConfigurationFilePath: path.resolve(process.cwd(), 'babel.config.js'),
+    babelConfig: DEFAULT_BABEL_LOADER_CONFIG,
     linting: {
         enabled: true,
         configurationPath: path.resolve(process.cwd(), '.eslintrc'),
@@ -48,15 +51,19 @@ export default class JavascriptAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        const builder = new Builder(builderConfig, webpackConfig);
+
+        builder.add(new BabelLoaderAdapter(this.config.babelConfig));
+
+        builder.build();
+
+        // @todo add below to adapters and call them instead of manual implementation (DRY)
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = {
                 rules: [],
             };
         }
-
-        webpackConfig.module.rules.push(this.createFileLoaderRule());
 
         const isProduction = builderConfig.env === Environment.Production;
 
@@ -121,24 +128,6 @@ export default class JavascriptAdapter implements Adapter {
         };
     }
 
-    private createFileLoaderRule(): RuleSetRule {
-        return {
-            test: /\.jsx?$/,
-            include: this.config.include,
-            use: [
-                {
-                    loader: 'babel-loader',
-                    options: {
-                        // For performance @see https://github.com/babel/babel-loader#babel-loader-is-slow
-                        cacheDirectory: true,
-
-                        configFile: this.config.babelConfigurationFilePath,
-                    },
-                },
-            ],
-        };
-    }
-
     private validateAllLinitingModulesAreInstalled() {
         if (!checkIfModuleIsInstalled('eslint')) {
             throw new Error(
@@ -151,17 +140,5 @@ export default class JavascriptAdapter implements Adapter {
                 "The 'eslint-loader'-module needs to be installed for this adapter to work"
             );
         }
-    }
-
-    private validateAllRequiredModulesAreInstalled() {
-        const requiredModules = ['babel-loader', '@babel/preset-env'];
-
-        requiredModules.forEach(module => {
-            if (!checkIfModuleIsInstalled(module)) {
-                throw new Error(
-                    `The '${module}' needs to be installed for this adapter to work`
-                );
-            }
-        });
     }
 }
