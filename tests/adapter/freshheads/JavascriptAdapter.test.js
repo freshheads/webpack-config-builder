@@ -7,7 +7,9 @@ describe('FreshheadsJavascriptAdapter', () => {
         it('should set the correct defaults', () => {
             const expectConfigFilePath = './babel.config.js';
             const adapter = new FreshheadsJavascriptAdapter({
-                babelConfigurationFilePath: expectConfigFilePath,
+                babelConfig: {
+                    babelConfigurationFilePath: expectConfigFilePath,
+                },
             });
             const webpackConfig = {};
 
@@ -84,8 +86,10 @@ describe('FreshheadsJavascriptAdapter', () => {
         it('should set the correct defaults', () => {
             const expectedBabelConfigPath = './babel.config.js';
             const adapter = new FreshheadsJavascriptAdapter({
-                include: ['./test', './anders'],
-                babelConfigurationFilePath: expectedBabelConfigPath,
+                babelConfig: {
+                    include: ['./test', './anders'],
+                    babelConfigurationFilePath: expectedBabelConfigPath,
+                },
                 linting: {
                     enabled: false,
                 },
