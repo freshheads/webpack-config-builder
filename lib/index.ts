@@ -60,3 +60,6 @@ export {
 export {
     default as FreshheadsJavascriptLintingAdapter,
 } from './adapter/freshheads/JavascriptLintingAdapter';
+export {
+    default as FreshheadsJavascriptMinimizationAdapter,
+} from './adapter/freshheads/JavascriptMinimizationAdapter';
