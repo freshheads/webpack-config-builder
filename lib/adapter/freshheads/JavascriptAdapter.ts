@@ -14,13 +14,18 @@ import BabelLoaderAdapter, {
     Config as BabelLoaderConfig,
     DEFAULT_CONFIG as DEFAULT_BABEL_LOADER_CONFIG,
 } from './BabelLoaderAdapter';
+import JavascriptLintingAdapter, {
+    Config as LintingConfig,
+    DEFAULT_CONFIG as DEFAULT_LINTING_CONFIG,
+} from './JavascriptLintingAdapter';
+
+type EnabledConfig = {
+    enabled: boolean;
+};
 
 export type Config = {
     babelConfig: BabelLoaderConfig;
-    linting: {
-        enabled: boolean;
-        configurationPath: string;
-    };
+    linting: EnabledConfig & LintingConfig;
     jQuery: {
         enabled: boolean;
     };
@@ -30,7 +35,7 @@ export const DEFAULT_CONFIG: Config = {
     babelConfig: DEFAULT_BABEL_LOADER_CONFIG,
     linting: {
         enabled: true,
-        configurationPath: path.resolve(process.cwd(), '.eslintrc'),
+        ...DEFAULT_LINTING_CONFIG,
     },
     jQuery: {
         enabled: false,
@@ -55,6 +60,10 @@ export default class JavascriptAdapter implements Adapter {
 
         builder.add(new BabelLoaderAdapter(this.config.babelConfig));
 
+        if (this.config.linting.enabled) {
+            builder.add(new JavascriptLintingAdapter(this.config.linting));
+        }
+
         builder.build();
 
         // @todo add below to adapters and call them instead of manual implementation (DRY)
@@ -66,10 +75,6 @@ export default class JavascriptAdapter implements Adapter {
         }
 
         const isProduction = builderConfig.env === Environment.Production;
-
-        if (this.config.linting.enabled && !isProduction) {
-            webpackConfig.module.rules.push(this.createLintingRule());
-        }
 
         if (isProduction) {
             if (typeof webpackConfig.plugins === 'undefined') {
@@ -108,37 +113,5 @@ export default class JavascriptAdapter implements Adapter {
             'window.$': 'jquery',
             'window.jQuery': 'jquery',
         });
-    }
-
-    private createLintingRule(): RuleSetRule {
-        this.validateAllLinitingModulesAreInstalled();
-
-        return {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            enforce: 'pre',
-            use: [
-                {
-                    loader: 'eslint-loader',
-                    options: {
-                        configFile: this.config.linting.configurationPath,
-                    },
-                },
-            ],
-        };
-    }
-
-    private validateAllLinitingModulesAreInstalled() {
-        if (!checkIfModuleIsInstalled('eslint')) {
-            throw new Error(
-                "The 'eslint'-module needs to be installed for this adapter to work"
-            );
-        }
-
-        if (!checkIfModuleIsInstalled('eslint-loader')) {
-            throw new Error(
-                "The 'eslint-loader'-module needs to be installed for this adapter to work"
-            );
-        }
     }
 }

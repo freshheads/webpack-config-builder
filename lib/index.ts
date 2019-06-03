@@ -57,3 +57,6 @@ export {
 export {
     default as FreshheadsBabelLoaderAdapter,
 } from './adapter/freshheads/BabelLoaderAdapter';
+export {
+    default as FreshheadsJavascriptLintingAdapter,
+} from './adapter/freshheads/JavascriptLintingAdapter';
