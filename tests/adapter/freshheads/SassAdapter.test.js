@@ -129,9 +129,7 @@ describe('FreshheadsSassAdapter', () => {
                 expect(Array.isArray(plugins)).toBe(true);
                 expect(plugins).toHaveLength(1);
 
-                const onlyPlugin = plugins.pop();
-
-                expect(onlyPlugin).toBeInstanceOf(MiniCssExtractPlugin);
+                expect(plugins[0]).toBeInstanceOf(MiniCssExtractPlugin);
             });
         });
     });
@@ -139,11 +137,13 @@ describe('FreshheadsSassAdapter', () => {
     describe('With custom configuration', () => {
         it('should set the correct config with deepmerge', () => {
             const config = {
-                cssLoaderOptions: {
-                    exportOnlyLocals: true,
-                },
-                sassLoaderOptions: {
-                    sourceMap: false,
+                loader: {
+                    cssLoaderOptions: {
+                        exportOnlyLocals: true,
+                    },
+                    sassLoaderOptions: {
+                        sourceMap: false,
+                    },
                 },
             };
 

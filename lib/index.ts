@@ -66,3 +66,9 @@ export {
 export {
     default as FreshheadsJavascriptJQueryAdapter,
 } from './adapter/freshheads/JavascriptJQueryAdapter';
+export {
+    default as FreshheadsSassLintingAdapter,
+} from './adapter/freshheads/SassLintingAdapter';
+export {
+    default as FreshheadsSassLoaderAdapter,
+} from './adapter/freshheads/SassLoaderAdapter';
