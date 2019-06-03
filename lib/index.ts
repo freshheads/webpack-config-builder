@@ -63,3 +63,6 @@ export {
 export {
     default as FreshheadsJavascriptMinimizationAdapter,
 } from './adapter/freshheads/JavascriptMinimizationAdapter';
+export {
+    default as FreshheadsJavascriptJQueryAdapter,
+} from './adapter/freshheads/JavascriptJQueryAdapter';
