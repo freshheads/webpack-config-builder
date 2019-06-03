@@ -1,13 +1,7 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
-import { BuilderConfig, Environment } from '../../Builder';
-import {
-    Configuration,
-    RuleSetRule,
-    RuleSetCondition,
-    ProvidePlugin,
-} from 'webpack';
-import path from 'path';
+import { BuilderConfig } from '../../Builder';
+import { Configuration, ProvidePlugin } from 'webpack';
 import deepmerge from 'deepmerge';
 import { Builder } from '../..';
 import BabelLoaderAdapter, {
@@ -18,6 +12,7 @@ import JavascriptLintingAdapter, {
     Config as LintingConfig,
     DEFAULT_CONFIG as DEFAULT_LINTING_CONFIG,
 } from './JavascriptLintingAdapter';
+import JavascriptMinimizationAdapter from './JavascriptMinimizationAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -58,7 +53,9 @@ export default class JavascriptAdapter implements Adapter {
     ) {
         const builder = new Builder(builderConfig, webpackConfig);
 
-        builder.add(new BabelLoaderAdapter(this.config.babelConfig));
+        builder
+            .add(new BabelLoaderAdapter(this.config.babelConfig))
+            .add(new JavascriptMinimizationAdapter());
 
         if (this.config.linting.enabled) {
             builder.add(new JavascriptLintingAdapter(this.config.linting));
@@ -72,22 +69,6 @@ export default class JavascriptAdapter implements Adapter {
             webpackConfig.module = {
                 rules: [],
             };
-        }
-
-        const isProduction = builderConfig.env === Environment.Production;
-
-        if (isProduction) {
-            if (typeof webpackConfig.plugins === 'undefined') {
-                webpackConfig.plugins = [];
-            }
-
-            const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
-
-            webpackConfig.plugins.push(
-                new UglifyjsPlugin({
-                    sourceMap: true,
-                })
-            );
         }
 
         if (this.config.jQuery.enabled) {
