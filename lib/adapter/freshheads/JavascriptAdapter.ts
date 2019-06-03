@@ -1,7 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig } from '../../Builder';
-import { Configuration, ProvidePlugin } from 'webpack';
+import { Configuration } from 'webpack';
 import deepmerge from 'deepmerge';
 import { Builder } from '../..';
 import BabelLoaderAdapter, {
@@ -13,6 +12,7 @@ import JavascriptLintingAdapter, {
     DEFAULT_CONFIG as DEFAULT_LINTING_CONFIG,
 } from './JavascriptLintingAdapter';
 import JavascriptMinimizationAdapter from './JavascriptMinimizationAdapter';
+import JavascriptJQueryAdapter from './JavascriptJQueryAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -21,9 +21,7 @@ type EnabledConfig = {
 export type Config = {
     babelConfig: BabelLoaderConfig;
     linting: EnabledConfig & LintingConfig;
-    jQuery: {
-        enabled: boolean;
-    };
+    jQuery: EnabledConfig;
 };
 
 export const DEFAULT_CONFIG: Config = {
@@ -57,42 +55,16 @@ export default class JavascriptAdapter implements Adapter {
             .add(new BabelLoaderAdapter(this.config.babelConfig))
             .add(new JavascriptMinimizationAdapter());
 
+        if (this.config.jQuery.enabled) {
+            builder.add(new JavascriptJQueryAdapter());
+        }
+
         if (this.config.linting.enabled) {
             builder.add(new JavascriptLintingAdapter(this.config.linting));
         }
 
         builder.build();
 
-        // @todo add below to adapters and call them instead of manual implementation (DRY)
-
-        if (typeof webpackConfig.module === 'undefined') {
-            webpackConfig.module = {
-                rules: [],
-            };
-        }
-
-        if (this.config.jQuery.enabled) {
-            if (!checkIfModuleIsInstalled('jquery')) {
-                throw new Error(
-                    "The 'jquery' module needs to be installed for webpack to be able to provide it"
-                );
-            }
-
-            if (typeof webpackConfig.plugins === 'undefined') {
-                webpackConfig.plugins = [];
-            }
-
-            webpackConfig.plugins.push(this.createJqueryProvidePlugin());
-        }
-
         next();
-    }
-
-    private createJqueryProvidePlugin(): ProvidePlugin {
-        return new ProvidePlugin({
-            jQuery: 'jquery',
-            'window.$': 'jquery',
-            'window.jQuery': 'jquery',
-        });
     }
 }
