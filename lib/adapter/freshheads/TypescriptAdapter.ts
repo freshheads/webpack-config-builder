@@ -53,6 +53,32 @@ export default class TypescriptAdapter implements Adapter {
         }
 
         next();
+
+        this.ensureTypescriptFilesAreResolvedRegularJavascriptFiles(
+            webpackConfig
+        );
+    }
+
+    private ensureTypescriptFilesAreResolvedRegularJavascriptFiles(
+        webpackConfig: Configuration
+    ) {
+        if (
+            typeof webpackConfig.resolve === 'undefined' ||
+            typeof webpackConfig.resolve.extensions === 'undefined'
+        ) {
+            // fallback on default Webpack extension resolving. Only mess with that
+            // if it is done intentionally.
+
+            return;
+        }
+
+        const extensionsToAdd = ['.tsx', '.ts'];
+
+        for (let i = 0, l = extensionsToAdd.length; i < l; i++) {
+            const extensionToAdd = extensionsToAdd[i];
+
+            webpackConfig.resolve.extensions.unshift(extensionToAdd);
+        }
     }
 
     private createLintingRule(): RuleSetRule {
