@@ -35,12 +35,8 @@ const {
     ModeAdapter,
     WatchOptionsAdapter,
 
-    // Freshheads specific adapters, that contain Freshheads defaults
-    FreshheadsSourcemapAdapter: SourcemapAdapter,
-    FreshheadsOutputAdapter: OutputAdapter,
-    FreshheadsOptimizationAdapter: OptimizationAdapter,
-    FreshheadsDefaultStackAdapter: RulesAdapter,
-    FreshheadsDefaultPluginsAdapter: PluginsAdapter,
+    // Freshheads specific adapters, that contains your re-usable (in this case Freshheads) defaults
+    FreshheadsDefaultStackAdapter: DefaultStackAdapter,
 } = require('@freshheads/webpack-config-builder');
 
 const path = require('path');
@@ -57,39 +53,15 @@ builder
         new EntryAdapter({
             app: [
                 path.resolve(__dirname, 'src/scss/app.scss'),
-                path.resolve(__dirname, 'src/js/index.tsx'),
+                path.resolve(__dirname, 'src/js/app.tsx'),
             ],
         })
     )
-    .add(new TargetAdapter('web'))
-    .add(new ModeAdapter(isProduction ? 'production' : 'development'))
-    .add(new SourcemapAdapter())
     .add(new OutputAdapter(outputPath, '/assets/frontend/build'))
     .add(
-        new ResolveAdapter({
-            modules: [path.resolve(__dirname, 'node_modules')],
-            extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
-        })
-    )
-    .add(
-        new WatchOptionsAdapter({
-            ignored: /node_modules/,
-            poll: true,
-        })
-    )
-    .add(new OptimizationAdapter())
-    .add(
-        new RulesAdapter({
+        new DefaultStackAdapter({
             typescript: {
                 enabled: true,
-            },
-        })
-    )
-    .add(
-        new PluginsAdapter({
-            copy: {
-                enabled: true,
-                images: true,
             },
         })
     );

@@ -1,6 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
-import Builder, { BuilderConfig } from '../../Builder';
+import Builder, { BuilderConfig, Environment } from '../../Builder';
 import SassAdapter, {
     Config as SassConfig,
     DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
@@ -28,6 +28,13 @@ import CopyFilesToBuildDirAdapter, {
     Config as CopyFilesConfig,
     DEFAULT_CONFIG as DEFAULT_COPY_FILES_CONFIG,
 } from './CopyFilesToBuildDirAdapter';
+import SourcemapAdapter from './SourcemapAdapter';
+import TargetAdapter from '../TargetAdapter';
+import OptimizationAdapter from './OptimizationAdapter';
+import ResolveAdapter from './ResolveAdapter';
+import path from 'path';
+import ModeAdapter from '../ModeAdapter';
+import WatchOptionsAdapter from './WatchOptionsAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -86,10 +93,18 @@ export default class DefaultsStackAdapter implements Adapter {
     ) {
         const builder = new Builder(builderConfig, webpackConfig);
 
+        const isProduction = builderConfig.env === Environment.Production;
+
         builder
+            .add(new TargetAdapter('web'))
+            .add(new ModeAdapter(isProduction ? 'production' : 'development'))
+            .add(new ResolveAdapter())
             .add(new CleanBuildDirectoryAdapter())
             .add(new WriteBuildStatsToFileAdapter())
-            .add(new DefineEnvironmentVariablesAdapter());
+            .add(new SourcemapAdapter())
+            .add(new DefineEnvironmentVariablesAdapter())
+            .add(new WatchOptionsAdapter())
+            .add(new OptimizationAdapter());
 
         if (this.config.loadReferencedFiles.enabled) {
             builder.add(
