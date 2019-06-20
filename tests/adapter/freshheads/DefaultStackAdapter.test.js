@@ -24,7 +24,6 @@ describe('FreshheadsDefaultStackAdapter', () => {
             expect(rules).toHaveLength(5);
 
             rules.forEach(rule => {
-                expect(rule).toHaveProperty('use');
                 expect(rule).toHaveProperty('test');
             });
         });

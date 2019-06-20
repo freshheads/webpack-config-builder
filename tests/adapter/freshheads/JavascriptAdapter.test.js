@@ -45,20 +45,7 @@ describe('FreshheadsJavascriptAdapter', () => {
             const secondRule = rules[1];
 
             expect(secondRule).toHaveProperty('test');
-            expect(secondRule).toHaveProperty('use');
-
-            expect(Array.isArray(secondRule.use)).toBe(true);
-
-            const secondRuleUse = secondRule.use;
-
-            expect(secondRuleUse).toHaveLength(1);
-
-            const secondRuleUseOnlyUse = secondRule.use[0];
-
-            expect(secondRuleUseOnlyUse).toHaveProperty(
-                'loader',
-                'eslint-loader'
-            );
+            expect(secondRule).toHaveProperty('loader', 'eslint-loader');
         });
 
         describe('on the production environment', () => {

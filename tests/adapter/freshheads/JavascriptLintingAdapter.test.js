@@ -25,16 +25,7 @@ describe('FreshheadsJavascriptLintingAdapter', () => {
 
                 const onlyRule = rules[0];
 
-                expect(onlyRule).toHaveProperty('use');
-
-                const use = onlyRule.use;
-
-                expect(Array.isArray(use)).toBe(true);
-                expect(use).toHaveLength(1);
-
-                const firstUse = use[0];
-
-                expect(firstUse).toHaveProperty('loader', 'eslint-loader');
+                expect(onlyRule).toHaveProperty('loader', 'eslint-loader');
             });
 
             describe('..on the production environment', () => {
@@ -78,18 +69,13 @@ describe('FreshheadsJavascriptLintingAdapter', () => {
 
                 const onlyRule = rules[0];
 
-                expect(onlyRule).toHaveProperty('use');
+                expect(onlyRule).toHaveProperty('loader', 'eslint-loader');
+                expect(onlyRule).toHaveProperty('options');
 
-                const use = onlyRule.use;
+                const options = onlyRule.options;
 
-                expect(Array.isArray(use)).toBe(true);
-                expect(use).toHaveLength(1);
-
-                const firstUse = use[0];
-
-                expect(firstUse).toHaveProperty('loader', 'eslint-loader');
-                expect(firstUse).toHaveProperty(
-                    'options.configFile',
+                expect(options).toHaveProperty(
+                    'eslintPath',
                     customConfigurationPath
                 );
             });

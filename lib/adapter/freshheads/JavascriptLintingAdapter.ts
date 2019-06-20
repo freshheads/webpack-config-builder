@@ -45,15 +45,11 @@ export default class JavascriptLintingAdapter implements Adapter {
         const rule: RuleSetRule = {
             test: /\.jsx?$/,
             exclude: /node_modules/,
+            loader: 'eslint-loader',
+            options: {
+                eslintPath: this.config.configurationPath,
+            },
             enforce: 'pre',
-            use: [
-                {
-                    loader: 'eslint-loader',
-                    options: {
-                        configFile: this.config.configurationPath,
-                    },
-                },
-            ],
         };
 
         webpackConfig.module.rules.push(rule);
