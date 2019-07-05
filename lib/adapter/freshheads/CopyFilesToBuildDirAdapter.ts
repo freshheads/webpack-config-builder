@@ -5,7 +5,9 @@ import path from 'path';
 
 // @todo use types from @types/copy-webpack-plugin instead (cannot export CopyPattern right now)
 type CopyPattern = {
-    from: any;
+    from: {
+        glob: string;
+    };
     context?: string;
     to?: string;
     toType?: 'file' | 'dir' | 'template';
