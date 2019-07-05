@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { Configuration } from 'webpack';
+import { Configuration, Resolve } from 'webpack';
 import Builder, { BuilderConfig, Environment } from '../../Builder';
 import SassAdapter, {
     Config as SassConfig,
@@ -40,6 +40,7 @@ type EnabledConfig = {
 };
 
 export type Config = {
+    resolve: Partial<Resolve>;
     loadReferencedFiles: EnabledConfig & LoadReferencedFilesConfig;
     sass: EnabledConfig & SassConfig;
     css: EnabledConfig & CssConfig;
@@ -49,6 +50,7 @@ export type Config = {
 };
 
 const DEFAULT_CONFIG: Config = {
+    resolve: {},
     loadReferencedFiles: {
         enabled: true,
         ...DEFAULT_FILES_CONFIG,
@@ -97,7 +99,7 @@ export default class DefaultsStackAdapter implements Adapter {
         builder
             .add(new TargetAdapter('web'))
             .add(new ModeAdapter(isProduction ? 'production' : 'development'))
-            .add(new ResolveAdapter())
+            .add(new ResolveAdapter(this.config.resolve))
             .add(new CleanBuildDirectoryAdapter())
             .add(new WriteBuildStatsToFileAdapter())
             .add(new SourcemapAdapter())
