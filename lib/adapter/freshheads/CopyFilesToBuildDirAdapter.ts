@@ -3,12 +3,22 @@ import { Configuration, Plugin } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 import path from 'path';
 
+// @todo use types from @types/copy-webpack-plugin instead (cannot export CopyPattern right now)
+type CopyPattern = {
+    from: any;
+    context?: string;
+    to?: string;
+    toType?: 'file' | 'dir' | 'template';
+};
+
 export type Config = {
     images: boolean;
+    additionalPatterns: CopyPattern[];
 };
 
 export const DEFAULT_CONFIG: Config = {
     images: false,
+    additionalPatterns: [],
 };
 
 export default class CopyFilesToBuildDirAdapter implements Adapter {
@@ -26,7 +36,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        const patterns = [];
+        const patterns: CopyPattern[] = [];
         const isProduction = builderConfig.env === 'production';
 
         if (this.config.images) {
@@ -43,6 +53,8 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
                 toType: 'template',
             });
         }
+
+        patterns.push(...this.config.additionalPatterns);
 
         if (patterns.length > 0) {
             const CopyWebpackPlugin = require('copy-webpack-plugin');
