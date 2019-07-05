@@ -77,7 +77,7 @@ const DEFAULT_CONFIG: Config = {
     },
 };
 
-export default class DefaultsStackAdapter implements Adapter {
+export default class DefaultStackAdapter implements Adapter {
     private config: Config;
 
     constructor(config: Partial<Config> = {}) {
