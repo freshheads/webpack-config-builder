@@ -14,7 +14,7 @@ export default class EntryAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         this.validateNoOtherEntryIsSet(webpackConfig);
@@ -26,7 +26,9 @@ export default class EntryAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.entry) {
-            warn('A webpack entry is already set. If set again, it will replace the previous one.');
+            warn(
+                'A webpack entry is already set. If set again, it will replace the previous one.'
+            );
         }
     }
 }

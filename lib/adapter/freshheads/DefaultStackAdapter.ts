@@ -32,7 +32,6 @@ import SourcemapAdapter from './SourcemapAdapter';
 import TargetAdapter from '../TargetAdapter';
 import OptimizationAdapter from './OptimizationAdapter';
 import ResolveAdapter from './ResolveAdapter';
-import path from 'path';
 import ModeAdapter from '../ModeAdapter';
 import WatchOptionsAdapter from './WatchOptionsAdapter';
 

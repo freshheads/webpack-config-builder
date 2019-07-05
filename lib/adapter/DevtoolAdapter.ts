@@ -12,7 +12,7 @@ export default class DevtoolAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         this.validateNoOtherDevtoolIsApplied(webpackConfig);
@@ -24,7 +24,9 @@ export default class DevtoolAdapter implements Adapter {
 
     private validateNoOtherDevtoolIsApplied(webpackConfig: Configuration) {
         if (webpackConfig.devtool) {
-            warn('A webpack devtool is already set. If set again, it will replace the previous one.');
+            warn(
+                'A webpack devtool is already set. If set again, it will replace the previous one.'
+            );
         }
     }
 }

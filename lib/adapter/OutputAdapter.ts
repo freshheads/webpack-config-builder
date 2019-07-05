@@ -12,7 +12,7 @@ export default class OutputAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         this.validateNoOtherOutputIsSet(webpackConfig);
@@ -24,7 +24,9 @@ export default class OutputAdapter implements Adapter {
 
     private validateNoOtherOutputIsSet(webpackConfig: Configuration) {
         if (webpackConfig.output) {
-            warn('A webpack output is already set. If set again, it will replace the previous one.');
+            warn(
+                'A webpack output is already set. If set again, it will replace the previous one.'
+            );
         }
     }
 }
