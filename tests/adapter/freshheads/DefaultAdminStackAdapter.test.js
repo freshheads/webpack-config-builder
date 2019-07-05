@@ -1,7 +1,5 @@
 const { FreshheadsDefaultAdminStackAdapter } = require('../../../build/index');
 
-console.log(FreshheadsDefaultAdminStackAdapter);
-
 describe('FreshheadsDefaultAdminStackAdapter', () => {
     describe('When applied', () => {
         var adapter, builderConfig;
