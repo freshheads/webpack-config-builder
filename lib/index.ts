@@ -55,6 +55,9 @@ export {
     default as FreshheadsDefaultStackAdapter,
 } from './adapter/freshheads/DefaultStackAdapter';
 export {
+    default as FreshheadsDefaultAdminStackAdapter,
+} from './adapter/freshheads/DefaultAdminStackAdapter';
+export {
     default as FreshheadsBabelLoaderAdapter,
 } from './adapter/freshheads/BabelLoaderAdapter';
 export {
