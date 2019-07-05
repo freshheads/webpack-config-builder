@@ -15,7 +15,7 @@ export default class ModeAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         this.validateNoOtherEntryIsSet(webpackConfig);
@@ -27,7 +27,9 @@ export default class ModeAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.mode) {
-            warn('A webpack mode is already set. If set again, it will replace the previous one.');
+            warn(
+                'A webpack mode is already set. If set again, it will replace the previous one.'
+            );
         }
     }
 }

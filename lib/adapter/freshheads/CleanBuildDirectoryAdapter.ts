@@ -6,7 +6,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 export default class CleanBuildDirectoryAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         if (typeof webpackConfig.plugins === 'undefined') {

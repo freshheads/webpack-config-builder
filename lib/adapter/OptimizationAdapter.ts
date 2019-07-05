@@ -12,7 +12,7 @@ export default class OptimizationAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         this.validateNoOtherEntryIsSet(webpackConfig);
@@ -24,7 +24,9 @@ export default class OptimizationAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.optimization) {
-            warn('A webpack optimization configuration is already set. If set again, it will replace the previous one.');
+            warn(
+                'A webpack optimization configuration is already set. If set again, it will replace the previous one.'
+            );
         }
     }
 }

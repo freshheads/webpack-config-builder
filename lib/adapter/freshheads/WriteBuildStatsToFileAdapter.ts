@@ -6,7 +6,7 @@ import { BuilderConfig } from '../../Builder';
 export default class WriteBuildStatsToFileAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
-        buildConfig: BuilderConfig,
+        _buildConfig: BuilderConfig,
         next: NextCallback
     ) {
         const plugin = new StatsWriterPlugin({

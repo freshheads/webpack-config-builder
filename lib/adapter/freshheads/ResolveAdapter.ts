@@ -1,6 +1,4 @@
-import { Adapter, NextCallback } from '../Adapter';
-import { BuilderConfig } from '../../Builder';
-import { Configuration, Resolve } from 'webpack';
+import { Resolve } from 'webpack';
 import path from 'path';
 import BaseResolveAdapter from '../ResolveAdapter';
 import deepmerge from 'deepmerge';
@@ -13,7 +11,7 @@ export const DEFAULT_CONFIG: Resolve = {
 export default class ResolveAdapter extends BaseResolveAdapter {
     constructor(config: Partial<Resolve> = {}) {
         const combinedConfig = deepmerge<Resolve>(DEFAULT_CONFIG, config, {
-            arrayMerge: (destinationArray, sourceArray) => sourceArray,
+            arrayMerge: (_destinationArray, sourceArray) => sourceArray,
         });
 
         super(combinedConfig);

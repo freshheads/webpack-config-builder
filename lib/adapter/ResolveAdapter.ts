@@ -12,7 +12,7 @@ export default class ResolveAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         this.validateNoOtherEntryIsSet(webpackConfig);
@@ -24,7 +24,9 @@ export default class ResolveAdapter implements Adapter {
 
     private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
         if (webpackConfig.resolve) {
-            warn('A webpack resolve configuration is already set. If set again, it will replace the previous one.');
+            warn(
+                'A webpack resolve configuration is already set. If set again, it will replace the previous one.'
+            );
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Plugin, Configuration } from 'webpack';
+import { Configuration } from 'webpack';
 
 export function checkPluginInstanceIsInWebpackConfig(
     plugin: Function,

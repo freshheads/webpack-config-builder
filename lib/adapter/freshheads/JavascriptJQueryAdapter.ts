@@ -6,7 +6,7 @@ import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 export default class JavascriptJQueryAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         this.validateRequiredModulesAreInstalled();
