@@ -31,16 +31,19 @@ import CopyFilesToBuildDirAdapter, {
 import SourcemapAdapter from './SourcemapAdapter';
 import TargetAdapter from '../TargetAdapter';
 import OptimizationAdapter from './OptimizationAdapter';
-import ResolveAdapter from './ResolveAdapter';
+import ResolveAdapter, {
+    DEFAULT_CONFIG as DEFAULT_RESOLVE_CONFIG,
+} from './ResolveAdapter';
 import ModeAdapter from '../ModeAdapter';
 import WatchOptionsAdapter from './WatchOptionsAdapter';
+import { RecursivePartial } from '../../utility/types';
 
 type EnabledConfig = {
     enabled: boolean;
 };
 
 export type Config = {
-    resolve: Partial<Resolve>;
+    resolve: Resolve;
     loadReferencedFiles: EnabledConfig & LoadReferencedFilesConfig;
     sass: EnabledConfig & SassConfig;
     css: EnabledConfig & CssConfig;
@@ -50,7 +53,9 @@ export type Config = {
 };
 
 const DEFAULT_CONFIG: Config = {
-    resolve: {},
+    resolve: {
+        ...DEFAULT_RESOLVE_CONFIG,
+    },
     loadReferencedFiles: {
         enabled: true,
         ...DEFAULT_FILES_CONFIG,
@@ -80,7 +85,8 @@ const DEFAULT_CONFIG: Config = {
 export default class DefaultStackAdapter implements Adapter {
     private config: Config;
 
-    constructor(config: Partial<Config> = {}) {
+    constructor(config: RecursivePartial<Config> = {}) {
+        // @ts-ignore cannot fix strange resolve.modules error
         this.config = {
             ...DEFAULT_CONFIG,
             ...config,
