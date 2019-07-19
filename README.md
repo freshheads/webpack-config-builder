@@ -60,6 +60,9 @@ builder
     .add(new OutputAdapter(outputPath, '/assets/frontend/build'))
     .add(
         new DefaultStackAdapter({
+            javascript: {
+                enabled: false,
+            },
             typescript: {
                 enabled: true,
             },

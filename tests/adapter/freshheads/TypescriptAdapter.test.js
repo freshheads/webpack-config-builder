@@ -30,7 +30,7 @@ describe('FreshheadsTypescriptAdapter', () => {
             const firstRuleFirstUse = firstRuleOnlyUse[0];
 
             expect(firstRuleFirstUse).toHaveProperty('loader');
-            expect(firstRuleFirstUse.loader).toBe('ts-loader');
+            expect(firstRuleFirstUse.loader).toBe('babel-loader');
 
             const secondRule = rules[1];
 

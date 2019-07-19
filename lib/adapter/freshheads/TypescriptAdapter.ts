@@ -4,8 +4,14 @@ import { BuilderConfig, Environment } from '../../Builder';
 import path from 'path';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import deepmerge from 'deepmerge';
+import BabelLoaderAdapter, {
+    Config as BabelLoaderConfig,
+    DEFAULT_CONFIG as DEFAULT_BABEL_LOADER_CONFIG,
+} from './BabelLoaderAdapter';
+import { Builder } from '../../index';
 
 export type Config = {
+    babelConfig: BabelLoaderConfig;
     include: RuleSetCondition;
     linting: {
         enabled: boolean;
@@ -14,6 +20,7 @@ export type Config = {
 };
 
 export const DEFAULT_CONFIG: Config = {
+    babelConfig: DEFAULT_BABEL_LOADER_CONFIG,
     include: [path.resolve(process.cwd(), 'src/js')],
     linting: {
         enabled: true,
@@ -43,7 +50,10 @@ export default class TypescriptAdapter implements Adapter {
             };
         }
 
-        webpackConfig.module.rules.push(this.createLoadingRule());
+        const builder = new Builder(builderConfig, webpackConfig);
+
+        builder
+            .add(new BabelLoaderAdapter(this.config.babelConfig))
 
         if (
             this.config.linting.enabled &&
@@ -51,6 +61,8 @@ export default class TypescriptAdapter implements Adapter {
         ) {
             webpackConfig.module.rules.push(this.createLintingRule());
         }
+
+        builder.build();
 
         next();
 
@@ -99,18 +111,6 @@ export default class TypescriptAdapter implements Adapter {
         };
     }
 
-    private createLoadingRule(): RuleSetRule {
-        return {
-            test: /\.tsx?$/,
-            include: this.config.include,
-            use: [
-                {
-                    loader: 'ts-loader',
-                },
-            ],
-        };
-    }
-
     private validateAllRequiredLintingModulesAreInstalled() {
         if (!checkIfModuleIsInstalled('tslint-loader')) {
             throw new Error(
@@ -120,7 +120,7 @@ export default class TypescriptAdapter implements Adapter {
     }
 
     private validateAllRequiredModulesAreInstalled() {
-        const requiredModules = ['ts-loader'];
+        const requiredModules = ['babel-loader', '@babel/preset-typescript'];
 
         requiredModules.forEach(module => {
             if (!checkIfModuleIsInstalled(module)) {

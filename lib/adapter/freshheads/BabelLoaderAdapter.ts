@@ -38,7 +38,7 @@ export default class BabelLoaderAdapter implements Adapter {
         }
 
         const rule: RuleSetRule = {
-            test: /\.jsx?$/,
+            test: /\.(ts|js)x?$/,
             include: this.config.include,
             use: [
                 {
