@@ -1,18 +1,11 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { Configuration, RuleSetCondition, RuleSetRule } from 'webpack';
+import { Configuration, RuleSetRule } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
 import path from 'path';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
 import deepmerge from 'deepmerge';
-import BabelLoaderAdapter, {
-    Config as BabelLoaderConfig,
-    DEFAULT_CONFIG as DEFAULT_BABEL_LOADER_CONFIG,
-} from './BabelLoaderAdapter';
-import { Builder } from '../../index';
 
 export type Config = {
-    babelConfig: BabelLoaderConfig;
-    include: RuleSetCondition;
     linting: {
         enabled: boolean;
         configurationPath: string;
@@ -20,8 +13,6 @@ export type Config = {
 };
 
 export const DEFAULT_CONFIG: Config = {
-    babelConfig: DEFAULT_BABEL_LOADER_CONFIG,
-    include: [path.resolve(process.cwd(), 'src/js')],
     linting: {
         enabled: true,
         configurationPath: path.resolve(process.cwd(), 'tslint.json'),
@@ -50,19 +41,12 @@ export default class TypescriptAdapter implements Adapter {
             };
         }
 
-        const builder = new Builder(builderConfig, webpackConfig);
-
-        builder
-            .add(new BabelLoaderAdapter(this.config.babelConfig))
-
         if (
             this.config.linting.enabled &&
             builderConfig.env !== Environment.Production
         ) {
             webpackConfig.module.rules.push(this.createLintingRule());
         }
-
-        builder.build();
 
         next();
 

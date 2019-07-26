@@ -61,10 +61,8 @@ builder
     .add(
         new DefaultStackAdapter({
             javascript: {
-                enabled: false,
-            },
-            typescript: {
                 enabled: true,
+                typescript: true,
             },
         })
     );
