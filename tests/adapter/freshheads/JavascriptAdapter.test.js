@@ -20,7 +20,7 @@ describe('FreshheadsJavascriptAdapter', () => {
 
             const rules = webpackConfig.module.rules;
 
-            expect(rules).toHaveLength(2);
+            expect(rules).toHaveLength(1);
 
             const firstRule = rules[0];
 
@@ -41,11 +41,6 @@ describe('FreshheadsJavascriptAdapter', () => {
             const options = firstRuleOnlyUse.options;
 
             expect(options).toHaveProperty('configFile', expectConfigFilePath);
-
-            const secondRule = rules[1];
-
-            expect(secondRule).toHaveProperty('test');
-            expect(secondRule).toHaveProperty('loader', 'eslint-loader');
         });
 
         describe('on the production environment', () => {
@@ -77,12 +72,10 @@ describe('FreshheadsJavascriptAdapter', () => {
                     include: ['./test', './anders'],
                     babelConfigurationFilePath: expectedBabelConfigPath,
                 },
-                linting: {
-                    enabled: false,
-                },
                 jQuery: {
                     enabled: true,
                 },
+                typescript: true,
             });
             const webpackConfig = {};
 

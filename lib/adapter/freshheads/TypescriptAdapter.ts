@@ -1,71 +1,37 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { Configuration, RuleSetRule } from 'webpack';
-import { BuilderConfig, Environment } from '../../Builder';
-import path from 'path';
+import { Configuration } from 'webpack';
 import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
-import deepmerge from 'deepmerge';
+import { BuilderConfig } from '../../Builder';
 
-export type Config = {
-    linting: {
-        enabled: boolean;
-        configurationPath: string;
-    };
-};
-
-export const DEFAULT_CONFIG: Config = {
-    linting: {
-        enabled: true,
-        configurationPath: path.resolve(process.cwd(), 'tslint.json'),
-    },
-};
-
+/**
+ * This adapter will only make webpack check the typescript extensions and validate if babel plugin is installed
+ * Babel will be able to strip typescript and transform to javascript
+ * When you want to add type checking this should be done outside of webpack
+ */
 export default class TypescriptAdapter implements Adapter {
-    private config: Config;
-
-    constructor(config: Partial<Config> = {}) {
-        this.config = deepmerge<Config>(DEFAULT_CONFIG, config, {
-            arrayMerge: (_destinationArray, sourceArray) => sourceArray,
-        });
-    }
-
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         this.validateAllRequiredModulesAreInstalled();
 
-        if (typeof webpackConfig.module === 'undefined') {
-            webpackConfig.module = {
-                rules: [],
-            };
-        }
-
-        if (
-            this.config.linting.enabled &&
-            builderConfig.env !== Environment.Production
-        ) {
-            webpackConfig.module.rules.push(this.createLintingRule());
-        }
-
-        next();
-
         this.ensureTypescriptFilesAreResolvedRegularJavascriptFiles(
             webpackConfig
         );
+
+        next();
     }
 
     private ensureTypescriptFilesAreResolvedRegularJavascriptFiles(
         webpackConfig: Configuration
     ) {
-        if (
-            typeof webpackConfig.resolve === 'undefined' ||
-            typeof webpackConfig.resolve.extensions === 'undefined'
-        ) {
-            // fallback on default Webpack extension resolving. Only mess with that
-            // if it is done intentionally.
+        if (typeof webpackConfig.resolve === 'undefined') {
+            webpackConfig.resolve = {};
+        }
 
-            return;
+        if (typeof webpackConfig.resolve.extensions === 'undefined') {
+            webpackConfig.resolve.extensions = [];
         }
 
         const extensionsToAdd = ['.tsx', '.ts'];
@@ -74,32 +40,6 @@ export default class TypescriptAdapter implements Adapter {
             const extensionToAdd = extensionsToAdd[i];
 
             webpackConfig.resolve.extensions.unshift(extensionToAdd);
-        }
-    }
-
-    private createLintingRule(): RuleSetRule {
-        this.validateAllRequiredLintingModulesAreInstalled();
-
-        return {
-            test: /\.tsx?$/,
-            exclude: /node_modules/,
-            enforce: 'pre',
-            use: [
-                {
-                    loader: 'tslint-loader',
-                    options: {
-                        configFile: this.config.linting.configurationPath,
-                    },
-                },
-            ],
-        };
-    }
-
-    private validateAllRequiredLintingModulesAreInstalled() {
-        if (!checkIfModuleIsInstalled('tslint-loader')) {
-            throw new Error(
-                "The 'tslint-loader'-module needs to be installed for this adapter to work"
-            );
         }
     }
 

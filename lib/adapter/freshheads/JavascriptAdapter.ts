@@ -7,10 +7,6 @@ import BabelLoaderAdapter, {
     Config as BabelLoaderConfig,
     DEFAULT_CONFIG as DEFAULT_BABEL_LOADER_CONFIG,
 } from './BabelLoaderAdapter';
-import JavascriptLintingAdapter, {
-    Config as LintingConfig,
-    DEFAULT_CONFIG as DEFAULT_LINTING_CONFIG,
-} from './JavascriptLintingAdapter';
 import JavascriptMinimizationAdapter from './JavascriptMinimizationAdapter';
 import JavascriptJQueryAdapter from './JavascriptJQueryAdapter';
 import TypescriptAdapter from './TypescriptAdapter';
@@ -21,17 +17,12 @@ type EnabledConfig = {
 
 export type Config = {
     babelConfig: BabelLoaderConfig;
-    linting: EnabledConfig & LintingConfig;
     jQuery: EnabledConfig;
     typescript: boolean;
 };
 
 export const DEFAULT_CONFIG: Config = {
     babelConfig: DEFAULT_BABEL_LOADER_CONFIG,
-    linting: {
-        enabled: true,
-        ...DEFAULT_LINTING_CONFIG,
-    },
     jQuery: {
         enabled: false,
     },
@@ -65,12 +56,6 @@ export default class JavascriptAdapter implements Adapter {
 
         if (this.config.jQuery.enabled) {
             builder.add(new JavascriptJQueryAdapter());
-        }
-
-        if (this.config.linting.enabled) {
-            // @todo check how to work with typescript linter
-            // @see https://github.com/typescript-eslint/typescript-eslint
-            builder.add(new JavascriptLintingAdapter(this.config.linting));
         }
 
         builder.build();
