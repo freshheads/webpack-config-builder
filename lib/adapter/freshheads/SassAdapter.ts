@@ -24,7 +24,7 @@ export type Config = {
 export const DEFAULT_CONFIG: Config = {
     loader: DEFAULT_LOADER_CONFIG,
     linting: {
-        enabled: true,
+        enabled: false,
         ...DEFAULT_LINTING_CONFIG,
     },
 };
