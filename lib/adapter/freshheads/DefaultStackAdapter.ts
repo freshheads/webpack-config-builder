@@ -13,10 +13,6 @@ import JavascriptAdapter, {
     Config as JavascriptConfig,
     DEFAULT_CONFIG as DEFAULT_JAVASCRIPT_CONFIG,
 } from './JavascriptAdapter';
-import TypescriptAdapter, {
-    Config as TypescriptConfig,
-    DEFAULT_CONFIG as DEFAULT_TYPESCRIPT_CONFIG,
-} from './TypescriptAdapter';
 import CssAdapter, {
     Config as CssConfig,
     DEFAULT_CONFIG as DEFAULT_CSS_CONFIG,
@@ -48,7 +44,6 @@ export type Config = {
     sass: EnabledConfig & SassConfig;
     css: EnabledConfig & CssConfig;
     javascript: EnabledConfig & JavascriptConfig;
-    typescript: EnabledConfig & TypescriptConfig;
     copyFilesToBuildDir: EnabledConfig & CopyFilesConfig;
 };
 
@@ -71,10 +66,6 @@ const DEFAULT_CONFIG: Config = {
     javascript: {
         enabled: true,
         ...DEFAULT_JAVASCRIPT_CONFIG,
-    },
-    typescript: {
-        enabled: false,
-        ...DEFAULT_TYPESCRIPT_CONFIG,
     },
     copyFilesToBuildDir: {
         enabled: true,
@@ -135,10 +126,6 @@ export default class DefaultStackAdapter implements Adapter {
 
         if (this.config.javascript.enabled) {
             builder.add(new JavascriptAdapter(this.config.javascript));
-        }
-
-        if (this.config.typescript.enabled) {
-            builder.add(new TypescriptAdapter(this.config.typescript));
         }
 
         builder.build();

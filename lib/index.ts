@@ -61,17 +61,11 @@ export {
     default as FreshheadsBabelLoaderAdapter,
 } from './adapter/freshheads/BabelLoaderAdapter';
 export {
-    default as FreshheadsJavascriptLintingAdapter,
-} from './adapter/freshheads/JavascriptLintingAdapter';
-export {
     default as FreshheadsJavascriptMinimizationAdapter,
 } from './adapter/freshheads/JavascriptMinimizationAdapter';
 export {
     default as FreshheadsJavascriptJQueryAdapter,
 } from './adapter/freshheads/JavascriptJQueryAdapter';
-export {
-    default as FreshheadsSassLintingAdapter,
-} from './adapter/freshheads/SassLintingAdapter';
 export {
     default as FreshheadsSassLoaderAdapter,
 } from './adapter/freshheads/SassLoaderAdapter';
