@@ -40,9 +40,6 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
     },
     sass: {
         enabled: true,
-        linting: {
-            enabled: false, // @todo enable at some point
-        },
     },
     javascript: {
         enabled: true,

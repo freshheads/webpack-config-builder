@@ -51,7 +51,7 @@ describe('FreshheadsSassAdapter', () => {
                 const plugins = webpackConfig.plugins;
 
                 expect(Array.isArray(webpackConfig.plugins)).toBe(true);
-                expect(webpackConfig.plugins).toHaveLength(2);
+                expect(webpackConfig.plugins).toHaveLength(1);
             });
         });
 
