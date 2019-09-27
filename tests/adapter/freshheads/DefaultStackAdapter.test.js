@@ -1,4 +1,6 @@
 const { FreshheadsDefaultStackAdapter } = require('../../../build/index');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 describe('FreshheadsDefaultStackAdapter', () => {
     describe('When applied', () => {
@@ -32,6 +34,41 @@ describe('FreshheadsDefaultStackAdapter', () => {
             const callback = () => done();
 
             adapter.apply({}, builderConfig, callback);
+        });
+    });
+
+    describe('When applied with CopyWebpackPlugin images true', () => {
+        var adapter, builderConfig;
+
+        beforeEach(() => {
+            adapter = new FreshheadsDefaultStackAdapter({
+                copyFilesToBuildDir: {
+                    enabled: true,
+                    images: true,
+                },
+            });
+            builderConfig = { env: 'dev' };
+        });
+
+        it('WriteBuildStatsToFileAdapter should be loaded after CopyFilesToBuildDirAdapter', () => {
+            const webpackConfig = {};
+
+            adapter.apply(webpackConfig, builderConfig, () => {});
+
+            const plugins = webpackConfig.plugins;
+            expect(Array.isArray(plugins)).toBe(true);
+
+            const positionStatsWriterPlugin = plugins.findIndex(
+                item => item instanceof StatsWriterPlugin
+            );
+
+            const positionCopyPlugin = plugins.findIndex(
+                item => item instanceof CopyWebpackPlugin
+            );
+
+            expect(positionStatsWriterPlugin).toBeGreaterThan(
+                positionCopyPlugin
+            );
         });
     });
 });
