@@ -98,7 +98,6 @@ export default class DefaultStackAdapter implements Adapter {
             .add(new ModeAdapter(isProduction ? 'production' : 'development'))
             .add(new ResolveAdapter(this.config.resolve))
             .add(new CleanBuildDirectoryAdapter())
-            .add(new WriteBuildStatsToFileAdapter())
             .add(new SourcemapAdapter())
             .add(new DefineEnvironmentVariablesAdapter())
             .add(new WatchOptionsAdapter())
@@ -127,6 +126,9 @@ export default class DefaultStackAdapter implements Adapter {
         if (this.config.javascript.enabled) {
             builder.add(new JavascriptAdapter(this.config.javascript));
         }
+
+        // StatsBuilder should be added after CopyFilesAdapter so all assets will be written to stats.json
+        builder.add(new WriteBuildStatsToFileAdapter());
 
         builder.build();
 
