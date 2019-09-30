@@ -11,9 +11,21 @@
         "prettier:write": "prettier --write './**/*.{js,ts,json,md}'",
         "prepare": "npm run build"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "keywords": ["webpack", "config", "builder", "build", "freshheads", "configuration"],
+    "author": {
+        "name": "Freshheads",
+        "url": "https://freshheads.com",
+        "email": "info@freshheads.com"
+    },
+    "contributors": [
+        { "name": "Martin Broos", "url": "https://freshheads.com" },
+        { "name": "Gijs Nieuwenhuis", "url": "https://freshheads.com" }
+    ],
+    "repository": {
+        "type" : "git",
+        "url" : "https://github.com/freshheads/webpack-config-builder.git"
+    },
+    "license": "MIT",
     "devDependencies": {
         "@babel/preset-env": "^7.5.5",
         "@babel/preset-react": "^7.0.0",
