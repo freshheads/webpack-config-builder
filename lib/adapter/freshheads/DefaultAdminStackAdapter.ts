@@ -13,27 +13,27 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
             // also resolve packages in node_modules folder of fhAdminBundle as the admin defaults are installed there
             path.resolve(
                 process.cwd(),
-                '../../web/bundles/fhadmin/assets/node_modules'
+                '../../vendor/freshheads/admin-bundle/Resources/public/assets/node_modules'
             ),
         ],
         alias: {
             // be able to use the 'fhadmin' alias in scss and js files to prevent long paths to files
             fhadmin: path.resolve(
                 process.cwd(),
-                '../../web/bundles/fhadmin/assets/src'
+                '../../vendor/freshheads/admin-bundle/Resources/public/assets/src'
             ),
             fhConfirm: path.resolve(
                 process.cwd(),
-                '../../web/bundles/fhadmin/assets/src/js/modules/jquery.fhConfirm'
+                '../../vendor/freshheads/admin-bundle/Resources/public/assets/src/js/modules/jquery.fhConfirm'
             ),
             fhform: path.resolve(process.cwd(), '../../web/bundles/fhform'),
             picker: path.resolve(
                 process.cwd(),
-                '../../web/bundles/fhadmin/assets/node_modules/pickadate/lib/picker'
+                '../../vendor/freshheads/admin-bundle/Resources/public/assets/node_modules/pickadate/lib/picker'
             ),
             'jquery.ui.widget': path.resolve(
                 process.cwd(),
-                '../../web/bundles/fhadmin/assets/node_modules/jquery-ui/ui/widget'
+                '../../vendor/freshheads/admin-bundle/Resources/public/assets/node_modules/jquery-ui/ui/widget'
             ),
             // use the jquery version that is defined in app
             jquery: path.resolve(process.cwd(), 'node_modules/jquery'),
@@ -47,12 +47,12 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
                 from: {
                     glob: path.resolve(
                         process.cwd(),
-                        '../../web/bundles/fhadmin/assets/images/**/*'
+                        '../../vendor/freshheads/admin-bundle/Resources/public/assets/images/**/*'
                     ),
                 },
                 context: path.resolve(
                     process.cwd(),
-                    '../../web/bundles/fhadmin/assets/'
+                    '../../vendor/freshheads/admin-bundle/Resources/public/assets/'
                 ),
                 // admin bundle assets always get hashed also in dev environment
                 to: 'fhadmin/[path][name].[hash].[ext]',
@@ -71,7 +71,7 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
                 path.resolve(process.cwd(), 'src/js'),
                 path.resolve(
                     process.cwd(),
-                    '../../web/bundles/fhadmin/assets/node_modules/countable/'
+                    '../../vendor/freshheads/admin-bundle/Resources/public/assets/node_modules/countable/'
                 ),
             ],
         },
