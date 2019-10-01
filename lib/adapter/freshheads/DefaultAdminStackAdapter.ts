@@ -26,7 +26,10 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
                 process.cwd(),
                 '../../vendor/freshheads/admin-bundle/Resources/public/assets/src/js/modules/jquery.fhConfirm'
             ),
-            fhform: path.resolve(process.cwd(), '../../web/bundles/fhform'),
+            fhform: path.resolve(
+                process.cwd(),
+                '../../vendor/freshheads/form-bundle/Resources/public'
+            ),
             picker: path.resolve(
                 process.cwd(),
                 '../../vendor/freshheads/admin-bundle/Resources/public/assets/node_modules/pickadate/lib/picker'
