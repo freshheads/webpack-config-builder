@@ -13,7 +13,9 @@ export default class CleanBuildDirectoryAdapter implements Adapter {
             webpackConfig.plugins = [];
         }
 
-        const pluginInstance: Plugin = new CleanWebpackPlugin();
+        const pluginInstance: Plugin = new CleanWebpackPlugin({
+            cleanStaleWebpackAssets: false
+        });
 
         webpackConfig.plugins.push(pluginInstance);
 
