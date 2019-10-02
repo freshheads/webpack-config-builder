@@ -66,6 +66,10 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
                 path.resolve(process.cwd(), 'src/js'),
                 path.resolve(
                     process.cwd(),
+                    '../../vendor/freshheads/admin-bundle/Resources/public/assets/src/js'
+                ),
+                path.resolve(
+                    process.cwd(),
                     '../../vendor/freshheads/admin-bundle/Resources/public/assets/node_modules/countable/'
                 ),
             ],
