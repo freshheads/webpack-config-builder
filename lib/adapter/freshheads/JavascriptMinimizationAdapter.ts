@@ -27,7 +27,5 @@ export default class JavascriptMinimizationAdapter implements Adapter {
                 }),
             ],
         }).apply(webpackConfig, builderConfig, next);
-
-        next();
     }
 }
