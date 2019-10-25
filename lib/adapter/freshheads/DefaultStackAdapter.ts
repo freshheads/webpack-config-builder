@@ -26,7 +26,7 @@ import CopyFilesToBuildDirAdapter, {
 } from './CopyFilesToBuildDirAdapter';
 import SourcemapAdapter from './SourcemapAdapter';
 import TargetAdapter from '../TargetAdapter';
-import OptimizationAdapter from './OptimizationAdapter';
+import OptimizationAdapter from '../OptimizationAdapter';
 import ResolveAdapter, {
     DEFAULT_CONFIG as DEFAULT_RESOLVE_CONFIG,
 } from './ResolveAdapter';
@@ -101,7 +101,13 @@ export default class DefaultStackAdapter implements Adapter {
             .add(new SourcemapAdapter())
             .add(new DefineEnvironmentVariablesAdapter())
             .add(new WatchOptionsAdapter())
-            .add(new OptimizationAdapter());
+            .add(
+                new OptimizationAdapter({
+                    splitChunks: {
+                        automaticNameDelimiter: '-',
+                    },
+                })
+            );
 
         if (this.config.loadReferencedFiles.enabled) {
             builder.add(

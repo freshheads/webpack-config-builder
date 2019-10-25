@@ -30,6 +30,22 @@ describe('FreshheadsDefaultStackAdapter', () => {
             });
         });
 
+        it('should set the correct defaults for Optimization Adaptor', () => {
+            const webpackConfig = {};
+
+            adapter.apply(webpackConfig, builderConfig, () => {});
+
+            expect(webpackConfig).toHaveProperty('optimization');
+
+            const optimizationRules = webpackConfig.optimization;
+
+            expect(optimizationRules).toEqual({
+                splitChunks: {
+                    automaticNameDelimiter: '-',
+                },
+            });
+        });
+
         it("should call the 'next' callback afterwards", done => {
             const callback = () => done();
 

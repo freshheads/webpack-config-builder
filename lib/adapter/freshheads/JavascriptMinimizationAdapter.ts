@@ -1,6 +1,7 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
+import { OptimizationAdapter } from '../..';
 
 export default class JavascriptMinimizationAdapter implements Adapter {
     public apply(
@@ -14,18 +15,17 @@ export default class JavascriptMinimizationAdapter implements Adapter {
             return;
         }
 
-        if (typeof webpackConfig.plugins === 'undefined') {
-            webpackConfig.plugins = [];
-        }
+        // By default webpack has Terser 1.x as production minimizer
+        // We replace this with a newer version and add additional settings
+        const TerserPlugin = require('terser-webpack-plugin');
 
-        const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
-
-        webpackConfig.plugins.push(
-            new UglifyjsPlugin({
-                sourceMap: true,
-            })
-        );
-
-        next();
+        new OptimizationAdapter({
+            minimize: true,
+            minimizer: [
+                new TerserPlugin({
+                    sourceMap: true,
+                }),
+            ],
+        }).apply(webpackConfig, builderConfig, next);
     }
 }

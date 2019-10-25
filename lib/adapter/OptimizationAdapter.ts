@@ -1,7 +1,7 @@
 import { Adapter, NextCallback } from './Adapter';
 import { Configuration, Options } from 'webpack';
 import { BuilderConfig } from '../Builder';
-import { warn } from '../utility/messageHelper';
+import deepmerge = require('deepmerge');
 
 export default class OptimizationAdapter implements Adapter {
     private config: Options.Optimization;
@@ -15,18 +15,16 @@ export default class OptimizationAdapter implements Adapter {
         _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateNoOtherEntryIsSet(webpackConfig);
+        const existingConfig = webpackConfig.optimization || {};
 
-        webpackConfig.optimization = this.config;
+        webpackConfig.optimization = deepmerge<Options.Optimization>(
+            existingConfig,
+            this.config,
+            {
+                arrayMerge: (_destinationArray, sourceArray) => sourceArray,
+            }
+        );
 
         next();
-    }
-
-    private validateNoOtherEntryIsSet(webpackConfig: Configuration) {
-        if (webpackConfig.optimization) {
-            warn(
-                'A webpack optimization configuration is already set. If set again, it will replace the previous one.'
-            );
-        }
     }
 }

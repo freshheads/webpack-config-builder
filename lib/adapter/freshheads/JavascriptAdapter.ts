@@ -26,7 +26,7 @@ export const DEFAULT_CONFIG: Config = {
     jQuery: {
         enabled: false,
     },
-    typescript: false
+    typescript: false,
 };
 
 export default class JavascriptAdapter implements Adapter {
@@ -43,7 +43,6 @@ export default class JavascriptAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-
         const builder = new Builder(builderConfig, webpackConfig);
 
         builder
