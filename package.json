@@ -49,7 +49,7 @@
         "@types/jest": "^24.0.16",
         "@types/lodash": "^4.14.136",
         "@types/mini-css-extract-plugin": "^0.2.1",
-        "@types/uglifyjs-webpack-plugin": "^1.1.0",
+        "@types/terser-webpack-plugin": "^1.2.1",
         "@types/webpack": "^4.32.1",
         "autoprefixer": "^9.6.1",
         "babel-loader": "^8.0.6",
@@ -67,8 +67,8 @@
         "prettier": "1.16.4",
         "resolve-url-loader": "^3.1.0",
         "sass-loader": "^7.1.0",
+        "terser-webpack-plugin": "^2.2.1",
         "typescript": "^3.5.3",
-        "uglifyjs-webpack-plugin": "^2.2.0",
         "webpack": "^4.39.1",
         "webpack-stats-plugin": "^0.2.1"
     },
@@ -91,12 +91,12 @@
         "resolve-url-loader": "^3.1.0",
         "sass-loader": "^7.1.0",
         "typescript": "^3.4.4",
-        "uglifyjs-webpack-plugin": "^2.1.2",
         "webpack": "^4.30.0",
         "webpack-stats-plugin": "^0.2.1",
         "@babel/preset-env": "^7.4.3",
         "@babel/preset-react": "^7.0.0",
-        "@babel/preset-typescript": "^7.3.3"
+        "@babel/preset-typescript": "^7.3.3",
+        "terser-webpack-plugin": "^2.2.1"
     },
     "husky": {
         "hooks": {

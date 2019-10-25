@@ -1,7 +1,7 @@
 const {
     FreshheadsJavascriptMinimizationAdapter,
 } = require('../../../build/index');
-const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 describe('FreshheadsJavascriptMinimizationAdapter', () => {
     describe('When applied', () => {
@@ -50,7 +50,7 @@ describe('FreshheadsJavascriptMinimizationAdapter', () => {
 
                 const onlyPlugin = plugins[0];
 
-                expect(onlyPlugin).toBeInstanceOf(UglifyjsPlugin);
+                expect(onlyPlugin).toBeInstanceOf(TerserPlugin);
             });
 
             it("should call the 'next' callback afterwards", done => {

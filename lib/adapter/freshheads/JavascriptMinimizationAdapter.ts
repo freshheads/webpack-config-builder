@@ -18,10 +18,10 @@ export default class JavascriptMinimizationAdapter implements Adapter {
             webpackConfig.plugins = [];
         }
 
-        const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
+        const TerserPlugin = require('terser-webpack-plugin');
 
         webpackConfig.plugins.push(
-            new UglifyjsPlugin({
+            new TerserPlugin({
                 sourceMap: true,
             })
         );

@@ -1,5 +1,5 @@
 const { FreshheadsJavascriptAdapter } = require('../../../build/index');
-const UglifyjsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const ProvidePlugin = require('webpack').ProvidePlugin;
 
 describe('FreshheadsJavascriptAdapter', () => {
@@ -44,7 +44,7 @@ describe('FreshheadsJavascriptAdapter', () => {
         });
 
         describe('on the production environment', () => {
-            it('should add the uglify plugin', () => {
+            it('should add the terser plugin', () => {
                 const adapter = new FreshheadsJavascriptAdapter();
                 const webpackConfig = {};
 
@@ -59,7 +59,7 @@ describe('FreshheadsJavascriptAdapter', () => {
 
                 const onlyPlugin = plugins[0];
 
-                expect(onlyPlugin).toBeInstanceOf(UglifyjsPlugin);
+                expect(onlyPlugin).toBeInstanceOf(TerserPlugin);
             });
         });
     });
