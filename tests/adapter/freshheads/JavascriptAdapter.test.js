@@ -1,5 +1,4 @@
 const { FreshheadsJavascriptAdapter } = require('../../../build/index');
-const TerserPlugin = require('terser-webpack-plugin');
 const ProvidePlugin = require('webpack').ProvidePlugin;
 
 describe('FreshheadsJavascriptAdapter', () => {
@@ -41,26 +40,6 @@ describe('FreshheadsJavascriptAdapter', () => {
             const options = firstRuleOnlyUse.options;
 
             expect(options).toHaveProperty('configFile', expectConfigFilePath);
-        });
-
-        describe('on the production environment', () => {
-            it('should add the terser plugin', () => {
-                const adapter = new FreshheadsJavascriptAdapter();
-                const webpackConfig = {};
-
-                adapter.apply(webpackConfig, { env: 'production' }, () => {});
-
-                expect(webpackConfig).toHaveProperty('plugins');
-
-                const plugins = webpackConfig.plugins;
-
-                expect(Array.isArray(plugins)).toBe(true);
-                expect(plugins).toHaveLength(1);
-
-                const onlyPlugin = plugins[0];
-
-                expect(onlyPlugin).toBeInstanceOf(TerserPlugin);
-            });
         });
     });
 

@@ -36,21 +36,17 @@ describe('FreshheadsJavascriptMinimizationAdapter', () => {
                 adapter = new FreshheadsJavascriptMinimizationAdapter();
             });
 
-            it('should add the right plugin to the webpack config', () => {
+            it('should enable minimizer to the webpack config', () => {
                 const webpackConfig = {};
 
                 adapter.apply(webpackConfig, { env: 'production' }, () => {});
 
-                expect(webpackConfig).toHaveProperty('plugins');
+                expect(webpackConfig).toHaveProperty('optimization');
 
-                const plugins = webpackConfig.plugins;
+                expect(webpackConfig.optimization.minimize).toEqual(true);
 
-                expect(Array.isArray(plugins)).toBe(true);
-                expect(plugins).toHaveLength(1);
-
-                const onlyPlugin = plugins[0];
-
-                expect(onlyPlugin).toBeInstanceOf(TerserPlugin);
+                const minimizer = webpackConfig.optimization.minimizer[0];
+                expect(minimizer).toBeInstanceOf(TerserPlugin);
             });
 
             it("should call the 'next' callback afterwards", done => {
