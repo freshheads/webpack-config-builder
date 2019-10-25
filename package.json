@@ -6,6 +6,7 @@
     "scripts": {
         "build": "tsc",
         "build:watch": "tsc --watch",
+        "test": "jest --config=jest.config.js --detectOpenHandles --silent",
         "test:watch": "jest --watch --notify --config=jest.config.js --detectOpenHandles --silent",
         "prettier:check": "prettier --check './**/*.{js,ts,json,md}'",
         "prettier:write": "prettier --write './**/*.{js,ts,json,md}'",
