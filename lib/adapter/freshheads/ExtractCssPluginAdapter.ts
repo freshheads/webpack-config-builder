@@ -1,8 +1,8 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, Plugin } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { checkPluginInstanceIsInWebpackConfig } from '../../utility/webpackConfigHelper';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export default class ExtractCssPluginAdapter implements Adapter {
     public apply(
@@ -10,6 +10,14 @@ export default class ExtractCssPluginAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
+        validateIfRequiredModuleIsInstalled(
+            'ExtractCssPluginAdapter',
+            'mini-css-extract-plugin',
+            '0.8.0'
+        );
+
+        const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
         if (
             checkPluginInstanceIsInWebpackConfig(
                 MiniCssExtractPlugin,

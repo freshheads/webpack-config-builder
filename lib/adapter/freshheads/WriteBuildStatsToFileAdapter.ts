@@ -1,7 +1,7 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
-import { StatsWriterPlugin } from 'webpack-stats-plugin';
 import { BuilderConfig } from '../../Builder';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export default class WriteBuildStatsToFileAdapter implements Adapter {
     public apply(
@@ -9,6 +9,14 @@ export default class WriteBuildStatsToFileAdapter implements Adapter {
         _buildConfig: BuilderConfig,
         next: NextCallback
     ) {
+        validateIfRequiredModuleIsInstalled(
+            'WriteBuildStatsToFileAdapter',
+            'webpack-stats-plugin',
+            '0.2.1'
+        );
+
+        const { StatsWriterPlugin } = require('webpack-stats-plugin');
+
         const plugin = new StatsWriterPlugin({
             fields: ['hash', 'assetsByChunkName', 'assets'],
         });

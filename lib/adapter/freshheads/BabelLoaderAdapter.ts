@@ -2,7 +2,8 @@ import { Adapter, NextCallback } from '../Adapter';
 import { BuilderConfig } from '../../Builder';
 import { Configuration, RuleSetRule } from 'webpack';
 import path from 'path';
-import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
+import { iterateObjectValues } from '../../utility/iterationHelper';
 
 export type Config = {
     include: string[];
@@ -59,14 +60,17 @@ export default class BabelLoaderAdapter implements Adapter {
     }
 
     private validateAllRequiredModulesAreInstalled() {
-        const requiredModules = ['babel-loader', '@babel/preset-env'];
+        const requiredModules = {
+            'babel-loader': '8.0.5',
+            '@babel/preset-env': '7.6.3',
+        };
 
-        requiredModules.forEach(module => {
-            if (!checkIfModuleIsInstalled(module)) {
-                throw new Error(
-                    `The '${module}' needs to be installed for this adapter to work`
-                );
-            }
+        iterateObjectValues(requiredModules, (minVersion, module) => {
+            validateIfRequiredModuleIsInstalled(
+                'BabelLoaderAdapter',
+                module,
+                minVersion
+            );
         });
     }
 }

@@ -1,10 +1,11 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, RuleSetRule } from 'webpack';
 import deepmerge from 'deepmerge';
-import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig, Environment } from '../../Builder';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { Builder } from '../..';
+import { iterateObjectValues } from '../../utility/iterationHelper';
 
 export type Config = {
     cssLoaderOptions: { [key: string]: any };
@@ -28,15 +29,15 @@ export default class CssAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        const isProduction = builderConfig.env === Environment.Production;
+
+        this.validateAllRequiredModulesAreInstalled(isProduction);
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = {
                 rules: [],
             };
         }
-
-        const isProduction = builderConfig.env === Environment.Production;
 
         const rule: RuleSetRule = {
             test: /\.css$/,
@@ -105,20 +106,24 @@ export default class CssAdapter implements Adapter {
         );
     }
 
-    private validateAllRequiredModulesAreInstalled() {
-        const requiredModules = [
-            'mini-css-extract-plugin',
-            'autoprefixer',
-            'css-loader',
-            'postcss-loader',
-        ];
+    private validateAllRequiredModulesAreInstalled(isProduction: boolean) {
+        const requiredModules: { [module: string]: string } = {
+            'mini-css-extract-plugin': '0.8.0',
+            autoprefixer: '9.7.0',
+            'css-loader': '3.2.0',
+            'postcss-loader': '3.0.0',
+        };
 
-        requiredModules.forEach(module => {
-            if (!checkIfModuleIsInstalled(module)) {
-                throw new Error(
-                    `The '${module}' needs to be installed for this adapter to work`
-                );
-            }
+        if (isProduction) {
+            requiredModules['cssnano'] = '4.1.10';
+        }
+
+        iterateObjectValues<string>(requiredModules, (minVersion, module) => {
+            validateIfRequiredModuleIsInstalled(
+                'CssAdapter',
+                module,
+                minVersion
+            );
         });
     }
 }
