@@ -1,5 +1,6 @@
 import { execSync } from 'child_process';
 import { gte as versionIsGreaterThanOrEqualTo } from 'semver';
+import { warn } from './messageHelper';
 
 type TInstalledModules = {
     [key: string]: string;
@@ -28,14 +29,34 @@ export function checkIfModuleIsInstalled(
 
 let inMemoryCache: TInstalledModules | null = null;
 
-function resolveListOfInstalledRootModules() {
+function resolveListOfInstalledRootModules(): TInstalledModules {
     if (inMemoryCache) {
         return inMemoryCache;
     }
 
-    const stdout = execSync('npm list --json --depth=0');
+    const command = 'npm list --json --depth=0';
+    let commandOutput: string | null;
 
-    const outputAsJson = JSON.parse(stdout.toString());
+    try {
+        commandOutput = execSync(command).toString();
+    } catch (error) {
+        warn(
+            `Command '${command}' resulted in an error. Perhaps there are unmet peer dependencies?`
+        );
+
+        console.error(error);
+
+        commandOutput =
+            typeof error.stdout !== 'undefined'
+                ? error.stdout.toString()
+                : null;
+    }
+
+    if (!commandOutput) {
+        return {};
+    }
+
+    const outputAsJson = JSON.parse(commandOutput);
 
     const dependencies = outputAsJson.dependencies;
 
