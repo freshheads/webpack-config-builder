@@ -2,6 +2,7 @@ import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
 import { OptimizationAdapter } from '../..';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export default class JavascriptMinimizationAdapter implements Adapter {
     public apply(
@@ -14,6 +15,12 @@ export default class JavascriptMinimizationAdapter implements Adapter {
 
             return;
         }
+
+        validateIfRequiredModuleIsInstalled(
+            'JavascriptMinimizationAdapter',
+            'terser-webpack-plugin',
+            '2.2.1'
+        );
 
         // By default webpack has Terser 1.x as production minimizer
         // We replace this with a newer version and add additional settings

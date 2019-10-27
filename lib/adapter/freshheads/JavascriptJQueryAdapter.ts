@@ -1,7 +1,7 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { BuilderConfig } from '../../Builder';
 import { Configuration } from 'webpack';
-import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export default class JavascriptJQueryAdapter implements Adapter {
     public apply(
@@ -9,7 +9,11 @@ export default class JavascriptJQueryAdapter implements Adapter {
         _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateRequiredModulesAreInstalled();
+        validateIfRequiredModuleIsInstalled(
+            'JavascriptJQueryAdapter',
+            'jquery',
+            '3.4.0'
+        );
 
         if (typeof webpackConfig.plugins === 'undefined') {
             webpackConfig.plugins = [];
@@ -26,13 +30,5 @@ export default class JavascriptJQueryAdapter implements Adapter {
         );
 
         next();
-    }
-
-    private validateRequiredModulesAreInstalled() {
-        if (!checkIfModuleIsInstalled('jquery')) {
-            throw new Error(
-                "The 'jquery' module needs to be installed for webpack to be able to provide it"
-            );
-        }
     }
 }

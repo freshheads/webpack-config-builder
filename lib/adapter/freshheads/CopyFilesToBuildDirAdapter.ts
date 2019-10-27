@@ -2,6 +2,7 @@ import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, Plugin } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 import path from 'path';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 // @todo use types from @types/copy-webpack-plugin instead (cannot export CopyPattern right now)
 type CopyPattern = {
@@ -59,6 +60,12 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
         patterns.push(...this.config.additionalPatterns);
 
         if (patterns.length > 0) {
+            validateIfRequiredModuleIsInstalled(
+                'CopyFilesToBuildDirAdapter',
+                'copy-webpack-plugin',
+                '5.0.2'
+            );
+
             const CopyWebpackPlugin = require('copy-webpack-plugin');
 
             if (typeof webpackConfig.plugins === 'undefined') {

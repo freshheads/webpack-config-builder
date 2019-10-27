@@ -1,7 +1,8 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
-import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig } from '../../Builder';
+import { iterateObjectValues } from '../../utility/iterationHelper';
 
 /**
  * This adapter will only make webpack check the typescript extensions and validate if babel plugin is installed
@@ -44,14 +45,18 @@ export default class TypescriptAdapter implements Adapter {
     }
 
     private validateAllRequiredModulesAreInstalled() {
-        const requiredModules = ['babel-loader', '@babel/preset-typescript'];
+        const requiredModules = {
+            'babel-loader': '8.0.5',
+            '@babel/preset-typescript': '7.6.0',
+            typescript: '3.6.3',
+        };
 
-        requiredModules.forEach(module => {
-            if (!checkIfModuleIsInstalled(module)) {
-                throw new Error(
-                    `The '${module}' needs to be installed for this adapter to work`
-                );
-            }
+        iterateObjectValues<string>(requiredModules, (minVersion, module) => {
+            validateIfRequiredModuleIsInstalled(
+                'TypescriptAdapter',
+                module,
+                minVersion
+            );
         });
     }
 }

@@ -6,6 +6,20 @@ type TInstalledModules = {
     [key: string]: string;
 };
 
+export function validateIfRequiredModuleIsInstalled(
+    adapter: string,
+    module: string,
+    minVersion?: string
+): void {
+    if (!checkIfModuleIsInstalled(module, minVersion)) {
+        throw new Error(
+            `Adapter '${adapter}' requires module '${module}' to be installed${
+                minVersion ? ` with min version '${minVersion}'` : ''
+            }.`
+        );
+    }
+}
+
 export function checkIfModuleIsInstalled(
     module: string,
     minVersion?: string

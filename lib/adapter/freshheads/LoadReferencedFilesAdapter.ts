@@ -1,7 +1,7 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, RuleSetRule } from 'webpack';
 import { BuilderConfig } from '../../Builder';
-import { checkIfModuleIsInstalled } from '../../utility/moduleHelper';
+import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export type Config = {
     test: string | RegExp;
@@ -26,7 +26,11 @@ export default class LoadReferencedFilesAdapter implements Adapter {
         _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        validateIfRequiredModuleIsInstalled(
+            'LoadReferencedFilesAdapter',
+            'file-loader',
+            '3.0.1'
+        );
 
         const rule: RuleSetRule = {
             test: this.config.test,
@@ -42,13 +46,5 @@ export default class LoadReferencedFilesAdapter implements Adapter {
         webpackConfig.module.rules.push(rule);
 
         next();
-    }
-
-    private validateAllRequiredModulesAreInstalled() {
-        if (!checkIfModuleIsInstalled('file-loader')) {
-            throw new Error(
-                "The 'file-loader'-module needs to be installed for loading images and fonts"
-            );
-        }
     }
 }
