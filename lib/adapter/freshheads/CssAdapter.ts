@@ -29,15 +29,15 @@ export default class CssAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        const isProduction = builderConfig.env === Environment.Production;
-
-        this.validateAllRequiredModulesAreInstalled(isProduction);
+        this.validateAllRequiredModulesAreInstalled();
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = {
                 rules: [],
             };
         }
+
+        const isProduction = builderConfig.env === Environment.Production;
 
         const rule: RuleSetRule = {
             test: /\.css$/,
@@ -106,17 +106,14 @@ export default class CssAdapter implements Adapter {
         );
     }
 
-    private validateAllRequiredModulesAreInstalled(isProduction: boolean) {
+    private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
             'mini-css-extract-plugin': '0.8.0',
             autoprefixer: '9.7.0',
             'css-loader': '3.2.0',
             'postcss-loader': '3.0.0',
+            cssnano: '4.1.10',
         };
-
-        if (isProduction) {
-            requiredModules['cssnano'] = '4.1.10';
-        }
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {
             validateIfRequiredModuleIsInstalled(
