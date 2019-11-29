@@ -139,7 +139,7 @@ export default class SassLoaderAdapter implements Adapter {
             'postcss-loader': '3.0.0',
             cssnano: '4.1.10',
             sass: '1.23.7',
-            fibers: '3.1.1',
+            fibers: '4.0.2',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {
