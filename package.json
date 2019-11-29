@@ -68,7 +68,7 @@
         "postcss-loader": "^3.0.0",
         "prettier": "1.16.4",
         "resolve-url-loader": "^3.1.1",
-        "sass-loader": "^7.3.1",
+        "sass-loader": "^8.0.0",
         "terser-webpack-plugin": "^2.2.1",
         "typescript": "^3.7.2",
         "webpack": "^4.41.2",
