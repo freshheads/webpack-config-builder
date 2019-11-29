@@ -48,6 +48,7 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
         return inMemoryCache;
     }
 
+    // gets all dev dependencies from package.json, --dev needs to be forced for prod build
     const command = 'npm list --json --depth=0 --dev=true';
     let commandOutput: string | null;
 
