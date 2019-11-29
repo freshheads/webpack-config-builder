@@ -24,6 +24,7 @@ export const DEFAULT_CONFIG: Config = {
     },
     sassLoaderOptions: {
         sourceMap: true,
+        implementation: require('sass'), // prefer `dart-sass` instead of `node-sass` in case both are installed
     },
 };
 
@@ -137,6 +138,8 @@ export default class SassLoaderAdapter implements Adapter {
             'css-loader': '3.2.0',
             'postcss-loader': '3.0.0',
             cssnano: '4.1.10',
+            sass: '1.23.7',
+            fibers: '3.1.1',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {
