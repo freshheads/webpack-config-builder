@@ -48,7 +48,7 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
         return inMemoryCache;
     }
 
-    const command = 'npm list --json --depth=0';
+    const command = 'npm list --json --depth=0 --dev=true';
     let commandOutput: string | null;
 
     try {
