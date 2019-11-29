@@ -10,17 +10,17 @@ export default class JavascriptMinimizationAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        if (builderConfig.env !== Environment.Production) {
-            next();
-
-            return;
-        }
-
         validateIfRequiredModuleIsInstalled(
             'JavascriptMinimizationAdapter',
             'terser-webpack-plugin',
             '2.2.1'
         );
+
+        if (builderConfig.env !== Environment.Production) {
+            next();
+
+            return;
+        }
 
         // By default webpack has Terser 1.x as production minimizer
         // We replace this with a newer version and add additional settings
