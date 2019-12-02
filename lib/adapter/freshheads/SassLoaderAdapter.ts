@@ -24,6 +24,7 @@ export const DEFAULT_CONFIG: Config = {
     },
     sassLoaderOptions: {
         sourceMap: true,
+        implementation: require('sass'), // prefer `dart-sass` instead of `node-sass` in case both are installed
     },
 };
 
@@ -132,11 +133,13 @@ export default class SassLoaderAdapter implements Adapter {
         const requiredModules: { [module: string]: string } = {
             'mini-css-extract-plugin': '0.8.0',
             autoprefixer: '9.7.0',
-            'sass-loader': '7.3.1',
+            'sass-loader': '8.0.0',
             'resolve-url-loader': '3.1.0',
             'css-loader': '3.2.0',
             'postcss-loader': '3.0.0',
             cssnano: '4.1.10',
+            sass: '1.23.7',
+            fibers: '4.0.2',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {
