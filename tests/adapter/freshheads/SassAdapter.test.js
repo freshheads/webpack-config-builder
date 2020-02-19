@@ -43,6 +43,7 @@ describe('FreshheadsSassAdapter', () => {
                     loader: 'sass-loader',
                     options: {
                         sourceMap: true,
+                        implementation: require('sass'),
                     },
                 });
 
@@ -182,6 +183,7 @@ describe('FreshheadsSassAdapter', () => {
                 loader: 'sass-loader',
                 options: {
                     sourceMap: false,
+                    implementation: require('sass'),
                 },
             });
         });

@@ -24,7 +24,6 @@ export const DEFAULT_CONFIG: Config = {
     },
     sassLoaderOptions: {
         sourceMap: true,
-        implementation: require('sass'), // prefer `dart-sass` instead of `node-sass` in case both are installed
     },
 };
 
@@ -41,6 +40,7 @@ export default class SassLoaderAdapter implements Adapter {
         next: NextCallback
     ) {
         this.validateAllRequiredModulesAreInstalled();
+        this.config.sassLoaderOptions.implementation = require('sass'); 
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = { rules: [] };
