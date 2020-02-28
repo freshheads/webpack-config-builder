@@ -1,7 +1,7 @@
 const {
     FreshheadsCleanBuildDirectoryAdapter,
 } = require('../../../build/index');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 describe('FreshheadsCleanBuildDirectoryAdapter', () => {
     var adapter;
