@@ -61,8 +61,8 @@ export default class BabelLoaderAdapter implements Adapter {
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules = {
-            'babel-loader': '8.0.5',
-            '@babel/preset-env': '7.6.3',
+            'babel-loader': '8.0.6',
+            '@babel/preset-env': '7.8.6',
         };
 
         iterateObjectValues(requiredModules, (minVersion, module) => {

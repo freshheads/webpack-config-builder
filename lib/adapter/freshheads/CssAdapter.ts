@@ -110,7 +110,7 @@ export default class CssAdapter implements Adapter {
         const requiredModules: { [module: string]: string } = {
             'mini-css-extract-plugin': '0.8.0',
             autoprefixer: '9.7.0',
-            'css-loader': '3.2.0',
+            'css-loader': '3.4.0',
             'postcss-loader': '3.0.0',
             cssnano: '4.1.10',
         };
