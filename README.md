@@ -66,7 +66,6 @@ builder
             javascript: {
                 enabled: true,
                 typescript: true,
-                react: true,
             },
         })
     );
