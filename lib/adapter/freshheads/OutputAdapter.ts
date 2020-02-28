@@ -18,6 +18,7 @@ export default class OutputAdapter implements Adapter {
         next: NextCallback
     ) {
         this.validateNoOtherOutputIsSet(webpackConfig);
+        this.validateOutputPath();
 
         const isDev = builderConfig.env !== Environment.Production;
 
@@ -42,6 +43,12 @@ export default class OutputAdapter implements Adapter {
     private validateNoOtherOutputIsSet(webpackConfig: Configuration) {
         if (webpackConfig.output) {
             warn('A webpack output is already set. If set again, it will replace the previous one.');
+        }
+    }
+
+    private validateOutputPath() {
+        if (this.path === '/' || this.path === process.cwd()) {
+            throw new Error('Its not allowed to use an output path that could cause a delete / overwrite of the project root or the source files')
         }
     }
 }
