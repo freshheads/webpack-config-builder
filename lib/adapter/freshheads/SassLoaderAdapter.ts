@@ -40,7 +40,7 @@ export default class SassLoaderAdapter implements Adapter {
         next: NextCallback
     ) {
         this.validateAllRequiredModulesAreInstalled();
-        // add implementation here instead of directly in DEFAULT_CONFIG. 
+        // add implementation here instead of directly in DEFAULT_CONFIG.
         // If added in DEFAULT_CONFIG the require tries to import sass even though sass is disabled.
         // This causes problems when sass isn't installed.
         this.config.sassLoaderOptions.implementation = require('sass'); // prefer `dart-sass` instead of `node-sass` in case both are installed
@@ -134,14 +134,14 @@ export default class SassLoaderAdapter implements Adapter {
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            'mini-css-extract-plugin': '0.8.0',
+            'mini-css-extract-plugin': '0.9.0',
             autoprefixer: '9.7.0',
             'sass-loader': '8.0.0',
             'resolve-url-loader': '3.1.0',
             'css-loader': '3.2.0',
             'postcss-loader': '3.0.0',
             cssnano: '4.1.10',
-            sass: '1.23.7',
+            sass: '1.26.0',
             fibers: '4.0.2',
         };
 
