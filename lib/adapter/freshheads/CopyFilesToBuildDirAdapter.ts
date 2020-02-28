@@ -50,9 +50,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
                 context: process.cwd(),
 
                 // @todo check why thie prefix is app/ below, and if we can change this to something else
-                to: isProduction
-                    ? 'app/[path][name].[hash].[ext]'
-                    : 'app/[path][name].[ext]',
+                to: 'app/[path][name].[hash].[ext]',
                 toType: 'template',
             });
         }
