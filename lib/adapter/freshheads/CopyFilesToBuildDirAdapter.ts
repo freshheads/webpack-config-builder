@@ -36,7 +36,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        builderConfig: BuilderConfig,
+        _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         const patterns: CopyPattern[] = [];
