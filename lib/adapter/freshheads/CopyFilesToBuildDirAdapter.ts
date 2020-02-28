@@ -40,18 +40,14 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
         next: NextCallback
     ) {
         const patterns: CopyPattern[] = [];
-        const isProduction = builderConfig.env === 'production';
 
         if (this.config.images) {
             patterns.push({
                 from: {
-                    glob: path.resolve(process.cwd(), 'src/images/**/*'),
+                    glob: '**/*',
                 },
-                context: process.cwd(),
-
-                // @todo check why thie prefix is app/ below, and if we can change this to something else
-                to: 'app/[path][name].[hash].[ext]',
-                toType: 'template',
+                context: path.resolve(process.cwd(), 'src/images/'), // context reference for path placeholder and from glob
+                to: 'images/[path][name].[contenthash].[ext]', // contenthash is required even on dev env as required by webpack_assets extension
             });
         }
 
