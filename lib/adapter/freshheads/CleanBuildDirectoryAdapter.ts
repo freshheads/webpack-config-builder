@@ -12,14 +12,14 @@ export default class CleanBuildDirectoryAdapter implements Adapter {
         validateIfRequiredModuleIsInstalled(
             'CleanBuildDirectoryAdapter',
             'clean-webpack-plugin',
-            '2.0.1'
+            '3.0.0'
         );
 
         if (typeof webpackConfig.plugins === 'undefined') {
             webpackConfig.plugins = [];
         }
 
-        const CleanWebpackPlugin = require('clean-webpack-plugin');
+        const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
         const pluginInstance: Plugin = new CleanWebpackPlugin({
             cleanStaleWebpackAssets: false,
