@@ -134,7 +134,7 @@ export default class SassLoaderAdapter implements Adapter {
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            'mini-css-extract-plugin': '0.8.0',
+            'mini-css-extract-plugin': '0.9.0',
             autoprefixer: '9.7.0',
             'sass-loader': '8.0.0',
             'resolve-url-loader': '3.1.0',
