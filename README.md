@@ -7,7 +7,6 @@ Uses an adapter pattern to build webpack configurations. This makes it possible 
 -   [Installation](#installation)
 -   [Configuration](#configuration)
 -   [API](#api)
--   [Adapters](#adapters)
 -   [Development](#development)
 
 ## Installation
@@ -20,7 +19,11 @@ npm install @freshheads/webpack-config-builder --save-dev
 
 ## Configuration
 
-Example:
+For development of [Freshheads](https://www.freshheads.com/) projects, it is sensible to start with a default stack adapter. Any change in configuration that is required for your specific project, and differs from the default stack, can be easily applied to the webpack configuration afterwards.
+
+### Start with default stack
+
+_Example:_
 
 ```javascript
 // webpack.config.js
@@ -63,12 +66,80 @@ builder
             javascript: {
                 enabled: true,
                 typescript: true,
+                react: true,
             },
         })
     );
 
-module.exports = builder.build();
+const config = builder.build();
+
+module.exports = config;
 ```
+
+**Tip!** Use node's [`utils.inspect`](https://nodejs.org/api/util.html#util_util_inspect_object_options) for easy inspecting of the output of `builder.build`:
+
+```javascript
+const config = builder.build();
+
+console.log(
+    require('util').inspect(config, { showHidden: false, depth: null })
+);
+```
+
+### Project-specific finetuning
+
+The default stack adapters allow for a lot of finetuning using configuration. Hoewever sometimes that is not enough and we need to make additional changes for our project.
+
+The `builder.build()` command outputs a configuration object that can be feeded to `webpack`. However it is also possible for you to modify it before you feed it to 'the beast'. You can do this by:
+
+1.  modifying the configuration manually afterwards. i.e.:
+
+    ```javascript
+    const config = builder.build();
+
+    config.module.rules.unshift({
+        test: /\.svg$/,
+        issuer: {
+            test: /.js?$/,
+        },
+        use: ['@svgr/webpack'],
+    });
+    ```
+
+2.  writing a (project) specific adapter to apply the changes and add it to the build chain:
+
+    ```javascript
+    builder
+        ...
+        .add(new DefaultStackAdapter({ ... })
+        .add(new MyCustomAdapter({ ... })
+    ```
+
+    Add it at the point in the build chain where you require it to be, and make sure it implements the required [`Adapter`](https://github.com/freshheads/webpack-config-builder/blob/master/lib/adapter/Adapter.d.ts) interface, otherwise it will probably not work as expected.
+
+3.  instead of finetuning or removing already applied configuration, make sure they the correct changes are applied in the first place. The [`DefaultStackAdapter`](https://github.com/freshheads/webpack-config-builder/blob/master/lib/adapter/freshheads/DefaultStackAdapter.ts) and many adapters are in fact convenience collections of other, smaller adapters that you can also apply seperately for finegrained configuration creation. I.e.:
+
+    ```javascript
+    builder
+        ...
+    //    .add(new DefaultStackAdapter({ ... }))
+        .add(new TargetAdapter('web'))
+        .add(new ModeAdapter(isProduction ? 'production' : 'development'))
+        .add(new ResolveAdapter())
+        .add(new CleanBuildDirectoryAdapter())
+        .add(new SourcemapAdapter())
+        .add(new DefineEnvironmentVariablesAdapter())
+        .add(new WatchOptionsAdapter())
+        .add(
+            new OptimizationAdapter({
+                splitChunks: {
+                    automaticNameDelimiter: '-',
+                },
+            })
+        )
+    ```
+
+    Look into the source code for more information of the possibilities.
 
 ## API
 
@@ -88,28 +159,11 @@ Methods:
 | `add(adapter: Adapter): Builder` | Adds an adapter to the builder, and adds it to the queue of to be executed adapters.                                                    |
 | `build()`                        | Executes all with `add()` added adapters, and executes them one by one, passing in the webpack configuration and builder configuration. |
 
-### Types
+### Adapters
 
-Also see Typescript definitions in the [repository](https://github.com/freshheads/webpack-config-builder).
+For the general, finegrained adapters, see the [Webpack documentation](https://webpack.js.org/configuration). They should be pretty easy to apply as each adapter represents an entry key of the webpack config.
 
-```typescript
-export enum Environment {
-    Dev = 'dev',
-    Production = 'production',
-}
-
-type BuilderConfig {
-    env: Environment;
-}
-```
-
-## Adapters
-
-### General
-
-For the general adapters, see the [Webpack documentation](https://webpack.js.org/configuration). They should be pretty easy to apply as each adapter represents an entry key of the webpack config.
-
-### Freshheads defaults
+The adapters in the [`./freshheads`](https://github.com/freshheads/webpack-config-builder/tree/master/lib/adapter/freshheads) folder of the repository are [Freshheads](https://www.freshheads.com/) specific, and serve as examples and project startup setups.
 
 ## Development
 
@@ -133,4 +187,4 @@ Watch for test results:
 npm run test:watch
 ```
 
-Make sure that files are build first, as the tests are executed on them, to make sure that these are correct.
+Make sure that files are build first, as the tests are executed on the build files, to make sure that these are correct.
