@@ -24,7 +24,6 @@ export const DEFAULT_CONFIG: Config = {
     },
     sassLoaderOptions: {
         sourceMap: true,
-        implementation: require('sass'), // prefer `dart-sass` instead of `node-sass` in case both are installed
     },
 };
 
@@ -41,6 +40,10 @@ export default class SassLoaderAdapter implements Adapter {
         next: NextCallback
     ) {
         this.validateAllRequiredModulesAreInstalled();
+        // add implementation here instead of directly in DEFAULT_CONFIG. 
+        // If added in DEFAULT_CONFIG the require tries to import sass even though sass is disabled.
+        // This causes problems when sass isn't installed.
+        this.config.sassLoaderOptions.implementation = require('sass'); // prefer `dart-sass` instead of `node-sass` in case both are installed
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = { rules: [] };
