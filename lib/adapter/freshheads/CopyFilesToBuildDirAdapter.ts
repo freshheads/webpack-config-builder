@@ -57,7 +57,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
             validateIfRequiredModuleIsInstalled(
                 'CopyFilesToBuildDirAdapter',
                 'copy-webpack-plugin',
-                '5.0.2'
+                '5.1.1'
             );
 
             const CopyWebpackPlugin = require('copy-webpack-plugin');
