@@ -36,6 +36,9 @@ describe('FreshheadsCssAdapter', () => {
                     loader: 'css-loader',
                     options: {
                         sourceMap: true,
+                        modules: {
+                            auto: true,
+                        },
                     },
                 });
             });
@@ -142,6 +145,9 @@ describe('FreshheadsCssAdapter', () => {
                 loader: 'css-loader',
                 options: {
                     sourceMap: true,
+                    modules: {
+                        auto: true,
+                    },
                     url: true,
                 },
             });
