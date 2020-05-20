@@ -20,7 +20,6 @@ export const DEFAULT_CONFIG: Config = {
     },
 };
 
-// @todo fix tests
 export default class SassLoaderAdapter implements Adapter {
     private config: Config;
 

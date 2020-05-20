@@ -28,12 +28,10 @@ describe('FreshheadsSassLoaderAdapter', () => {
                 const use = onlyRule.use;
 
                 expect(Array.isArray(use)).toBe(true);
-                expect(use).toHaveLength(5);
+                expect(use).toHaveLength(2);
 
-                expect(use[1]).toHaveProperty('loader', 'css-loader');
-                expect(use[2]).toHaveProperty('loader', 'postcss-loader');
-                expect(use[3]).toHaveProperty('loader', 'resolve-url-loader');
-                expect(use[4]).toHaveProperty('loader', 'sass-loader');
+                expect(use[0]).toHaveProperty('loader', 'resolve-url-loader');
+                expect(use[1]).toHaveProperty('loader', 'sass-loader');
             });
 
             it("should call the 'next' callback", done => {
@@ -48,12 +46,7 @@ describe('FreshheadsSassLoaderAdapter', () => {
 
             beforeEach(() => {
                 adapter = new FreshheadsSassLoaderAdapter({
-                    cssLoaderOptions: {
-                        sourceMap: false,
-                        modules: {
-                            auto: true,
-                        },
-                    },
+                    enabled: true,
                     sassLoaderOptions: {
                         sourceMap: false,
                     },
@@ -79,12 +72,10 @@ describe('FreshheadsSassLoaderAdapter', () => {
                 const use = onlyRule.use;
 
                 expect(Array.isArray(use)).toBe(true);
-                expect(use).toHaveLength(5);
+                expect(use).toHaveLength(2);
 
-                expect(use[1]).toHaveProperty('loader', 'css-loader');
-                expect(use[2]).toHaveProperty('loader', 'postcss-loader');
-                expect(use[3]).toHaveProperty('loader', 'resolve-url-loader');
-                expect(use[4]).toHaveProperty('loader', 'sass-loader');
+                expect(use[0]).toHaveProperty('loader', 'resolve-url-loader');
+                expect(use[1]).toHaveProperty('loader', 'sass-loader');
             });
 
             it("should call the 'next' callback", done => {

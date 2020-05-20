@@ -20,13 +20,11 @@ export const DEFAULT_CONFIG: Config = {
     cssLoaderOptions: {
         sourceMap: true,
         modules: {
-            auto: true, // enable css modules for filenames that contain .module.css
+            auto: true, // enable css modules for filenames that contain .module.(s)css
         },
     },
     sass: DEFAULT_SASS_CONFIG,
 };
-
-// @todo fix tests
 
 export default class CssAdapter implements Adapter {
     private config: Config;
