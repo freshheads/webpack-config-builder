@@ -50,6 +50,9 @@ describe('FreshheadsSassLoaderAdapter', () => {
                 adapter = new FreshheadsSassLoaderAdapter({
                     cssLoaderOptions: {
                         sourceMap: false,
+                        modules: {
+                            auto: true,
+                        },
                     },
                     sassLoaderOptions: {
                         sourceMap: false,
