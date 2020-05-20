@@ -4,11 +4,16 @@ import deepmerge from 'deepmerge';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig, Environment } from '../../Builder';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
-import { Builder } from '../..';
 import { iterateObjectValues } from '../../utility/iterationHelper';
+import { checkPluginInstanceIsInWebpackConfig } from '../../utility/webpackConfigHelper';
+import SassLoaderAdapter, {
+    Config as SassConfig,
+    DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
+} from './SassLoaderAdapter';
 
 export type Config = {
     cssLoaderOptions: { [key: string]: any };
+    sass: SassConfig;
 };
 
 export const DEFAULT_CONFIG: Config = {
@@ -18,7 +23,10 @@ export const DEFAULT_CONFIG: Config = {
             auto: true, // enable css modules for filenames that contain .module.css
         },
     },
+    sass: DEFAULT_SASS_CONFIG,
 };
+
+// @todo fix tests
 
 export default class CssAdapter implements Adapter {
     private config: Config;
@@ -43,7 +51,7 @@ export default class CssAdapter implements Adapter {
         const isProduction = builderConfig.env === Environment.Production;
 
         const rule: RuleSetRule = {
-            test: /\.css$/,
+            test: /\.s?css$/,
             use: [
                 {
                     loader: require('mini-css-extract-plugin').loader,
@@ -83,29 +91,31 @@ export default class CssAdapter implements Adapter {
 
         next();
 
-        if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
-            const internalBuilder = new Builder(builderConfig, webpackConfig);
-            internalBuilder.add(new ExtractCssPluginAdapter());
+        if (this.config.sass.enabled) {
+            new SassLoaderAdapter(this.config.sass).apply(
+                webpackConfig,
+                builderConfig,
+                () => {}
+            );
+        }
 
-            internalBuilder.build();
+        if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
+            new ExtractCssPluginAdapter().apply(
+                webpackConfig,
+                builderConfig,
+                () => {}
+            );
         }
     }
 
     private checkMiniCssExtractPluginIsInWebpackConfig(
         webpackConfig: Configuration
     ): boolean {
-        if (typeof webpackConfig.plugins === 'undefined') {
-            return false;
-        }
-
         const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-        const plugins = webpackConfig.plugins;
-
-        return (
-            plugins.findIndex(
-                plugin => plugin instanceof MiniCssExtractPlugin
-            ) !== -1
+        return checkPluginInstanceIsInWebpackConfig(
+            MiniCssExtractPlugin,
+            webpackConfig
         );
     }
 

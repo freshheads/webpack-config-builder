@@ -55,9 +55,6 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
             },
         ],
     },
-    sass: {
-        enabled: true,
-    },
     javascript: {
         enabled: true,
         babelConfig: {
