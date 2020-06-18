@@ -1,10 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, Resolve } from 'webpack';
 import Builder, { BuilderConfig, Environment } from '../../Builder';
-import SassAdapter, {
-    Config as SassConfig,
-    DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
-} from './SassAdapter';
 import LoadReferencedFilesAdapter, {
     Config as LoadReferencedFilesConfig,
     DEFAULT_CONFIG as DEFAULT_FILES_CONFIG,
@@ -41,7 +37,6 @@ type EnabledConfig = {
 export type Config = {
     resolve: Resolve;
     loadReferencedFiles: EnabledConfig & LoadReferencedFilesConfig;
-    sass: EnabledConfig & SassConfig;
     css: EnabledConfig & CssConfig;
     javascript: EnabledConfig & JavascriptConfig;
     copyFilesToBuildDir: EnabledConfig & CopyFilesConfig;
@@ -54,10 +49,6 @@ const DEFAULT_CONFIG: Config = {
     loadReferencedFiles: {
         enabled: true,
         ...DEFAULT_FILES_CONFIG,
-    },
-    sass: {
-        enabled: true,
-        ...DEFAULT_SASS_CONFIG,
     },
     css: {
         enabled: true,
@@ -119,10 +110,6 @@ export default class DefaultStackAdapter implements Adapter {
             builder.add(
                 new CopyFilesToBuildDirAdapter(this.config.copyFilesToBuildDir)
             );
-        }
-
-        if (this.config.sass.enabled) {
-            builder.add(new SassAdapter(this.config.sass));
         }
 
         if (this.config.css.enabled) {

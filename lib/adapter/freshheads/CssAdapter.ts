@@ -4,20 +4,26 @@ import deepmerge from 'deepmerge';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 import { BuilderConfig, Environment } from '../../Builder';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
-import { Builder } from '../..';
 import { iterateObjectValues } from '../../utility/iterationHelper';
+import SassLoaderAdapter, {
+    Config as SassConfig,
+    DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
+} from './SassLoaderAdapter';
+import { Builder } from '../../index';
 
 export type Config = {
     cssLoaderOptions: { [key: string]: any };
+    sass: SassConfig;
 };
 
 export const DEFAULT_CONFIG: Config = {
     cssLoaderOptions: {
         sourceMap: true,
         modules: {
-            auto: true, // enable css modules for filenames that contain .module.css
+            auto: true, // enable css modules for filenames that contain .module.(s)css
         },
     },
+    sass: DEFAULT_SASS_CONFIG,
 };
 
 export default class CssAdapter implements Adapter {
@@ -32,7 +38,12 @@ export default class CssAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
+        const builder = new Builder(builderConfig, webpackConfig);
+
         this.validateAllRequiredModulesAreInstalled();
+
+        // add extract css before rules because extract plugin is also required as loader
+        builder.add(new ExtractCssPluginAdapter());
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = {
@@ -43,7 +54,7 @@ export default class CssAdapter implements Adapter {
         const isProduction = builderConfig.env === Environment.Production;
 
         const rule: RuleSetRule = {
-            test: /\.css$/,
+            test: this.config.sass.enabled ? /\.s?css$/ : /\.css$/,
             use: [
                 {
                     loader: require('mini-css-extract-plugin').loader,
@@ -81,37 +92,18 @@ export default class CssAdapter implements Adapter {
 
         webpackConfig.module.rules.push(rule);
 
+        if (this.config.sass.enabled) {
+            builder.add(new SassLoaderAdapter(this.config.sass));
+
+        }
+
+        builder.build();
+
         next();
-
-        if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
-            const internalBuilder = new Builder(builderConfig, webpackConfig);
-            internalBuilder.add(new ExtractCssPluginAdapter());
-
-            internalBuilder.build();
-        }
-    }
-
-    private checkMiniCssExtractPluginIsInWebpackConfig(
-        webpackConfig: Configuration
-    ): boolean {
-        if (typeof webpackConfig.plugins === 'undefined') {
-            return false;
-        }
-
-        const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-        const plugins = webpackConfig.plugins;
-
-        return (
-            plugins.findIndex(
-                plugin => plugin instanceof MiniCssExtractPlugin
-            ) !== -1
-        );
     }
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            'mini-css-extract-plugin': '0.9.0',
             autoprefixer: '9.7.0',
             'css-loader': '3.4.0',
             'postcss-loader': '3.0.0',

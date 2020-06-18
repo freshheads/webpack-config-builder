@@ -9,7 +9,14 @@ describe('FreshheadsCssAdapter', () => {
     describe('With default configuration', () => {
         describe('...environment independent', () => {
             it('should set the correct defaults', () => {
-                const adapter = new FreshheadsCssAdapter();
+                // disable sass to be sure this adapter can be tested isolated
+                const config = {
+                    sass: {
+                        enabled: false,
+                    },
+                };
+
+                const adapter = new FreshheadsCssAdapter(config);
                 const webpackConfig = {};
 
                 adapter.apply(webpackConfig, { env: 'production' }, () => {});
@@ -46,7 +53,14 @@ describe('FreshheadsCssAdapter', () => {
 
         describe('..for the production environment', () => {
             it('should set the correct defaults', () => {
-                const adapter = new FreshheadsCssAdapter();
+                // disable sass to be sure this adapter can be tested isolated
+                const config = {
+                    sass: {
+                        enabled: false,
+                    },
+                };
+
+                const adapter = new FreshheadsCssAdapter(config);
                 const webpackConfig = {};
 
                 adapter.apply(webpackConfig, { env: 'production' }, () => {});
@@ -65,7 +79,14 @@ describe('FreshheadsCssAdapter', () => {
 
         describe('..for the development environment', () => {
             it('should set the correct defaults', () => {
-                const adapter = new FreshheadsCssAdapter();
+                // disable sass to be sure this adapter can be tested isolated
+                const config = {
+                    sass: {
+                        enabled: false,
+                    },
+                };
+
+                const adapter = new FreshheadsCssAdapter(config);
                 const webpackConfig = {};
 
                 adapter.apply(webpackConfig, { env: 'dev' }, () => {});
@@ -131,6 +152,9 @@ describe('FreshheadsCssAdapter', () => {
                 cssLoaderOptions: {
                     url: true,
                 },
+                sass: {
+                    enabled: false,
+                },
             };
 
             const adapter = new FreshheadsCssAdapter(config);
@@ -151,6 +175,27 @@ describe('FreshheadsCssAdapter', () => {
                     url: true,
                 },
             });
+        });
+    });
+
+    describe('With sass enabled', () => {
+        it('should add the correct test statements', () => {
+            const config = {
+                sass: {
+                    enabled: true,
+                },
+            };
+
+            const adapter = new FreshheadsCssAdapter(config);
+            const webpackConfig = {};
+
+            adapter.apply(webpackConfig, { env: 'dev' }, () => {});
+
+            // rule two is added when Sass Loader Adapter gets added
+            const lastTwoRules = webpackConfig.module.rules.slice(-2);
+
+            expect(lastTwoRules[0].test).toEqual(/\.s?css$/);
+            expect(lastTwoRules[1].test).toEqual(/\.scss$/);
         });
     });
 
