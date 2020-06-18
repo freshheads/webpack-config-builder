@@ -10,6 +10,7 @@ import SassLoaderAdapter, {
     Config as SassConfig,
     DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
 } from './SassLoaderAdapter';
+import { Builder } from '../../index';
 
 export type Config = {
     cssLoaderOptions: { [key: string]: any };
@@ -38,6 +39,8 @@ export default class CssAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
+        const builder = new Builder(builderConfig, webpackConfig);
+
         this.validateAllRequiredModulesAreInstalled();
 
         if (typeof webpackConfig.module === 'undefined') {
@@ -49,7 +52,7 @@ export default class CssAdapter implements Adapter {
         const isProduction = builderConfig.env === Environment.Production;
 
         const rule: RuleSetRule = {
-            test: /\.s?css$/,
+            test: this.config.sass.enabled ? /\.s?css$/ : /\.css$/,
             use: [
                 {
                     loader: require('mini-css-extract-plugin').loader,
@@ -87,23 +90,18 @@ export default class CssAdapter implements Adapter {
 
         webpackConfig.module.rules.push(rule);
 
-        next();
-
         if (this.config.sass.enabled) {
-            new SassLoaderAdapter(this.config.sass).apply(
-                webpackConfig,
-                builderConfig,
-                () => {}
-            );
+            builder.add(new SassLoaderAdapter(this.config.sass));
+
         }
 
         if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
-            new ExtractCssPluginAdapter().apply(
-                webpackConfig,
-                builderConfig,
-                () => {}
-            );
+            builder.add(new ExtractCssPluginAdapter());
         }
+
+        builder.build();
+
+        next();
     }
 
     private checkMiniCssExtractPluginIsInWebpackConfig(
