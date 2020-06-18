@@ -5,7 +5,6 @@ import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper'
 import { BuilderConfig, Environment } from '../../Builder';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { iterateObjectValues } from '../../utility/iterationHelper';
-import { checkPluginInstanceIsInWebpackConfig } from '../../utility/webpackConfigHelper';
 import SassLoaderAdapter, {
     Config as SassConfig,
     DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
@@ -42,6 +41,9 @@ export default class CssAdapter implements Adapter {
         const builder = new Builder(builderConfig, webpackConfig);
 
         this.validateAllRequiredModulesAreInstalled();
+
+        // add extract css before rules because extract plugin is also required as loader
+        builder.add(new ExtractCssPluginAdapter());
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = {
@@ -95,29 +97,13 @@ export default class CssAdapter implements Adapter {
 
         }
 
-        if (!this.checkMiniCssExtractPluginIsInWebpackConfig(webpackConfig)) {
-            builder.add(new ExtractCssPluginAdapter());
-        }
-
         builder.build();
 
         next();
     }
 
-    private checkMiniCssExtractPluginIsInWebpackConfig(
-        webpackConfig: Configuration
-    ): boolean {
-        const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-        return checkPluginInstanceIsInWebpackConfig(
-            MiniCssExtractPlugin,
-            webpackConfig
-        );
-    }
-
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            'mini-css-extract-plugin': '0.9.0',
             autoprefixer: '9.7.0',
             'css-loader': '3.4.0',
             'postcss-loader': '3.0.0',
