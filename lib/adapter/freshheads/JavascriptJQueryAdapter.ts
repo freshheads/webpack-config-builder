@@ -12,7 +12,7 @@ export default class JavascriptJQueryAdapter implements Adapter {
         validateIfRequiredModuleIsInstalled(
             'JavascriptJQueryAdapter',
             'jquery',
-            '3.4.0'
+            '3.5.1'
         );
 
         if (typeof webpackConfig.plugins === 'undefined') {
