@@ -81,7 +81,7 @@ describe('FreshheadsOutputAdapter', () => {
     });
 
     describe('When done', () => {
-        it("should call the 'next' callback", done => {
+        it("should call the 'next' callback", (done) => {
             const adapter = new FreshheadsOutputAdapter();
 
             const callback = () => {

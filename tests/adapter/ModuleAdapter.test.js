@@ -40,7 +40,7 @@ describe('ModuleAdapter', () => {
     });
 
     describe('When done', () => {
-        it("should call the 'next' callback", done => {
+        it("should call the 'next' callback", (done) => {
             const callback = () => {
                 done();
             };

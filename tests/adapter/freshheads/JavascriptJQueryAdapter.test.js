@@ -25,7 +25,7 @@ describe('JavascriptJQueryAdapter', () => {
             expect(firstPlugin).toBeInstanceOf(ProvidePlugin);
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const webpackConfig = {};
 
             const nextCallback = () => {

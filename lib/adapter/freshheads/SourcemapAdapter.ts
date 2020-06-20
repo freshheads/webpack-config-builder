@@ -20,7 +20,9 @@ export default class SourcemapAdapter implements Adapter {
 
     private validateNoOtherDevtoolIsApplied(webpackConfig: Configuration) {
         if (webpackConfig.devtool) {
-            warn('A webpack devtool is already set. If set again, it will replace the previous one.');
+            warn(
+                'A webpack devtool is already set. If set again, it will replace the previous one.'
+            );
         }
     }
 }

@@ -19,7 +19,7 @@ describe('FreshheadsTypescriptAdapter', () => {
     });
 
     describe('When done', () => {
-        it("should call the 'next' callback", done => {
+        it("should call the 'next' callback", (done) => {
             const adapter = new FreshheadsTypescriptAdapter();
 
             const callback = () => {

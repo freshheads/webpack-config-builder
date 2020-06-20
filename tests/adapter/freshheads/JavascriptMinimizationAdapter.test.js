@@ -20,7 +20,7 @@ describe('FreshheadsJavascriptMinimizationAdapter', () => {
                 expect(webpackConfig).not.toHaveProperty('plugins');
             });
 
-            it("should call the 'next' callback afterwards", done => {
+            it("should call the 'next' callback afterwards", (done) => {
                 const webpackConfig = {};
 
                 const nextCallback = () => done();
@@ -49,7 +49,7 @@ describe('FreshheadsJavascriptMinimizationAdapter', () => {
                 expect(minimizer).toBeInstanceOf(TerserPlugin);
             });
 
-            it("should call the 'next' callback afterwards", done => {
+            it("should call the 'next' callback afterwards", (done) => {
                 const webpackConfig = {};
 
                 const nextCallback = () => done();

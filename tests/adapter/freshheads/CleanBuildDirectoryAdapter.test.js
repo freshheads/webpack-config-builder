@@ -27,7 +27,7 @@ describe('FreshheadsCleanBuildDirectoryAdapter', () => {
             expect(firstPlugin).toBeInstanceOf(CleanWebpackPlugin);
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const webpackConfig = {};
 
             const nextCallback = () => {

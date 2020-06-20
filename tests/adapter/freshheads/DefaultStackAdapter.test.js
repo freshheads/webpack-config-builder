@@ -25,7 +25,7 @@ describe('FreshheadsDefaultStackAdapter', () => {
 
             expect(rules).toHaveLength(4);
 
-            rules.forEach(rule => {
+            rules.forEach((rule) => {
                 expect(rule).toHaveProperty('test');
             });
         });
@@ -46,7 +46,7 @@ describe('FreshheadsDefaultStackAdapter', () => {
             });
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const callback = () => done();
 
             adapter.apply({}, builderConfig, callback);
@@ -75,11 +75,11 @@ describe('FreshheadsDefaultStackAdapter', () => {
             expect(Array.isArray(plugins)).toBe(true);
 
             const positionStatsWriterPlugin = plugins.findIndex(
-                item => item instanceof StatsWriterPlugin
+                (item) => item instanceof StatsWriterPlugin
             );
 
             const positionCopyPlugin = plugins.findIndex(
-                item => item instanceof CopyWebpackPlugin
+                (item) => item instanceof CopyWebpackPlugin
             );
 
             expect(positionStatsWriterPlugin).toBeGreaterThan(

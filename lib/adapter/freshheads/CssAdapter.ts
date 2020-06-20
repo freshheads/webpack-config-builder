@@ -94,7 +94,6 @@ export default class CssAdapter implements Adapter {
 
         if (this.config.sass.enabled) {
             builder.add(new SassLoaderAdapter(this.config.sass));
-
         }
 
         builder.build();

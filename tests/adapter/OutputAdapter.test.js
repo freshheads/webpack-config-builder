@@ -50,7 +50,7 @@ describe('OutputAdapter', () => {
             jest.spyOn(global.console, 'warn');
         });
 
-        it('should call the next() callback after updating the config', done => {
+        it('should call the next() callback after updating the config', (done) => {
             const nextCallback = () => {
                 done();
             };

@@ -37,7 +37,7 @@ describe('FreshheadsCopyFilesToBuildDirAdapter', () => {
             });
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const webpackConfig = {};
 
             const nextCallback = () => {
@@ -73,7 +73,7 @@ describe('FreshheadsCopyFilesToBuildDirAdapter', () => {
             expect(onlyPlugin).toBeInstanceOf(CopyWebpackPlugin);
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const webpackConfig = {};
 
             const nextCallback = () => {
