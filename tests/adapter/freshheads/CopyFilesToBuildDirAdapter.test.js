@@ -24,7 +24,15 @@ describe('FreshheadsCopyFilesToBuildDirAdapter', () => {
         describe('...and with other plugins applied', () => {
             it('should not add the plugin to the configuration', () => {
                 const webpackConfig = {
-                    plugins: [new CopyWebpackPlugin()],
+                    plugins: [
+                        new CopyWebpackPlugin({
+                            patterns: [
+                                {
+                                    from: '**/*',
+                                },
+                            ],
+                        }),
+                    ],
                 };
 
                 adapter.apply(webpackConfig, { env: 'production' }, () => {});
