@@ -39,6 +39,9 @@ describe('FreshheadsBabelLoaderAdapter', () => {
 
                 const adapter = new FreshheadsBabelLoaderAdapter({
                     include: customInclude,
+                    loaderOptions: {
+                        rootMode: 'upward',
+                    },
                 });
 
                 const webpackConfig = {};
@@ -66,6 +69,7 @@ describe('FreshheadsBabelLoaderAdapter', () => {
 
                 expect(onlyUse).toHaveProperty('loader', 'babel-loader');
                 expect(onlyUse).toHaveProperty('options');
+                expect(onlyUse.options).toHaveProperty('rootMode', 'upward');
             });
         });
 

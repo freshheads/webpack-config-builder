@@ -2,7 +2,7 @@ const { FreshheadsJavascriptAdapter } = require('../../../build/index');
 const ProvidePlugin = require('webpack').ProvidePlugin;
 
 describe('FreshheadsJavascriptAdapter', () => {
-    describe('Without customn configuration', () => {
+    describe('Without custom configuration', () => {
         it('should set the correct defaults', () => {
             const adapter = new FreshheadsJavascriptAdapter();
             const webpackConfig = {};
@@ -39,6 +39,9 @@ describe('FreshheadsJavascriptAdapter', () => {
             const adapter = new FreshheadsJavascriptAdapter({
                 babelConfig: {
                     include: ['./test', './anders'],
+                    loaderOptions: {
+                        rootMode: 'upward',
+                    },
                 },
                 jQuery: {
                     enabled: true,
@@ -73,6 +76,12 @@ describe('FreshheadsJavascriptAdapter', () => {
 
             expect(firstUse).toHaveProperty('loader', 'babel-loader');
             expect(firstUse).toHaveProperty('options');
+
+            const options = firstUse.options;
+
+            expect(options).toHaveProperty('rootMode', 'upward');
+
+            expect(options).toHaveProperty('cacheDirectory', true);
 
             const plugins = webpackConfig.plugins;
 

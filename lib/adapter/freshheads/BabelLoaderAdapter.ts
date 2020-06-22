@@ -7,10 +7,17 @@ import { iterateObjectValues } from '../../utility/iterationHelper';
 
 export type Config = {
     include: string[];
+    loaderOptions: {
+        cacheDirectory: boolean;
+        [key: string]: any;
+    };
 };
 
 export const DEFAULT_CONFIG: Config = {
     include: [path.resolve(process.cwd(), 'src/js')],
+    loaderOptions: {
+        cacheDirectory: true, // For performance @see https://github.com/babel/babel-loader#babel-loader-is-slow
+    }
 };
 
 export default class BabelLoaderAdapter implements Adapter {
@@ -42,10 +49,7 @@ export default class BabelLoaderAdapter implements Adapter {
             use: [
                 {
                     loader: 'babel-loader',
-                    options: {
-                        // For performance @see https://github.com/babel/babel-loader#babel-loader-is-slow
-                        cacheDirectory: true,
-                    },
+                    options: this.config.loaderOptions,
                 },
             ],
         };
