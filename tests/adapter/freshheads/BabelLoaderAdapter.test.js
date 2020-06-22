@@ -75,7 +75,7 @@ describe('FreshheadsBabelLoaderAdapter', () => {
             });
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const adapter = new FreshheadsBabelLoaderAdapter();
             const webpackConfig = {};
 

@@ -28,7 +28,7 @@ describe('FreshheadsWriteBuildStatsToFileAdapter', () => {
             expect(onlyPlugin).toBeInstanceOf(StatsWriterPlugin);
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const nextCallback = () => done();
 
             adapter.apply({}, { env: 'production' }, nextCallback);

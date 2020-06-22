@@ -200,7 +200,7 @@ describe('FreshheadsCssAdapter', () => {
     });
 
     describe('When done', () => {
-        it("should call the 'next' callback", done => {
+        it("should call the 'next' callback", (done) => {
             const adapter = new FreshheadsCssAdapter();
 
             const callback = () => {

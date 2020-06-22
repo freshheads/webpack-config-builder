@@ -11,6 +11,7 @@ export function checkPluginInstanceIsInWebpackConfig(
     const plugins = webpackConfig.plugins;
 
     return (
-        plugins.findIndex(cursorPlugin => cursorPlugin instanceof plugin) !== -1
+        plugins.findIndex((cursorPlugin) => cursorPlugin instanceof plugin) !==
+        -1
     );
 }

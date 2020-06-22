@@ -34,7 +34,7 @@ describe('FreshheadsSassLoaderAdapter', () => {
                 expect(use[1]).toHaveProperty('loader', 'sass-loader');
             });
 
-            it("should call the 'next' callback", done => {
+            it("should call the 'next' callback", (done) => {
                 const callback = () => done();
 
                 adapter.apply({}, { env: 'production' }, callback);
@@ -78,7 +78,7 @@ describe('FreshheadsSassLoaderAdapter', () => {
                 expect(use[1]).toHaveProperty('loader', 'sass-loader');
             });
 
-            it("should call the 'next' callback", done => {
+            it("should call the 'next' callback", (done) => {
                 const callback = () => done();
 
                 adapter.apply({}, { env: 'production' }, callback);

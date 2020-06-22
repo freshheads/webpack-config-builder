@@ -4,19 +4,27 @@ import { BuilderConfig } from '../../Builder';
 import path from 'path';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
-// @todo use types from @types/copy-webpack-plugin instead (cannot export CopyPattern right now)
-type CopyPattern = {
-    from: {
-        glob: string;
-    };
-    context?: string;
+// @todo use types from @types/copy-webpack-plugin instead (cannot export StringPattern / ObjectPattern right now)
+type StringPattern = string;
+interface ObjectPattern {
+    from: string;
     to?: string;
+    context?: string;
+    globOptions?: object;
     toType?: 'file' | 'dir' | 'template';
-};
+    force?: boolean;
+    flatten?: boolean;
+    transform?: (content: Buffer, absoluteFrom: string) => string | Buffer | Promise<string | Buffer>;
+    cacheTransform?: boolean | string | object;
+    transformPath?: (targetPath: string, absolutePath: string) => string | Promise<string>;
+    noErrorOnMissing?: boolean;
+}
+
+type AdditionalPatterns = Array<StringPattern | ObjectPattern>
 
 export type Config = {
     images: boolean;
-    additionalPatterns: CopyPattern[];
+    additionalPatterns: AdditionalPatterns;
 };
 
 export const DEFAULT_CONFIG: Config = {
@@ -39,13 +47,11 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
         _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        const patterns: CopyPattern[] = [];
+        const patterns: AdditionalPatterns = [];
 
         if (this.config.images) {
             patterns.push({
-                from: {
-                    glob: '**/*',
-                },
+                from: '**/*',
                 context: path.resolve(process.cwd(), 'src/images/'), // context reference for path placeholder and from glob
                 to: 'images/[path][name].[contenthash].[ext]', // contenthash is required even on dev env as required by webpack_assets extension
             });
@@ -57,7 +63,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
             validateIfRequiredModuleIsInstalled(
                 'CopyFilesToBuildDirAdapter',
                 'copy-webpack-plugin',
-                '5.1.1'
+                '6.0.0'
             );
 
             const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -66,15 +72,12 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
                 webpackConfig.plugins = [];
             }
 
-            const options = {
-                copyUnmodified: true,
-            };
+            const options = {};
 
-            const pluginInstance: Plugin = new CopyWebpackPlugin(
-                // @ts-ignore -> mutes strange error about 'toType' not being allowed -> @todo fix this somehow?
+            const pluginInstance: Plugin = new CopyWebpackPlugin({
                 patterns,
                 options
-            );
+            });
 
             webpackConfig.plugins.push(pluginInstance);
         }

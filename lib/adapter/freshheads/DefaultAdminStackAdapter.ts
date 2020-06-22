@@ -39,12 +39,10 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
         // Copies assets from admin-bundle to build dir
         additionalPatterns: [
             {
-                from: {
-                    glob: path.resolve(
+                from: path.resolve(
                         process.cwd(),
                         '../../vendor/freshheads/admin-bundle/Resources/public/assets/images/**/*'
-                    ),
-                },
+                ),
                 context: path.resolve(
                     process.cwd(),
                     '../../vendor/freshheads/admin-bundle/Resources/public/assets/'

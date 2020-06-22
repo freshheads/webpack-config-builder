@@ -24,7 +24,15 @@ describe('FreshheadsCopyFilesToBuildDirAdapter', () => {
         describe('...and with other plugins applied', () => {
             it('should not add the plugin to the configuration', () => {
                 const webpackConfig = {
-                    plugins: [new CopyWebpackPlugin()],
+                    plugins: [
+                        new CopyWebpackPlugin({
+                            patterns: [
+                                {
+                                    from: '**/*',
+                                },
+                            ],
+                        }),
+                    ],
                 };
 
                 adapter.apply(webpackConfig, { env: 'production' }, () => {});
@@ -37,7 +45,7 @@ describe('FreshheadsCopyFilesToBuildDirAdapter', () => {
             });
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const webpackConfig = {};
 
             const nextCallback = () => {
@@ -73,7 +81,7 @@ describe('FreshheadsCopyFilesToBuildDirAdapter', () => {
             expect(onlyPlugin).toBeInstanceOf(CopyWebpackPlugin);
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const webpackConfig = {};
 
             const nextCallback = () => {

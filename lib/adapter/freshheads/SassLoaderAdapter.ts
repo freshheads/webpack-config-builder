@@ -6,7 +6,7 @@ import deepmerge from 'deepmerge';
 import { iterateObjectValues } from '../../utility/iterationHelper';
 
 export type Config = {
-    enabled: boolean,
+    enabled: boolean;
     sassLoaderOptions: {
         sourceMap: boolean;
         [key: string]: any;

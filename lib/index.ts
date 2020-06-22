@@ -12,54 +12,20 @@ export { default as WatchOptionsAdapter } from './adapter/WatchOptionsAdapter';
 export { default as ModuleAdapter } from './adapter/ModuleAdapter';
 
 // Freshheads specific adapters @todo move to seperate library
-export {
-    default as FreshheadsSourcemapAdapter,
-} from './adapter/freshheads/SourcemapAdapter';
-export {
-    default as FreshheadsOutputAdapter,
-} from './adapter/freshheads/OutputAdapter';
-export {
-    default as FreshheadsLoadReferencedFilesAdapter,
-} from './adapter/freshheads/LoadReferencedFilesAdapter';
-export {
-    default as FreshheadsCssAdapter,
-} from './adapter/freshheads/CssAdapter';
-export {
-    default as FreshheadsJavascriptAdapter,
-} from './adapter/freshheads/JavascriptAdapter';
-export {
-    default as FreshheadsTypescriptAdapter,
-} from './adapter/freshheads/TypescriptAdapter';
-export {
-    default as FreshheadsCleanBuildDirectoryAdapter,
-} from './adapter/freshheads/CleanBuildDirectoryAdapter';
-export {
-    default as FreshheadsCopyFilesToBuildDirAdapter,
-} from './adapter/freshheads/CopyFilesToBuildDirAdapter';
-export {
-    default as FreshheadsWriteBuildStatsToFileAdapter,
-} from './adapter/freshheads/WriteBuildStatsToFileAdapter';
-export {
-    default as FreshheadsDefineEnvironmentVariablesAdapter,
-} from './adapter/freshheads/DefineEnvironmentVariablesAdapter';
-export {
-    default as FreshheadsExtractCssPluginAdapter,
-} from './adapter/freshheads/ExtractCssPluginAdapter';
-export {
-    default as FreshheadsDefaultStackAdapter,
-} from './adapter/freshheads/DefaultStackAdapter';
-export {
-    default as FreshheadsDefaultAdminStackAdapter,
-} from './adapter/freshheads/DefaultAdminStackAdapter';
-export {
-    default as FreshheadsBabelLoaderAdapter,
-} from './adapter/freshheads/BabelLoaderAdapter';
-export {
-    default as FreshheadsJavascriptMinimizationAdapter,
-} from './adapter/freshheads/JavascriptMinimizationAdapter';
-export {
-    default as FreshheadsJavascriptJQueryAdapter,
-} from './adapter/freshheads/JavascriptJQueryAdapter';
-export {
-    default as FreshheadsSassLoaderAdapter,
-} from './adapter/freshheads/SassLoaderAdapter';
+export { default as FreshheadsSourcemapAdapter } from './adapter/freshheads/SourcemapAdapter';
+export { default as FreshheadsOutputAdapter } from './adapter/freshheads/OutputAdapter';
+export { default as FreshheadsLoadReferencedFilesAdapter } from './adapter/freshheads/LoadReferencedFilesAdapter';
+export { default as FreshheadsCssAdapter } from './adapter/freshheads/CssAdapter';
+export { default as FreshheadsJavascriptAdapter } from './adapter/freshheads/JavascriptAdapter';
+export { default as FreshheadsTypescriptAdapter } from './adapter/freshheads/TypescriptAdapter';
+export { default as FreshheadsCleanBuildDirectoryAdapter } from './adapter/freshheads/CleanBuildDirectoryAdapter';
+export { default as FreshheadsCopyFilesToBuildDirAdapter } from './adapter/freshheads/CopyFilesToBuildDirAdapter';
+export { default as FreshheadsWriteBuildStatsToFileAdapter } from './adapter/freshheads/WriteBuildStatsToFileAdapter';
+export { default as FreshheadsDefineEnvironmentVariablesAdapter } from './adapter/freshheads/DefineEnvironmentVariablesAdapter';
+export { default as FreshheadsExtractCssPluginAdapter } from './adapter/freshheads/ExtractCssPluginAdapter';
+export { default as FreshheadsDefaultStackAdapter } from './adapter/freshheads/DefaultStackAdapter';
+export { default as FreshheadsDefaultAdminStackAdapter } from './adapter/freshheads/DefaultAdminStackAdapter';
+export { default as FreshheadsBabelLoaderAdapter } from './adapter/freshheads/BabelLoaderAdapter';
+export { default as FreshheadsJavascriptMinimizationAdapter } from './adapter/freshheads/JavascriptMinimizationAdapter';
+export { default as FreshheadsJavascriptJQueryAdapter } from './adapter/freshheads/JavascriptJQueryAdapter';
+export { default as FreshheadsSassLoaderAdapter } from './adapter/freshheads/SassLoaderAdapter';

@@ -94,7 +94,6 @@ export default class CssAdapter implements Adapter {
 
         if (this.config.sass.enabled) {
             builder.add(new SassLoaderAdapter(this.config.sass));
-
         }
 
         builder.build();
@@ -104,8 +103,8 @@ export default class CssAdapter implements Adapter {
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            autoprefixer: '9.7.0',
-            'css-loader': '3.4.0',
+            autoprefixer: '9.8.0',
+            'css-loader': '3.6.0',
             'postcss-loader': '3.0.0',
             cssnano: '4.1.10',
         };

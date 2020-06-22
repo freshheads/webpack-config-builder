@@ -29,7 +29,7 @@ export default class LoadReferencedFilesAdapter implements Adapter {
         validateIfRequiredModuleIsInstalled(
             'LoadReferencedFilesAdapter',
             'file-loader',
-            '5.1.0'
+            '6.0.0'
         );
 
         const rule: RuleSetRule = {

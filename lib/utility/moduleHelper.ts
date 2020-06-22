@@ -82,7 +82,7 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
 
     const filteredOutput: { [key: string]: string } = {};
 
-    Object.keys(dependencies).forEach(module => {
+    Object.keys(dependencies).forEach((module) => {
         filteredOutput[module] = dependencies[module].version;
     });
 

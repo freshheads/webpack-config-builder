@@ -28,7 +28,7 @@ describe('FreshheadsDefineEnvironmentVariablesAdapter', () => {
             expect(onlyPlugin).toBeInstanceOf(DefinePlugin);
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const callback = () => done();
 
             adapter.apply({}, { env: 'production' }, callback);

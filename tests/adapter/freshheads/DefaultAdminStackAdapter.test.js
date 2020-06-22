@@ -23,12 +23,12 @@ describe('FreshheadsDefaultAdminStackAdapter', () => {
 
             expect(rules).toHaveLength(4);
 
-            rules.forEach(rule => {
+            rules.forEach((rule) => {
                 expect(rule).toHaveProperty('test');
             });
         });
 
-        it("should call the 'next' callback afterwards", done => {
+        it("should call the 'next' callback afterwards", (done) => {
             const callback = () => done();
 
             adapter.apply({}, builderConfig, callback);
