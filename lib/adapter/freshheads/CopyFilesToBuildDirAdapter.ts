@@ -20,9 +20,11 @@ interface ObjectPattern {
     noErrorOnMissing?: boolean;
 }
 
+type AdditionalPatterns = Array<StringPattern | ObjectPattern>
+
 export type Config = {
     images: boolean;
-    additionalPatterns: Array<StringPattern | ObjectPattern>;
+    additionalPatterns: AdditionalPatterns;
 };
 
 export const DEFAULT_CONFIG: Config = {
@@ -45,7 +47,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
         _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        const patterns: Array<StringPattern | ObjectPattern> = [];
+        const patterns: AdditionalPatterns = [];
 
         if (this.config.images) {
             patterns.push({
