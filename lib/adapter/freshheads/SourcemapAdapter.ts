@@ -13,7 +13,7 @@ export default class SourcemapAdapter implements Adapter {
 
         const isDev = builderConfig.env !== Environment.Production;
 
-        webpackConfig.devtool = isDev ? 'inline-source-map' : 'source-map';
+        webpackConfig.devtool = isDev ? 'eval-source-map' : 'source-map';
 
         next();
     }
