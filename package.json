@@ -40,7 +40,7 @@
         "url": "https://github.com/freshheads/webpack-config-builder.git"
     },
     "engines": {
-        "node": ">=10.13.0"
+        "node": ">=12.13.0"
     },
     "license": "MIT",
     "devDependencies": {
@@ -60,7 +60,7 @@
         "copy-webpack-plugin": "^6.0.2",
         "css-loader": "^3.6.0",
         "cssnano": "^4.1.10",
-        "fibers": "^4.0.3",
+        "fibers": "^5.0.0",
         "file-loader": "^6.0.0",
         "husky": "^4.2.5",
         "jest": "^26.0.1",
