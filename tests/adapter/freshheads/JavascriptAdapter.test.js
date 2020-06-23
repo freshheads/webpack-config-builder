@@ -2,14 +2,9 @@ const { FreshheadsJavascriptAdapter } = require('../../../build/index');
 const ProvidePlugin = require('webpack').ProvidePlugin;
 
 describe('FreshheadsJavascriptAdapter', () => {
-    describe('Without customn configuration', () => {
+    describe('Without custom configuration', () => {
         it('should set the correct defaults', () => {
-            const expectConfigFilePath = './babel.config.js';
-            const adapter = new FreshheadsJavascriptAdapter({
-                babelConfig: {
-                    babelConfigurationFilePath: expectConfigFilePath,
-                },
-            });
+            const adapter = new FreshheadsJavascriptAdapter();
             const webpackConfig = {};
 
             adapter.apply(webpackConfig, { env: 'dev' }, () => {});
@@ -36,20 +31,17 @@ describe('FreshheadsJavascriptAdapter', () => {
 
             expect(firstRuleOnlyUse).toHaveProperty('loader', 'babel-loader');
             expect(firstRuleOnlyUse).toHaveProperty('options');
-
-            const options = firstRuleOnlyUse.options;
-
-            expect(options).toHaveProperty('configFile', expectConfigFilePath);
         });
     });
 
     describe('With custom configuration', () => {
         it('should set the correct defaults', () => {
-            const expectedBabelConfigPath = './babel.config.js';
             const adapter = new FreshheadsJavascriptAdapter({
                 babelConfig: {
                     include: ['./test', './anders'],
-                    babelConfigurationFilePath: expectedBabelConfigPath,
+                    loaderOptions: {
+                        rootMode: 'upward',
+                    },
                 },
                 jQuery: {
                     enabled: true,
@@ -87,10 +79,9 @@ describe('FreshheadsJavascriptAdapter', () => {
 
             const options = firstUse.options;
 
-            expect(options).toHaveProperty(
-                'configFile',
-                expectedBabelConfigPath
-            );
+            expect(options).toHaveProperty('rootMode', 'upward');
+
+            expect(options).toHaveProperty('cacheDirectory', true);
 
             const plugins = webpackConfig.plugins;
 

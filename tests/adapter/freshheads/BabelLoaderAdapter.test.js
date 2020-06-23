@@ -35,12 +35,13 @@ describe('FreshheadsBabelLoaderAdapter', () => {
 
         describe('..with custom settings', () => {
             it('should add the right rule to the webpack config', () => {
-                const custombabelConfigurationFilePath = './someOtherPath.json';
                 const customInclude = ['./someOtherPath.js'];
 
                 const adapter = new FreshheadsBabelLoaderAdapter({
-                    babelConfigurationFilePath: custombabelConfigurationFilePath,
                     include: customInclude,
+                    loaderOptions: {
+                        rootMode: 'upward',
+                    },
                 });
 
                 const webpackConfig = {};
@@ -68,10 +69,7 @@ describe('FreshheadsBabelLoaderAdapter', () => {
 
                 expect(onlyUse).toHaveProperty('loader', 'babel-loader');
                 expect(onlyUse).toHaveProperty('options');
-                expect(onlyUse.options).toHaveProperty(
-                    'configFile',
-                    custombabelConfigurationFilePath
-                );
+                expect(onlyUse.options).toHaveProperty('rootMode', 'upward');
             });
         });
 
