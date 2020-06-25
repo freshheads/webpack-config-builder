@@ -26,7 +26,7 @@ describe('FreshheadsSourcemapAdapter', () => {
             adapter.apply(webpackConfig, { env: 'dev' }, () => {});
 
             expect(webpackConfig).toEqual({
-                devtool: 'inline-source-map',
+                devtool: 'eval-source-map',
             });
         });
     });
