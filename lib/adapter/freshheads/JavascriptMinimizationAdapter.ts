@@ -13,7 +13,7 @@ export default class JavascriptMinimizationAdapter implements Adapter {
         validateIfRequiredModuleIsInstalled(
             'JavascriptMinimizationAdapter',
             'terser-webpack-plugin',
-            '3.0.0'
+            '4.0.0'
         );
 
         if (builderConfig.env !== Environment.Production) {
