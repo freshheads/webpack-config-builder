@@ -34,11 +34,6 @@ export default class SassLoaderAdapter implements Adapter {
     ) {
         this.validateAllRequiredModulesAreInstalled();
 
-        // add implementation here instead of directly in DEFAULT_CONFIG.
-        // If added in DEFAULT_CONFIG the require tries to import sass even though sass is disabled.
-        // This causes problems when sass isn't installed.
-        this.config.sassLoaderOptions.implementation = require('sass'); // prefer `dart-sass` instead of `node-sass` in case both are installed
-
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = { rules: [] };
         }
@@ -68,7 +63,7 @@ export default class SassLoaderAdapter implements Adapter {
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            'sass-loader': '8.0.0',
+            'sass-loader': '10.0.0',
             'resolve-url-loader': '3.1.0',
             sass: '1.26.0',
             fibers: '5.0.0',

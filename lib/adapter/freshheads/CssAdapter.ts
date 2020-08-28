@@ -104,7 +104,7 @@ export default class CssAdapter implements Adapter {
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
             autoprefixer: '9.8.0',
-            'css-loader': '3.6.0',
+            'css-loader': '4.2.0',
             'postcss-loader': '3.0.0',
             cssnano: '4.1.10',
         };
