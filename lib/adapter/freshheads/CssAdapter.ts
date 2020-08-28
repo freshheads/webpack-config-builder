@@ -19,9 +19,6 @@ export type Config = {
 export const DEFAULT_CONFIG: Config = {
     cssLoaderOptions: {
         sourceMap: true,
-        modules: {
-            auto: true, // enable css modules for filenames that contain .module.(s)css
-        },
     },
     sass: DEFAULT_SASS_CONFIG,
 };
