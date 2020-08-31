@@ -19,9 +19,6 @@ export type Config = {
 export const DEFAULT_CONFIG: Config = {
     cssLoaderOptions: {
         sourceMap: true,
-        modules: {
-            auto: true, // enable css modules for filenames that contain .module.(s)css
-        },
     },
     sass: DEFAULT_SASS_CONFIG,
 };
@@ -104,7 +101,7 @@ export default class CssAdapter implements Adapter {
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
             autoprefixer: '9.8.0',
-            'css-loader': '3.6.0',
+            'css-loader': '4.2.0',
             'postcss-loader': '3.0.0',
             cssnano: '4.1.10',
         };
