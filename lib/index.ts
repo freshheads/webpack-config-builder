@@ -25,6 +25,7 @@ export { default as FreshheadsDefineEnvironmentVariablesAdapter } from './adapte
 export { default as FreshheadsExtractCssPluginAdapter } from './adapter/freshheads/ExtractCssPluginAdapter';
 export { default as FreshheadsDefaultStackAdapter } from './adapter/freshheads/DefaultStackAdapter';
 export { default as FreshheadsDefaultAdminStackAdapter } from './adapter/freshheads/DefaultAdminStackAdapter';
+export { default as FreshheadsDefaultSonataAdminStackAdapter } from './adapter/freshheads/DefaultSonataAdminStackAdapter';
 export { default as FreshheadsBabelLoaderAdapter } from './adapter/freshheads/BabelLoaderAdapter';
 export { default as FreshheadsJavascriptMinimizationAdapter } from './adapter/freshheads/JavascriptMinimizationAdapter';
 export { default as FreshheadsJavascriptJQueryAdapter } from './adapter/freshheads/JavascriptJQueryAdapter';
