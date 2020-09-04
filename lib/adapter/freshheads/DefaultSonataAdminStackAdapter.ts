@@ -31,25 +31,6 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
             'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js'
         },
     },
-    copyFilesToBuildDir: {
-        enabled: true,
-        // Copies assets from admin-bundle to build dir
-        additionalPatterns: [
-            {
-                from: path.resolve(
-                        process.cwd(),
-                        '../../vendor/freshheads/admin-bundle/Resources/public/assets/images/**/*'
-                ),
-                context: path.resolve(
-                    process.cwd(),
-                    '../../vendor/freshheads/admin-bundle/Resources/public/assets/'
-                ),
-                // admin bundle assets always get hashed also in dev environment
-                to: 'fhadmin/[path][name].[hash].[ext]',
-                toType: 'template',
-            },
-        ],
-    },
     javascript: {
         enabled: true,
         babelConfig: {
