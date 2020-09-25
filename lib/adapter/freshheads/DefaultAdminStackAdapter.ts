@@ -48,7 +48,7 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
                     '../../vendor/freshheads/admin-bundle/Resources/public/assets/'
                 ),
                 // admin bundle assets always get hashed also in dev environment
-                to: 'fhadmin/[path][name].[hash].[ext]',
+                to: 'fhadmin/[path][name].[contenthash].[ext]',
                 toType: 'template',
             },
         ],
