@@ -31,10 +31,10 @@ export default class OutputAdapter implements Adapter {
 
             // Format of output bundle (uses hashes in non-development)
             // environment to bust browser caches
-            filename: isDev ? '[name].js' : '[name].[hash].js',
+            filename: isDev ? '[name].js' : '[name].[contenthash].js',
 
             // Format of output bundle chunks (when output was split up)
-            chunkFilename: isDev ? '[name].[id].js' : '[name].[hash].[id].js',
+            chunkFilename: isDev ? '[name].[id].js' : '[name].[contenthash].[id].js',
         };
 
         next();

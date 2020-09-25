@@ -17,8 +17,8 @@ describe('FreshheadsOutputAdapter', () => {
 
             expect(webpackConfig).toEqual({
                 output: {
-                    chunkFilename: '[name].[hash].[id].js',
-                    filename: '[name].[hash].js',
+                    chunkFilename: '[name].[contenthash].[id].js',
+                    filename: '[name].[contenthash].js',
                     path: './../web/build',
                     publicPath: 'build',
                 },
