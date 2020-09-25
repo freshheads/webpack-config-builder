@@ -66,11 +66,11 @@ describe('FreshheadsCssAdapter', () => {
                 const use = rule.use;
 
                 expect(use[2]).toHaveProperty('loader', 'postcss-loader');
-                expect(use[2]).toHaveProperty('options.plugins');
+                expect(use[2]).toHaveProperty('options.postcssOptions');
 
-                const postCssUsePlugins = use[2].options.plugins();
+                const postcssOptions = use[2].options.postcssOptions();
 
-                expect(postCssUsePlugins).toHaveLength(2);
+                expect(postcssOptions.plugins).toHaveLength(2);
             });
         });
 
@@ -92,11 +92,11 @@ describe('FreshheadsCssAdapter', () => {
                 const use = rule.use;
 
                 expect(use[2]).toHaveProperty('loader', 'postcss-loader');
-                expect(use[2]).toHaveProperty('options.plugins');
+                expect(use[2]).toHaveProperty('options.postcssOptions');
 
-                const postCssUsePlugins = use[2].options.plugins();
+                const postcssOptions = use[2].options.postcssOptions();
 
-                expect(postCssUsePlugins).toHaveLength(1);
+                expect(postcssOptions.plugins).toHaveLength(1);
             });
         });
 

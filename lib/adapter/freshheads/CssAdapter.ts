@@ -63,9 +63,9 @@ export default class CssAdapter implements Adapter {
                 {
                     loader: 'postcss-loader',
                     options: {
-                        ident: 'postcss',
-                        sourceMap: true,
-                        plugins: () => {
+                        postcssOptions: () => {
+                            // Adding custom plugins / options can be done at application level by adding a postcss.config.js
+                            // @see https://github.com/webpack-contrib/postcss-loader#config
                             const autoprefixer = require('autoprefixer');
 
                             const plugins = [
@@ -80,8 +80,11 @@ export default class CssAdapter implements Adapter {
                                 plugins.push(cssNano);
                             }
 
-                            return plugins;
-                        },
+                            return {
+                                sourceMap: true,
+                                plugins: plugins,
+                            }
+                        }
                     },
                 },
             ],
@@ -102,7 +105,8 @@ export default class CssAdapter implements Adapter {
         const requiredModules: { [module: string]: string } = {
             autoprefixer: '9.8.0',
             'css-loader': '4.2.0',
-            'postcss-loader': '3.0.0',
+            'postcss': '8.0.0',
+            'postcss-loader': '4.0.0',
             cssnano: '4.1.10',
         };
 
