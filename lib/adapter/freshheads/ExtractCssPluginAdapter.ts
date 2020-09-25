@@ -37,7 +37,7 @@ export default class ExtractCssPluginAdapter implements Adapter {
 
         const plugin: Plugin = new MiniCssExtractPlugin({
             filename: isProduction ? '[name].[contenthash].css' : '[name].css',
-            chunkFilename: '[name].css',
+            chunkFilename: isProduction ? '[id].[contenthash].css' : '[id].css',
         });
 
         webpackConfig.plugins.push(plugin);
