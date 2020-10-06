@@ -65,6 +65,7 @@ export default class CssAdapter implements Adapter {
                     options: {
                         postcssOptions: () => {
                             // Adding custom plugins / options can be done at application level by adding a postcss.config.js
+                            // @todo you can not override settings with postcss.config file as loader settings are leading, find solution for this.
                             // @see https://github.com/webpack-contrib/postcss-loader#config
                             const autoprefixer = require('autoprefixer');
 
@@ -75,7 +76,11 @@ export default class CssAdapter implements Adapter {
                             ];
 
                             if (isProduction) {
-                                const cssNano = require('cssnano');
+                                const cssNano = require('cssnano')({
+                                    preset: ['default', {
+                                        svgo: false, // disable svg optimalisations due to issue when xlink attributes are used.
+                                    }],
+                                });
 
                                 plugins.push(cssNano);
                             }
