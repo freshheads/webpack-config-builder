@@ -65,8 +65,12 @@ export default class CssAdapter implements Adapter {
                     options: {
                         postcssOptions: () => {
                             // Adding custom plugins / options can be done at application level by adding a postcss.config.js
-                            // @todo you can not override settings with postcss.config file as loader settings are leading, find solution for this.
+                            // You can not override settings for the plugins loaded below because loader options are leading.
                             // @see https://github.com/webpack-contrib/postcss-loader#config
+
+                            // Autoprefixer requires settings to work with CSS grid in IE.
+                            // You can also trigger this by setting a comment
+                            // @see https://github.com/postcss/autoprefixer#grid-autoplacement-support-in-ie
                             const autoprefixer = require('autoprefixer');
 
                             const plugins = [
@@ -76,11 +80,8 @@ export default class CssAdapter implements Adapter {
                             ];
 
                             if (isProduction) {
-                                const cssNano = require('cssnano')({
-                                    preset: ['default', {
-                                        svgo: false, // disable svg optimalisations due to issue when xlink attributes are used.
-                                    }],
-                                });
+                                // css nano can be configured at application level by adding a cssnano.config.js
+                                const cssNano = require('cssnano');
 
                                 plugins.push(cssNano);
                             }
