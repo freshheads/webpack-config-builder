@@ -34,7 +34,10 @@ export default class LoadReferencedFilesAdapter implements Adapter {
 
         const rule: RuleSetRule = {
             test: this.config.test,
-            use: 'file-loader',
+            loader: 'file-loader',
+            options: {
+                name: '[name].[contenthash].[ext]',
+            },
         };
 
         if (typeof webpackConfig.module === 'undefined') {
