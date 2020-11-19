@@ -13,7 +13,7 @@ export default class ExtractCssPluginAdapter implements Adapter {
         validateIfRequiredModuleIsInstalled(
             'ExtractCssPluginAdapter',
             'mini-css-extract-plugin',
-            '0.11.0'
+            '1.0.0'
         );
 
         const MiniCssExtractPlugin = require('mini-css-extract-plugin');
