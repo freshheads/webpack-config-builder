@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { Configuration, Plugin } from 'webpack';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
@@ -21,7 +21,7 @@ export default class CleanBuildDirectoryAdapter implements Adapter {
 
         const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-        const pluginInstance: Plugin = new CleanWebpackPlugin({
+        const pluginInstance: WebpackPluginInstance = new CleanWebpackPlugin({
             cleanStaleWebpackAssets: false,
         });
 

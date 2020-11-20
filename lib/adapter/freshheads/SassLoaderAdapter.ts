@@ -38,6 +38,10 @@ export default class SassLoaderAdapter implements Adapter {
             webpackConfig.module = { rules: [] };
         }
 
+        if (typeof webpackConfig.module.rules === 'undefined') {
+            webpackConfig.module.rules = [];
+        }
+
         webpackConfig.module.rules.push(this.createRule());
 
         next();

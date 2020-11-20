@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { Configuration, Resolve } from 'webpack';
+import { Configuration, ResolveOptions } from 'webpack';
 import Builder, { BuilderConfig, Environment } from '../../Builder';
 import LoadReferencedFilesAdapter, {
     Config as LoadReferencedFilesConfig,
@@ -35,7 +35,7 @@ type EnabledConfig = {
 };
 
 export type Config = {
-    resolve: Resolve;
+    resolve: ResolveOptions;
     loadReferencedFiles: EnabledConfig & LoadReferencedFilesConfig;
     css: EnabledConfig & CssConfig;
     javascript: EnabledConfig & JavascriptConfig;

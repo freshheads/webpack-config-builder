@@ -4,7 +4,7 @@ import DefaultStackAdapter, {
 import deepmerge from 'deepmerge';
 import path from 'path';
 import { RecursivePartial } from '../../utility/types';
-import { Configuration, ExternalsObjectElement } from 'webpack';
+import { Configuration } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 import { NextCallback } from '../Adapter';
 
@@ -60,9 +60,13 @@ export default class DefaultSonataAdminStackAdapter extends DefaultStackAdapter 
     apply(webpackConfig: Configuration, builderConfig: BuilderConfig, next: NextCallback) {
         super.apply(webpackConfig, builderConfig, next);
 
+        if (typeof webpackConfig.externals !== 'object') {
+            throw new Error('Convert existing externals setting to object so it can be extended');
+        }
+
         // Use external jQuery from Sonata
         webpackConfig.externals = {
-            ...webpackConfig.externals as ExternalsObjectElement || {},
+            ...webpackConfig.externals || {},
             jquery: 'jQuery'
         };
     }

@@ -1,12 +1,14 @@
 import { Adapter, NextCallback } from './Adapter';
-import { Configuration, Options } from 'webpack';
+import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import deepmerge = require('deepmerge');
 
-export default class OptimizationAdapter implements Adapter {
-    private config: Options.Optimization;
+export type OptimizationOptions = Configuration['optimization'];
 
-    constructor(config: Options.Optimization) {
+export default class OptimizationAdapter implements Adapter {
+    private config: OptimizationOptions;
+
+    constructor(config: OptimizationOptions) {
         this.config = config;
     }
 
@@ -17,7 +19,7 @@ export default class OptimizationAdapter implements Adapter {
     ) {
         const existingConfig = webpackConfig.optimization || {};
 
-        webpackConfig.optimization = deepmerge<Options.Optimization>(
+        webpackConfig.optimization = deepmerge<OptimizationOptions>(
             existingConfig,
             this.config,
             {

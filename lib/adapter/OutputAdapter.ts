@@ -1,7 +1,9 @@
-import { Output, Configuration } from 'webpack';
+import { Configuration } from 'webpack';
 import { Adapter, NextCallback } from './Adapter';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
+
+export type Output = Configuration['output'];
 
 export default class OutputAdapter implements Adapter {
     private config: Output;

@@ -48,6 +48,10 @@ export default class CssAdapter implements Adapter {
             };
         }
 
+        if (typeof webpackConfig.module.rules === 'undefined') {
+            webpackConfig.module.rules = [];
+        }
+
         const isProduction = builderConfig.env === Environment.Production;
 
         const rule: RuleSetRule = {

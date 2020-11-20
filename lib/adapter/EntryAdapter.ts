@@ -1,14 +1,12 @@
 import { Adapter, NextCallback } from './Adapter';
-import { Configuration, EntryFunc, Entry } from 'webpack';
+import { Configuration, Entry } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
 
-type EntryType = string | string[] | Entry | EntryFunc;
-
 export default class EntryAdapter implements Adapter {
-    private entry: EntryType;
+    private entry: Entry;
 
-    constructor(entry: EntryType) {
+    constructor(entry: Entry) {
         this.entry = entry;
     }
 
