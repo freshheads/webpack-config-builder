@@ -1,12 +1,12 @@
 import { Adapter, NextCallback } from './Adapter';
-import { Resolve, Configuration } from 'webpack';
+import { ResolveOptions, Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
 
 export default class ResolveAdapter implements Adapter {
-    private config: Resolve;
+    private config: ResolveOptions;
 
-    constructor(config: Resolve) {
+    constructor(config: ResolveOptions) {
         this.config = config;
     }
 

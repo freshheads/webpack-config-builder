@@ -3,8 +3,7 @@ import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
 
-// @todo webpack typescript configuration does not supply a type for this. Create a PR for to be able to re-use it.
-export type Mode = 'development' | 'production' | 'none';
+export type Mode = Configuration['mode'];
 
 export default class ModeAdapter implements Adapter {
     private mode: Mode;

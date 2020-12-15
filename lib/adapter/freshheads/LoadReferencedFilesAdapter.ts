@@ -46,6 +46,10 @@ export default class LoadReferencedFilesAdapter implements Adapter {
             };
         }
 
+        if (typeof webpackConfig.module.rules === 'undefined') {
+            webpackConfig.module.rules = [];
+        }
+
         webpackConfig.module.rules.push(rule);
 
         next();

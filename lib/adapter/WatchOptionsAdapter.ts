@@ -1,12 +1,14 @@
 import { Adapter, NextCallback } from './Adapter';
-import { Configuration, Options } from 'webpack';
+import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
 
-export default class WatchOptionsAdapter implements Adapter {
-    private config: Options.WatchOptions;
+export type WatchOptions = Configuration["watchOptions"];
 
-    constructor(config: Options.WatchOptions) {
+export default class WatchOptionsAdapter implements Adapter {
+    private config: WatchOptions;
+
+    constructor(config: WatchOptions) {
         this.config = config;
     }
 

@@ -1,13 +1,12 @@
 import { Adapter, NextCallback } from './Adapter';
-import { Configuration } from 'webpack';
+import { Configuration, ModuleOptions } from 'webpack';
 import { BuilderConfig } from '../Builder';
-import webpack = require('webpack');
 import { warn } from '../utility/messageHelper';
 
 export default class ModuleAdapter implements Adapter {
-    private config: webpack.Module;
+    private config: ModuleOptions;
 
-    constructor(config: webpack.Module) {
+    constructor(config: ModuleOptions) {
         this.config = config;
     }
 

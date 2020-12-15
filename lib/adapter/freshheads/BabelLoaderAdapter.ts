@@ -43,6 +43,10 @@ export default class BabelLoaderAdapter implements Adapter {
             };
         }
 
+        if (typeof webpackConfig.module.rules === 'undefined') {
+            webpackConfig.module.rules = [];
+        }
+
         const rule: RuleSetRule = {
             test: /\.(ts|js)x?$/,
             include: this.config.include,

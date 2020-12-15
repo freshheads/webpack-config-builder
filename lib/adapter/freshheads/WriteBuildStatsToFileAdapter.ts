@@ -12,7 +12,7 @@ export default class WriteBuildStatsToFileAdapter implements Adapter {
         validateIfRequiredModuleIsInstalled(
             'WriteBuildStatsToFileAdapter',
             'webpack-stats-plugin',
-            '0.3.1'
+            '1.0.0'
         );
 
         const { StatsWriterPlugin } = require('webpack-stats-plugin');
