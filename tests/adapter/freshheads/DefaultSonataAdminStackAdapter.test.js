@@ -2,7 +2,7 @@ const {
     FreshheadsDefaultSonataAdminStackAdapter,
 } = require('../../../build/index');
 
-describe('FreshheadsDefaultAdminStackAdapter', () => {
+describe('FreshheadsDefaultSonataAdminStackAdapter', () => {
     describe('When applied', () => {
         var adapter, builderConfig;
 

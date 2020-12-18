@@ -60,7 +60,7 @@ export default class DefaultSonataAdminStackAdapter extends DefaultStackAdapter 
     apply(webpackConfig: Configuration, builderConfig: BuilderConfig, next: NextCallback) {
         super.apply(webpackConfig, builderConfig, next);
 
-        if (typeof webpackConfig.externals !== 'object') {
+        if (typeof webpackConfig.externals !== 'undefined' && typeof webpackConfig.externals !== 'object') {
             throw new Error('Convert existing externals setting to object so it can be extended');
         }
 
