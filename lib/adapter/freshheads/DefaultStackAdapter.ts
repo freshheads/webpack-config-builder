@@ -13,7 +13,6 @@ import CssAdapter, {
     Config as CssConfig,
     DEFAULT_CONFIG as DEFAULT_CSS_CONFIG,
 } from './CssAdapter';
-import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
 import WriteBuildStatsToFileAdapter from './WriteBuildStatsToFileAdapter';
 import DefineEnvironmentVariablesAdapter from './DefineEnvironmentVariablesAdapter';
 import CopyFilesToBuildDirAdapter, {
@@ -88,7 +87,6 @@ export default class DefaultStackAdapter implements Adapter {
             .add(new TargetAdapter('web'))
             .add(new ModeAdapter(isProduction ? 'production' : 'development'))
             .add(new ResolveAdapter(this.config.resolve))
-            .add(new CleanBuildDirectoryAdapter())
             .add(new SourcemapAdapter())
             .add(new DefineEnvironmentVariablesAdapter())
             .add(new WatchOptionsAdapter())
