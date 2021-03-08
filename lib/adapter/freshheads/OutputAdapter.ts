@@ -34,7 +34,12 @@ export default class OutputAdapter implements Adapter {
             filename: isDev ? '[name].js' : '[name].[contenthash].js',
 
             // Format of output bundle chunks (when output was split up)
-            chunkFilename: isDev ? '[name].[id].js' : '[name].[contenthash].[id].js',
+            chunkFilename: isDev
+                ? '[name].[id].js'
+                : '[name].[contenthash].[id].js',
+
+            // In general it's good practice to clean the output folder before each build, so that only used files will be generated.
+            clean: true,
         };
 
         next();

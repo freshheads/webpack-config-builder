@@ -18,7 +18,6 @@ export { default as FreshheadsLoadReferencedFilesAdapter } from './adapter/fresh
 export { default as FreshheadsCssAdapter } from './adapter/freshheads/CssAdapter';
 export { default as FreshheadsJavascriptAdapter } from './adapter/freshheads/JavascriptAdapter';
 export { default as FreshheadsTypescriptAdapter } from './adapter/freshheads/TypescriptAdapter';
-export { default as FreshheadsCleanBuildDirectoryAdapter } from './adapter/freshheads/CleanBuildDirectoryAdapter';
 export { default as FreshheadsCopyFilesToBuildDirAdapter } from './adapter/freshheads/CopyFilesToBuildDirAdapter';
 export { default as FreshheadsWriteBuildStatsToFileAdapter } from './adapter/freshheads/WriteBuildStatsToFileAdapter';
 export { default as FreshheadsDefineEnvironmentVariablesAdapter } from './adapter/freshheads/DefineEnvironmentVariablesAdapter';
