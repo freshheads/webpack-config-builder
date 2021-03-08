@@ -14,13 +14,19 @@ interface ObjectPattern {
     toType?: 'file' | 'dir' | 'template';
     force?: boolean;
     flatten?: boolean;
-    transform?: (content: Buffer, absoluteFrom: string) => string | Buffer | Promise<string | Buffer>;
+    transform?: (
+        content: Buffer,
+        absoluteFrom: string
+    ) => string | Buffer | Promise<string | Buffer>;
     cacheTransform?: boolean | string | object;
-    transformPath?: (targetPath: string, absolutePath: string) => string | Promise<string>;
+    transformPath?: (
+        targetPath: string,
+        absolutePath: string
+    ) => string | Promise<string>;
     noErrorOnMissing?: boolean;
 }
 
-type AdditionalPatterns = Array<StringPattern | ObjectPattern>
+type AdditionalPatterns = Array<StringPattern | ObjectPattern>;
 
 export type Config = {
     images: boolean;
@@ -53,7 +59,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
             patterns.push({
                 from: '**/*',
                 context: path.resolve(process.cwd(), 'src/images/'), // context reference for path placeholder and from glob
-                to: 'images/[path][name].[contenthash].[ext]', // contenthash is required even on dev env as required by webpack_assets extension
+                to: 'images/[path][name].[contenthash][ext]', // contenthash is required even on dev env as required by webpack_assets extension
             });
         }
 
@@ -63,7 +69,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
             validateIfRequiredModuleIsInstalled(
                 'CopyFilesToBuildDirAdapter',
                 'copy-webpack-plugin',
-                '7.0.0'
+                '8.0.0'
             );
 
             const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -74,10 +80,12 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
 
             const options = {};
 
-            const pluginInstance: WebpackPluginInstance = new CopyWebpackPlugin({
-                patterns,
-                options
-            });
+            const pluginInstance: WebpackPluginInstance = new CopyWebpackPlugin(
+                {
+                    patterns,
+                    options,
+                }
+            );
 
             webpackConfig.plugins.push(pluginInstance);
         }
