@@ -1,6 +1,6 @@
 {
     "name": "@freshheads/webpack-config-builder",
-    "version": "4.0.0-beta.0",
+    "version": "4.0.0-beta.1",
     "description": "Uses an adapter pattern to build webpack configurations. This makes it possible for teams to create and maintain their base webpack setup and be able to update it from a central git repo, instead of having to change every project individually",
     "main": "build/index.js",
     "scripts": {
