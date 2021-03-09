@@ -93,8 +93,8 @@ export default class CssAdapter implements Adapter {
                             return {
                                 sourceMap: true,
                                 plugins: plugins,
-                            }
-                        }
+                            };
+                        },
                     },
                 },
             ],
@@ -115,8 +115,8 @@ export default class CssAdapter implements Adapter {
         const requiredModules: { [module: string]: string } = {
             autoprefixer: '10.0.0',
             'css-loader': '5.0.0',
-            'postcss': '8.0.0',
-            'postcss-loader': '4.0.2',
+            postcss: '8.0.0',
+            'postcss-loader': '5.0.0',
             cssnano: '4.1.10',
         };
 

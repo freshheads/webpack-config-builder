@@ -17,7 +17,7 @@ export const DEFAULT_CONFIG: Config = {
     include: [path.resolve(process.cwd(), 'src/js')],
     loaderOptions: {
         cacheDirectory: true, // For performance @see https://github.com/babel/babel-loader#babel-loader-is-slow
-    }
+    },
 };
 
 export default class BabelLoaderAdapter implements Adapter {
@@ -66,7 +66,7 @@ export default class BabelLoaderAdapter implements Adapter {
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules = {
             'babel-loader': '8.1.0',
-            '@babel/preset-env': '7.11.0',
+            '@babel/preset-env': '7.13.0',
         };
 
         iterateObjectValues(requiredModules, (minVersion, module) => {
