@@ -8,9 +8,9 @@
         "build:watch": "tsc --watch",
         "test": "jest --config=jest.config.js --detectOpenHandles --silent",
         "test:watch": "jest --watch --notify --config=jest.config.js --detectOpenHandles --silent",
-        "prettier:check": "prettier --check './**/*.{js,ts,json,md}'",
-        "prettier:write": "prettier --write './**/*.{js,ts,json,md}'",
-        "prepare": "npm run build"
+        "prettier:check": "prettier --check '**/*.{js,ts,json,md}'",
+        "prettier:write": "prettier --write '**/*.{js,ts,json,md}'",
+        "prepare": "husky install"
     },
     "keywords": [
         "webpack",
@@ -56,7 +56,7 @@
         "cssnano": "^4.1.10",
         "fibers": "^5.0.0",
         "file-loader": "^6.2.0",
-        "husky": "^4.3.8",
+        "husky": "^5.1.3",
         "jest": "^26.6.3",
         "jquery": "^3.6.0",
         "lint-staged": "^10.5.4",
@@ -78,13 +78,5 @@
     },
     "peerDependencies": {
         "webpack": "^5.20.0"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.{js,json,css,md}": "prettier --write"
     }
 }
