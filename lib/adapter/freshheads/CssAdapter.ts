@@ -37,7 +37,9 @@ export default class CssAdapter implements Adapter {
     ) {
         const builder = new Builder(builderConfig, webpackConfig);
 
-        this.validateAllRequiredModulesAreInstalled();
+        if (builderConfig.env === Environment.Dev) {
+            this.validateAllRequiredModulesAreInstalled();
+        }
 
         // add extract css before rules because extract plugin is also required as loader
         builder.add(new ExtractCssPluginAdapter());
@@ -89,8 +91,8 @@ export default class CssAdapter implements Adapter {
                             return {
                                 sourceMap: true,
                                 plugins: plugins,
-                            }
-                        }
+                            };
+                        },
                     },
                 },
             ],
@@ -111,7 +113,7 @@ export default class CssAdapter implements Adapter {
         const requiredModules: { [module: string]: string } = {
             autoprefixer: '9.8.0',
             'css-loader': '4.2.0',
-            'postcss': '8.0.0',
+            postcss: '8.0.0',
             'postcss-loader': '4.0.0',
             cssnano: '4.1.10',
         };
