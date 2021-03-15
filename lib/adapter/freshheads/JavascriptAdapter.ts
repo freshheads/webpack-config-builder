@@ -7,7 +7,6 @@ import BabelLoaderAdapter, {
     Config as BabelLoaderConfig,
     DEFAULT_CONFIG as DEFAULT_BABEL_LOADER_CONFIG,
 } from './BabelLoaderAdapter';
-import JavascriptMinimizationAdapter from './JavascriptMinimizationAdapter';
 import JavascriptJQueryAdapter from './JavascriptJQueryAdapter';
 import TypescriptAdapter from './TypescriptAdapter';
 
@@ -45,9 +44,7 @@ export default class JavascriptAdapter implements Adapter {
     ) {
         const builder = new Builder(builderConfig, webpackConfig);
 
-        builder
-            .add(new BabelLoaderAdapter(this.config.babelConfig))
-            .add(new JavascriptMinimizationAdapter());
+        builder.add(new BabelLoaderAdapter(this.config.babelConfig));
 
         if (this.config.typescript) {
             builder.add(new TypescriptAdapter());

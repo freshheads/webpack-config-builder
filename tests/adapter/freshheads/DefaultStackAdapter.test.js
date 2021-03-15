@@ -39,10 +39,9 @@ describe('FreshheadsDefaultStackAdapter', () => {
 
             const optimizationRules = webpackConfig.optimization;
 
-            expect(optimizationRules).toEqual({
-                splitChunks: {
-                    automaticNameDelimiter: '-',
-                },
+            expect(optimizationRules).toHaveProperty('splitChunks');
+            expect(optimizationRules.splitChunks).toEqual({
+                automaticNameDelimiter: '-',
             });
         });
 

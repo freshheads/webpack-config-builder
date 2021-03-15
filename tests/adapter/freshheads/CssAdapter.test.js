@@ -46,10 +46,8 @@ describe('FreshheadsCssAdapter', () => {
                     },
                 });
             });
-        });
 
-        describe('..for the production environment', () => {
-            it('should set the correct defaults', () => {
+            it('should init postcss with correct defaults', () => {
                 // disable sass to be sure this adapter can be tested isolated
                 const config = {
                     sass: {
@@ -70,33 +68,10 @@ describe('FreshheadsCssAdapter', () => {
 
                 const postcssOptions = use[2].options.postcssOptions();
 
-                expect(postcssOptions.plugins).toHaveLength(2);
-            });
-        });
-
-        describe('..for the development environment', () => {
-            it('should set the correct defaults', () => {
-                // disable sass to be sure this adapter can be tested isolated
-                const config = {
-                    sass: {
-                        enabled: false,
-                    },
-                };
-
-                const adapter = new FreshheadsCssAdapter(config);
-                const webpackConfig = {};
-
-                adapter.apply(webpackConfig, { env: 'dev' }, () => {});
-
-                const rule = webpackConfig.module.rules.pop();
-                const use = rule.use;
-
-                expect(use[2]).toHaveProperty('loader', 'postcss-loader');
-                expect(use[2]).toHaveProperty('options.postcssOptions');
-
-                const postcssOptions = use[2].options.postcssOptions();
-
                 expect(postcssOptions.plugins).toHaveLength(1);
+                expect(postcssOptions.plugins[0].postcssPlugin).toEqual(
+                    'autoprefixer'
+                );
             });
         });
 
