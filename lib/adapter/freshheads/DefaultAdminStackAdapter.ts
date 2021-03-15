@@ -40,8 +40,8 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
         additionalPatterns: [
             {
                 from: path.resolve(
-                        process.cwd(),
-                        '../../vendor/freshheads/admin-bundle/Resources/public/assets/images/**/*'
+                    process.cwd(),
+                    '../../vendor/freshheads/admin-bundle/Resources/public/assets/images/**/*'
                 ),
                 context: path.resolve(
                     process.cwd(),
