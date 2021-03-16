@@ -28,6 +28,7 @@ import ResolveAdapter, {
 import ModeAdapter from '../ModeAdapter';
 import WatchOptionsAdapter from './WatchOptionsAdapter';
 import { RecursivePartial } from '../../utility/types';
+import MinimizationAdapter from './MinimizationAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
@@ -96,7 +97,8 @@ export default class DefaultStackAdapter implements Adapter {
                         automaticNameDelimiter: '-',
                     },
                 })
-            );
+            )
+            .add(new MinimizationAdapter());
 
         if (this.config.loadReferencedFiles.enabled) {
             builder.add(

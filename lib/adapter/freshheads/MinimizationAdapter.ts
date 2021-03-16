@@ -4,14 +4,14 @@ import { BuilderConfig } from '../../Builder';
 import { OptimizationAdapter } from '../..';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
-export default class CssMinimizationAdapter implements Adapter {
+export default class MinimizationAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         validateIfRequiredModuleIsInstalled(
-            'CssMinimizationAdapter',
+            'MinimizationAdapter',
             'css-minimizer-webpack-plugin',
             '1.2.0'
         );

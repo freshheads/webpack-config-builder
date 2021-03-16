@@ -10,7 +10,6 @@ import SassLoaderAdapter, {
     DEFAULT_CONFIG as DEFAULT_SASS_CONFIG,
 } from './SassLoaderAdapter';
 import { Builder } from '../../index';
-import CssMinimizationAdapter from './CssMinimizationAdapter';
 
 export type Config = {
     cssLoaderOptions: { [key: string]: any };
@@ -97,8 +96,6 @@ export default class CssAdapter implements Adapter {
         if (this.config.sass.enabled) {
             builder.add(new SassLoaderAdapter(this.config.sass));
         }
-
-        builder.add(new CssMinimizationAdapter());
 
         builder.build();
 

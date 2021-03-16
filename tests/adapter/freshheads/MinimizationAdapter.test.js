@@ -1,19 +1,19 @@
-const { FreshheadsCssMinimizationAdapter } = require('../../../build/index');
+const { FreshheadsMinimizationAdapter } = require('../../../build/index');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-describe('FreshheadsCssMinimizationAdapter', () => {
+describe('FreshheadsMinimizationAdapter', () => {
     describe('When applied', () => {
         let adapter;
 
         beforeEach(() => {
-            adapter = new FreshheadsCssMinimizationAdapter();
+            adapter = new FreshheadsMinimizationAdapter();
         });
 
         describe('..on the production environment', () => {
             let adapter;
 
             beforeEach(() => {
-                adapter = new FreshheadsCssMinimizationAdapter();
+                adapter = new FreshheadsMinimizationAdapter();
             });
 
             it('should add css minimizer to the webpack config', () => {
