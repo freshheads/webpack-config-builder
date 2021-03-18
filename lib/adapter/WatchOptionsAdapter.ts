@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
 
-export type WatchOptions = Configuration["watchOptions"];
+export type WatchOptions = Configuration['watchOptions'];
 
 export default class WatchOptionsAdapter implements Adapter {
     private config: WatchOptions;

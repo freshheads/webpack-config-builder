@@ -26,6 +26,6 @@ export { default as FreshheadsDefaultStackAdapter } from './adapter/freshheads/D
 export { default as FreshheadsDefaultAdminStackAdapter } from './adapter/freshheads/DefaultAdminStackAdapter';
 export { default as FreshheadsDefaultSonataAdminStackAdapter } from './adapter/freshheads/DefaultSonataAdminStackAdapter';
 export { default as FreshheadsBabelLoaderAdapter } from './adapter/freshheads/BabelLoaderAdapter';
-export { default as FreshheadsJavascriptMinimizationAdapter } from './adapter/freshheads/JavascriptMinimizationAdapter';
+export { default as FreshheadsMinimizationAdapter } from './adapter/freshheads/MinimizationAdapter';
 export { default as FreshheadsJavascriptJQueryAdapter } from './adapter/freshheads/JavascriptJQueryAdapter';
 export { default as FreshheadsSassLoaderAdapter } from './adapter/freshheads/SassLoaderAdapter';

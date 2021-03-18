@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
 
-type DevTool = Configuration["devtool"];
+type DevTool = Configuration['devtool'];
 
 export default class DevtoolAdapter implements Adapter {
     private tool: DevTool;

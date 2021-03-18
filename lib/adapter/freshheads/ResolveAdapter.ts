@@ -10,9 +10,13 @@ export const DEFAULT_CONFIG: ResolveOptions = {
 
 export default class ResolveAdapter extends BaseResolveAdapter {
     constructor(config: Partial<ResolveOptions> = {}) {
-        const combinedConfig = deepmerge<ResolveOptions>(DEFAULT_CONFIG, config, {
-            arrayMerge: (_destinationArray, sourceArray) => sourceArray,
-        });
+        const combinedConfig = deepmerge<ResolveOptions>(
+            DEFAULT_CONFIG,
+            config,
+            {
+                arrayMerge: (_destinationArray, sourceArray) => sourceArray,
+            }
+        );
 
         super(combinedConfig);
     }

@@ -2,7 +2,7 @@ import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, RuleSetRule } from 'webpack';
 import deepmerge from 'deepmerge';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
-import { BuilderConfig, Environment } from '../../Builder';
+import { BuilderConfig } from '../../Builder';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { iterateObjectValues } from '../../utility/iterationHelper';
 import SassLoaderAdapter, {
@@ -52,8 +52,6 @@ export default class CssAdapter implements Adapter {
             webpackConfig.module.rules = [];
         }
 
-        const isProduction = builderConfig.env === Environment.Production;
-
         const rule: RuleSetRule = {
             test: this.config.sass.enabled ? /\.s?css$/ : /\.css$/,
             use: [
@@ -83,13 +81,6 @@ export default class CssAdapter implements Adapter {
                                 }),
                             ];
 
-                            if (isProduction) {
-                                // css nano can be configured at application level by adding a cssnano.config.js
-                                const cssNano = require('cssnano');
-
-                                plugins.push(cssNano);
-                            }
-
                             return {
                                 sourceMap: true,
                                 plugins: plugins,
@@ -117,7 +108,6 @@ export default class CssAdapter implements Adapter {
             'css-loader': '5.0.0',
             postcss: '8.0.0',
             'postcss-loader': '5.0.0',
-            cssnano: '4.1.10',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {
