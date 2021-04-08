@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 
 // @todo make generic, to be able to use more enviroments
 export enum Environment {
-    Dev = 'dev',
+    Dev = 'development',
     Production = 'production',
 }
 
