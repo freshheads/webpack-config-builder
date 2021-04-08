@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import { Configuration, RuleSetRule } from 'webpack';
 import path from 'path';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
@@ -32,10 +32,12 @@ export default class BabelLoaderAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        _builderConfig: BuilderConfig,
+        builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        if (builderConfig.env === Environment.Dev) {
+            this.validateAllRequiredModulesAreInstalled();
+        }
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = {

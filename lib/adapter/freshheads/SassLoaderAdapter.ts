@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import { Configuration, RuleSetRule } from 'webpack';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 import deepmerge from 'deepmerge';
@@ -29,10 +29,12 @@ export default class SassLoaderAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        _builderConfig: BuilderConfig,
+        builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        if (builderConfig.env === Environment.Dev) {
+            this.validateAllRequiredModulesAreInstalled();
+        }
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = { rules: [] };
