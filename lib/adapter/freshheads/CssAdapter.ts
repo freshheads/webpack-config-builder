@@ -2,7 +2,7 @@ import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, RuleSetRule } from 'webpack';
 import deepmerge from 'deepmerge';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import ExtractCssPluginAdapter from './ExtractCssPluginAdapter';
 import { iterateObjectValues } from '../../utility/iterationHelper';
 import SassLoaderAdapter, {
