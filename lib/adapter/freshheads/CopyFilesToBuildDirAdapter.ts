@@ -1,6 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, WebpackPluginInstance } from 'webpack';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import path from 'path';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
@@ -50,7 +50,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        _builderConfig: BuilderConfig,
+        builderConfig: BuilderConfig,
         next: NextCallback
     ) {
         const patterns: AdditionalPatterns = [];
@@ -66,11 +66,13 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
         patterns.push(...this.config.additionalPatterns);
 
         if (patterns.length > 0) {
-            validateIfRequiredModuleIsInstalled(
-                'CopyFilesToBuildDirAdapter',
-                'copy-webpack-plugin',
-                '8.0.0'
-            );
+            if (builderConfig.env === Environment.Dev) {
+                validateIfRequiredModuleIsInstalled(
+                    'CopyFilesToBuildDirAdapter',
+                    'copy-webpack-plugin',
+                    '8.0.0'
+                );
+            }
 
             const CopyWebpackPlugin = require('copy-webpack-plugin');
 

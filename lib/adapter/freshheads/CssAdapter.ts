@@ -37,7 +37,9 @@ export default class CssAdapter implements Adapter {
     ) {
         const builder = new Builder(builderConfig, webpackConfig);
 
-        this.validateAllRequiredModulesAreInstalled();
+        if (builderConfig.env === Environment.Dev) {
+            this.validateAllRequiredModulesAreInstalled();
+        }
 
         // add extract css before rules because extract plugin is also required as loader
         builder.add(new ExtractCssPluginAdapter());

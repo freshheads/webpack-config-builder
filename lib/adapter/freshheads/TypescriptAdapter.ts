@@ -1,7 +1,7 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration } from 'webpack';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import { iterateObjectValues } from '../../utility/iterationHelper';
 
 /**
@@ -12,10 +12,12 @@ import { iterateObjectValues } from '../../utility/iterationHelper';
 export default class TypescriptAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
-        _builderConfig: BuilderConfig,
+        builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        if (builderConfig.env === Environment.Dev) {
+            this.validateAllRequiredModulesAreInstalled();
+        }
 
         this.ensureTypescriptFilesAreResolvedRegularJavascriptFiles(
             webpackConfig
