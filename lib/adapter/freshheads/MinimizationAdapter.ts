@@ -13,7 +13,7 @@ export default class MinimizationAdapter implements Adapter {
         validateIfRequiredModuleIsInstalled(
             'MinimizationAdapter',
             'css-minimizer-webpack-plugin',
-            '1.2.0'
+            '2.0.0'
         );
 
         // Minimizer will only be run in production mode so we don't need to check it
@@ -22,12 +22,7 @@ export default class MinimizationAdapter implements Adapter {
         // For webpack@5 you can use the `...` syntax to extend existing minimizer (i.e. `terser-webpack-plugin`)
         // So Javascript will be minimized by default
         new OptimizationAdapter({
-            minimizer: [
-                `...`,
-                new CssMinimizerPlugin({
-                    sourceMap: true,
-                }),
-            ],
+            minimizer: [`...`, new CssMinimizerPlugin()],
         }).apply(webpackConfig, builderConfig, next);
     }
 }
