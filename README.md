@@ -47,9 +47,10 @@ const outputPath = path.resolve(__dirname, 'build');
 const nodeEnv = process.env.NODE_ENV || 'production';
 const isProduction = nodeEnv !== 'dev';
 
-const builder = new Builder({
+const builderConfig = {
     env: nodeEnv,
-});
+};
+const builder = new Builder(builderConfig);
 
 builder
     .add(
@@ -163,6 +164,41 @@ Methods:
 For the general, finegrained adapters, see the [Webpack documentation](https://webpack.js.org/configuration). They should be pretty easy to apply as each adapter represents an entry key of the webpack config.
 
 The adapters in the [`./freshheads`](https://github.com/freshheads/webpack-config-builder/tree/master/lib/adapter/freshheads) folder of the repository are [Freshheads](https://www.freshheads.com/) specific, and serve as examples and project startup setups.
+
+### Utility functions
+
+-   **`createClassNameGeneratorForCSSLoader()`**
+
+    When using (S)CSS modules, by default the outputted class name for (S)CSS modules in your HTML, is a hash. This is not very helpful when you are debugging in the browser and are trying to resolve a class name. You can supply this class name generator to the `CSSAdapter` to prepend the generated class name with the module name and sub-class. (i.e. `button_isPrimary_xD3kS` instead of `xD3kS`). The `builderConfig`, that contains the current environment, needs to be supplied to make sure that it is only applied in the dev environment.
+
+    ```js
+    const builderConfig = {
+        env: nodeEnv,
+    };
+
+    new DefaultStackAdapter({
+        css: {
+            enabled: true,
+            cssLoaderOptions: {
+                modules: {
+                    getLocalIdent: createClassNameGeneratorForCSSLoader(
+                        builderConfig
+                    ),
+                },
+            },
+        },
+    });
+    ```
+
+    or
+
+    ```js
+    new CSSAdapter({
+        modules: {
+            getLocalIdent: createClassNameGeneratorForCSSLoader(builderConfig),
+        },
+    });
+    ```
 
 ## Development
 

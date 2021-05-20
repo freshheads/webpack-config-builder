@@ -30,3 +30,6 @@ export { default as FreshheadsBabelLoaderAdapter } from './adapter/freshheads/Ba
 export { default as FreshheadsJavascriptMinimizationAdapter } from './adapter/freshheads/JavascriptMinimizationAdapter';
 export { default as FreshheadsJavascriptJQueryAdapter } from './adapter/freshheads/JavascriptJQueryAdapter';
 export { default as FreshheadsSassLoaderAdapter } from './adapter/freshheads/SassLoaderAdapter';
+
+// Utility
+export { default as createClassNameGeneratorForCSSLoader } from './factory/createClassNameGeneratorForCSSLoader';
