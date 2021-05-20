@@ -49,6 +49,7 @@
         "@types/copy-webpack-plugin": "^6.0.0",
         "@types/deepmerge": "^2.2.0",
         "@types/jest": "^26.0.12",
+        "@types/loader-utils": "^2.0.2",
         "@types/mini-css-extract-plugin": "^0.9.1",
         "@types/semver": "^7.3.3",
         "@types/terser-webpack-plugin": "^4.1.0",
@@ -80,6 +81,7 @@
     "dependencies": {
         "chalk": "^4.1.0",
         "deepmerge": "^4.2.2",
+        "loader-utils": "^2.0.0",
         "semver": "^7.3.2"
     },
     "peerDependencies": {
