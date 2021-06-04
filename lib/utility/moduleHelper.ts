@@ -49,8 +49,7 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
     }
 
     // gets all dev dependencies from package.json,
-    // --dev && --prod need to be forced else it would look at NODE_ENV which is nowhere mentioned in docs
-    const command = 'npm list --json --depth=0 --dev=true --prod=true';
+    const command = 'npm list --json --dev=true';
     let commandOutput: string | null;
 
     try {
