@@ -42,7 +42,8 @@
         "url": "https://github.com/freshheads/webpack-config-builder.git"
     },
     "engines": {
-        "node": ">=12.13.0"
+        "node": ">=12.13.0",
+        "npm": ">=7.0"
     },
     "license": "MIT",
     "devDependencies": {
