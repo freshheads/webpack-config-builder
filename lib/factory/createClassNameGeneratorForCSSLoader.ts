@@ -1,14 +1,12 @@
 import { BuilderConfig, Environment } from '../Builder';
 import path from 'path';
 import loaderUtils from 'loader-utils';
-import webpack from 'webpack';
-import LoaderContext = webpack.loader.LoaderContext;
 
 /**
  * Create a hash based on a the file location and class name. Will be unique across a project, and close to globally
  * unique.
  */
-const determineUniqueFileHash = (context: LoaderContext, localName: string) => {
+const determineUniqueFileHash = (context: any, localName: string) => {
     const relativePath: string =
         path.posix.relative(context.rootContext, context.resourcePath) +
         localName;
@@ -21,11 +19,7 @@ const determineUniqueFileHash = (context: LoaderContext, localName: string) => {
 /**
  * Builds-up a new class name with the name of the module, sub-class and a hash incorporated.
  */
-const determineClassName = (
-    context: LoaderContext,
-    localName: string,
-    options: any
-) => {
+const determineClassName = (context: any, localName: string, options: any) => {
     const hash = determineUniqueFileHash(context, localName);
 
     const className = loaderUtils.interpolateName(
@@ -50,7 +44,7 @@ const determineFileIsCSSOrSCSSModule = (fileBaseName: string): boolean =>
  * @see https://github.com/webpack-contrib/css-loader/issues/1307
  */
 const createClassNameGeneratorForCSSLoader = (builderConfig: BuilderConfig) => (
-    context: LoaderContext,
+    context: any,
     _localIdentName: any,
     localName: string,
     options: any
