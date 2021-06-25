@@ -13,7 +13,7 @@ export default class MinimizationAdapter implements Adapter {
         validateIfRequiredModuleIsInstalled(
             'MinimizationAdapter',
             'css-minimizer-webpack-plugin',
-            '2.0.0'
+            '3.0.0'
         );
 
         // Minimizer will only be run in production mode so we don't need to check it
