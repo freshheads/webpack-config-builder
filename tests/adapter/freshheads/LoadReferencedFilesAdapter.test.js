@@ -27,7 +27,7 @@ describe('FreshheadsLoadReferencedFilesAdapter', () => {
             const rule = rules.pop();
 
             expect(rule).toHaveProperty('test');
-            expect(rule).toHaveProperty('loader', 'file-loader');
+            expect(rule).toHaveProperty('type', 'asset/resource');
         });
     });
 
@@ -52,7 +52,7 @@ describe('FreshheadsLoadReferencedFilesAdapter', () => {
             const rule = rules.pop();
 
             expect(rule).toHaveProperty('test', alternateTest);
-            expect(rule).toHaveProperty('loader', 'file-loader');
+            expect(rule).toHaveProperty('type', 'asset/resource');
         });
     });
 
