@@ -68,7 +68,7 @@ const createClassNameGeneratorForCSSLoader = (builderConfig: BuilderConfig) => (
     if (!determineFileIsCSSOrSCSSModule(fileBaseName)) {
         // when returning undefined, the regular class generation method for css-loader will be used
 
-        return;
+        return localName;
     }
 
     return determineClassName(context, localName, options);
