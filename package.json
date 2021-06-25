@@ -50,6 +50,7 @@
         "@types/deepmerge": "^2.2.0",
         "@types/jest": "^26.0.22",
         "@types/semver": "^7.3.4",
+        "@types/loader-utils": "^2.0.2",
         "autoprefixer": "^10.2.5",
         "babel-loader": "^8.2.2",
         "copy-webpack-plugin": "^8.1.1",
@@ -75,7 +76,8 @@
     "dependencies": {
         "chalk": "^4.1.0",
         "deepmerge": "^4.2.2",
-        "semver": "^7.3.5"
+        "semver": "^7.3.5",
+        "loader-utils": "^2.0.0"
     },
     "peerDependencies": {
         "webpack": "^5.20.0"
