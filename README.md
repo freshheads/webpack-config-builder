@@ -175,6 +175,10 @@ The adapters in the [`./freshheads`](https://github.com/freshheads/webpack-confi
     const builderConfig = {
         env: nodeEnv,
     };
+    
+    $builder = new Builder(builderConfig);
+    
+    // ...
 
     new DefaultStackAdapter({
         css: {
