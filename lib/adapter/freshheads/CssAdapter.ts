@@ -109,7 +109,7 @@ export default class CssAdapter implements Adapter {
             autoprefixer: '10.0.0',
             'css-loader': '5.0.0',
             postcss: '8.0.0',
-            'postcss-loader': '5.0.0',
+            'postcss-loader': '6.0.0',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {

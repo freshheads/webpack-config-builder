@@ -70,7 +70,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
                 validateIfRequiredModuleIsInstalled(
                     'CopyFilesToBuildDirAdapter',
                     'copy-webpack-plugin',
-                    '8.0.0'
+                    '9.0.0'
                 );
             }
 

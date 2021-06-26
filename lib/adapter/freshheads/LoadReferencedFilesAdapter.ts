@@ -1,7 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, RuleSetRule } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
-import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export type Config = {
     test: string | RegExp;
@@ -26,19 +25,15 @@ export default class LoadReferencedFilesAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        if (builderConfig.env === Environment.Dev) {
-            validateIfRequiredModuleIsInstalled(
-                'LoadReferencedFilesAdapter',
-                'file-loader',
-                '6.0.0'
-            );
-        }
+        const isDevelopment = builderConfig.env === Environment.Dev;
 
         const rule: RuleSetRule = {
             test: this.config.test,
-            loader: 'file-loader',
-            options: {
-                name: '[name].[contenthash].[ext]',
+            type: 'asset/resource',
+            generator: {
+                filename: isDevelopment
+                    ? '[name].[hash][ext][query]'
+                    : '[hash][ext][query]',
             },
         };
 
