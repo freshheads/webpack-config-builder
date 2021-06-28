@@ -21,6 +21,7 @@ describe('FreshheadsOutputAdapter', () => {
                     filename: '[name].[contenthash].js',
                     path: './../web/build',
                     publicPath: 'build',
+                    clean: true,
                 },
             });
         });
@@ -42,6 +43,7 @@ describe('FreshheadsOutputAdapter', () => {
                     filename: '[name].js',
                     path: './../web/build',
                     publicPath: 'build',
+                    clean: true,
                 },
             });
         });

@@ -4,7 +4,7 @@ import DefaultStackAdapter, {
 import deepmerge from 'deepmerge';
 import path from 'path';
 import { RecursivePartial } from '../../utility/types';
-import { Configuration, ExternalsObjectElement } from 'webpack';
+import { Configuration } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 import { NextCallback } from '../Adapter';
 
@@ -20,15 +20,16 @@ const DEFAULT_CONFIG: RecursivePartial<DefaultStackConfig> = {
             ),
         ],
         alias: {
-            'fhadmin': path.resolve(
+            fhadmin: path.resolve(
                 process.cwd(),
                 '../../vendor/freshheads/admin-bundle/Resources/public/assets/src'
             ),
-            'fhform': path.resolve(
+            fhform: path.resolve(
                 process.cwd(),
                 '../../vendor/freshheads/form-bundle/Resources/public'
             ),
-            'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js'
+            'jquery-ui/ui/widget':
+                'blueimp-file-upload/js/vendor/jquery.ui.widget.js',
         },
     },
     javascript: {
@@ -56,14 +57,31 @@ export default class DefaultSonataAdminStackAdapter extends DefaultStackAdapter 
         super(configCombinedWithAdminDefaults);
     }
 
-
-    apply(webpackConfig: Configuration, builderConfig: BuilderConfig, next: NextCallback) {
+    apply(
+        webpackConfig: Configuration,
+        builderConfig: BuilderConfig,
+        next: NextCallback
+    ) {
         super.apply(webpackConfig, builderConfig, next);
 
+        const existingExternals = webpackConfig.externals;
+
+        if (
+            typeof existingExternals !== 'undefined' &&
+            (typeof existingExternals !== 'object' ||
+                existingExternals instanceof RegExp ||
+                Array.isArray(existingExternals))
+        ) {
+            throw new Error(
+                'Convert existing externals setting to object so it can be extended'
+            );
+        }
+
         // Use external jQuery from Sonata
+        // @ts-ignore too many types to be sure we can extend it
         webpackConfig.externals = {
-            ...webpackConfig.externals as ExternalsObjectElement || {},
-            jquery: 'jQuery'
+            ...(existingExternals || {}),
+            jquery: 'jQuery',
         };
     }
 }

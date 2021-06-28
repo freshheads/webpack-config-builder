@@ -3,18 +3,7 @@ import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
 
-// @todo cannot extract this from `@types/webpack`. Should be able to do so. Maybe add a PR there and update it here afterwards
-export type TargetType =
-    | 'web'
-    | 'webworker'
-    | 'node'
-    | 'async-node'
-    | 'node-webkit'
-    | 'atom'
-    | 'electron'
-    | 'electron-renderer'
-    | 'electron-main'
-    | ((compiler?: any) => void);
+export type TargetType = Configuration['target'];
 
 export default class TargetAdapter implements Adapter {
     private target: TargetType;

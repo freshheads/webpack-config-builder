@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { DefinePlugin, Configuration, Plugin } from 'webpack';
+import { DefinePlugin, Configuration, WebpackPluginInstance } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 
 export default class DefineEnvironmentVariablesAdapter implements Adapter {
@@ -12,7 +12,7 @@ export default class DefineEnvironmentVariablesAdapter implements Adapter {
             webpackConfig.plugins = [];
         }
 
-        const pluginInstance: Plugin = new DefinePlugin({
+        const pluginInstance: WebpackPluginInstance = new DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(builderConfig.env),
         });
 

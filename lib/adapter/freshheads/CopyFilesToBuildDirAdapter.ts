@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { Configuration, Plugin } from 'webpack';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
 import path from 'path';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
@@ -59,7 +59,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
             patterns.push({
                 from: '**/*',
                 context: path.resolve(process.cwd(), 'src/images/'), // context reference for path placeholder and from glob
-                to: 'images/[path][name].[contenthash].[ext]', // contenthash is required even on dev env as required by webpack_assets extension
+                to: 'images/[path][name].[contenthash][ext]', // contenthash is required even on dev env as required by webpack_assets extension
             });
         }
 
@@ -70,7 +70,7 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
                 validateIfRequiredModuleIsInstalled(
                     'CopyFilesToBuildDirAdapter',
                     'copy-webpack-plugin',
-                    '6.0.0'
+                    '9.0.0'
                 );
             }
 
@@ -82,10 +82,12 @@ export default class CopyFilesToBuildDirAdapter implements Adapter {
 
             const options = {};
 
-            const pluginInstance: Plugin = new CopyWebpackPlugin({
-                patterns,
-                options,
-            });
+            const pluginInstance: WebpackPluginInstance = new CopyWebpackPlugin(
+                {
+                    patterns,
+                    options,
+                }
+            );
 
             webpackConfig.plugins.push(pluginInstance);
         }

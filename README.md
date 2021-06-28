@@ -126,7 +126,6 @@ The `builder.build()` command outputs a configuration object that can be feeded 
         .add(new TargetAdapter('web'))
         .add(new ModeAdapter(isProduction ? 'production' : 'development'))
         .add(new ResolveAdapter())
-        .add(new CleanBuildDirectoryAdapter())
         .add(new SourcemapAdapter())
         .add(new DefineEnvironmentVariablesAdapter())
         .add(new WatchOptionsAdapter())
@@ -175,9 +174,9 @@ The adapters in the [`./freshheads`](https://github.com/freshheads/webpack-confi
     const builderConfig = {
         env: nodeEnv,
     };
-    
+
     $builder = new Builder(builderConfig);
-    
+
     // ...
 
     new DefaultStackAdapter({
@@ -185,9 +184,8 @@ The adapters in the [`./freshheads`](https://github.com/freshheads/webpack-confi
             enabled: true,
             cssLoaderOptions: {
                 modules: {
-                    getLocalIdent: createClassNameGeneratorForCSSLoader(
-                        builderConfig
-                    ),
+                    getLocalIdent:
+                        createClassNameGeneratorForCSSLoader(builderConfig),
                 },
             },
         },

@@ -50,7 +50,9 @@ export default class CssAdapter implements Adapter {
             };
         }
 
-        const isProduction = builderConfig.env === Environment.Production;
+        if (typeof webpackConfig.module.rules === 'undefined') {
+            webpackConfig.module.rules = [];
+        }
 
         const rule: RuleSetRule = {
             test: this.config.sass.enabled ? /\.s?css$/ : /\.css$/,
@@ -81,13 +83,6 @@ export default class CssAdapter implements Adapter {
                                 }),
                             ];
 
-                            if (isProduction) {
-                                // css nano can be configured at application level by adding a cssnano.config.js
-                                const cssNano = require('cssnano');
-
-                                plugins.push(cssNano);
-                            }
-
                             return {
                                 sourceMap: true,
                                 plugins: plugins,
@@ -111,11 +106,10 @@ export default class CssAdapter implements Adapter {
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            autoprefixer: '9.8.0',
-            'css-loader': '4.2.0',
+            autoprefixer: '10.0.0',
+            'css-loader': '5.0.0',
             postcss: '8.0.0',
-            'postcss-loader': '4.0.0',
-            cssnano: '4.1.10',
+            'postcss-loader': '6.0.0',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {

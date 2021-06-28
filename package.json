@@ -1,6 +1,6 @@
 {
     "name": "@freshheads/webpack-config-builder",
-    "version": "3.2.1",
+    "version": "4.0.0-beta.6",
     "description": "Uses an adapter pattern to build webpack configurations. This makes it possible for teams to create and maintain their base webpack setup and be able to update it from a central git repo, instead of having to change every project individually",
     "main": "build/index.js",
     "scripts": {
@@ -8,9 +8,10 @@
         "build:watch": "tsc --watch",
         "test": "jest --config=jest.config.js --detectOpenHandles --silent",
         "test:watch": "jest --watch --notify --config=jest.config.js --detectOpenHandles --silent",
-        "prettier:check": "prettier --check './**/*.{js,ts,json,md}'",
-        "prettier:write": "prettier --write './**/*.{js,ts,json,md}'",
-        "prepare": "npm run build"
+        "prettier:check": "prettier --check '**/*.{js,ts,json,md}'",
+        "prettier:write": "prettier --write '**/*.{js,ts,json,md}'",
+        "prepare": "husky install",
+        "prepublishOnly": "npm run build"
     },
     "keywords": [
         "webpack",
@@ -44,55 +45,40 @@
     },
     "license": "MIT",
     "devDependencies": {
-        "@babel/preset-env": "^7.11.5",
-        "@babel/preset-typescript": "^7.10.4",
-        "@types/copy-webpack-plugin": "^6.0.0",
+        "@babel/core": "^7.14.6",
+        "@babel/preset-env": "^7.14.7",
+        "@babel/preset-typescript": "^7.14.5",
         "@types/deepmerge": "^2.2.0",
-        "@types/jest": "^26.0.12",
-        "@types/loader-utils": "^2.0.2",
-        "@types/mini-css-extract-plugin": "^0.9.1",
-        "@types/semver": "^7.3.3",
-        "@types/terser-webpack-plugin": "^4.1.0",
-        "@types/webpack": "^4.41.21",
-        "autoprefixer": "^9.8.6",
-        "babel-loader": "^8.1.0",
-        "clean-webpack-plugin": "^3.0.0",
-        "copy-webpack-plugin": "^6.1.0",
-        "css-loader": "^4.2.2",
-        "cssnano": "^4.1.10",
+        "@types/jest": "^26.0.23",
+        "@types/semver": "^7.3.6",
+        "autoprefixer": "^10.2.6",
+        "babel-loader": "^8.2.2",
+        "copy-webpack-plugin": "^9.0.1",
+        "css-loader": "^5.2.6",
+        "css-minimizer-webpack-plugin": "^3.0.2",
         "fibers": "^5.0.0",
-        "file-loader": "^6.1.0",
-        "husky": "^4.2.5",
-        "jest": "^26.4.2",
-        "jquery": "^3.5.1",
-        "lint-staged": "^10.2.13",
-        "mini-css-extract-plugin": "^0.11.0",
-        "postcss": "^8.0.9",
-        "postcss-loader": "^4.0.2",
-        "prettier": "^2.1.1",
-        "resolve-url-loader": "^3.1.1",
-        "sass": "^1.26.10",
-        "sass-loader": "^10.0.1",
-        "terser-webpack-plugin": "^4.1.0",
-        "typescript": "^4.0.2",
-        "webpack": "^4.44.1",
-        "webpack-stats-plugin": "^0.3.2"
+        "husky": "^6.0.0",
+        "jest": "^26.6.3",
+        "jquery": "^3.6.0",
+        "lint-staged": "^11.0.0",
+        "mini-css-extract-plugin": "^1.6.0",
+        "postcss": "^8.3.5",
+        "postcss-loader": "^6.1.0",
+        "prettier": "^2.3.1",
+        "resolve-url-loader": "^3.1.4",
+        "sass": "^1.35.1",
+        "sass-loader": "^12.1.0",
+        "typescript": "^4.3.4",
+        "webpack": "^5.40.0",
+        "webpack-stats-plugin": "^1.0.3"
     },
     "dependencies": {
-        "chalk": "^4.1.0",
+        "chalk": "^4.1.1",
         "deepmerge": "^4.2.2",
         "loader-utils": "^2.0.0",
-        "semver": "^7.3.2"
+        "semver": "^7.3.5"
     },
     "peerDependencies": {
-        "webpack": "^4.41.2"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
-    },
-    "lint-staged": {
-        "*.{js,json,css,md}": "prettier --write"
+        "webpack": "^5.20.0"
     }
 }

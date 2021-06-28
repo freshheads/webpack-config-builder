@@ -1,12 +1,14 @@
 import { Adapter, NextCallback } from './Adapter';
-import { Configuration, Options } from 'webpack';
+import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 import { warn } from '../utility/messageHelper';
 
-export default class DevtoolAdapter implements Adapter {
-    private tool: Options.Devtool;
+type DevTool = Configuration['devtool'];
 
-    constructor(tool: Options.Devtool = 'inline-source-map') {
+export default class DevtoolAdapter implements Adapter {
+    private tool: DevTool;
+
+    constructor(tool: DevTool = 'inline-source-map') {
         this.tool = tool;
     }
 

@@ -1,5 +1,4 @@
 const { FreshheadsBabelLoaderAdapter } = require('../../../build/index');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 describe('FreshheadsBabelLoaderAdapter', () => {
     describe('When applied', () => {

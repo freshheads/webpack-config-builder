@@ -1,14 +1,12 @@
 import { BuilderConfig, Environment } from '../Builder';
 import path from 'path';
 import loaderUtils from 'loader-utils';
-import webpack from 'webpack';
-import LoaderContext = webpack.loader.LoaderContext;
 
 /**
  * Create a hash based on a the file location and class name. Will be unique across a project, and close to globally
  * unique.
  */
-const determineUniqueFileHash = (context: LoaderContext, localName: string) => {
+const determineUniqueFileHash = (context: any, localName: string) => {
     const relativePath: string =
         path.posix.relative(context.rootContext, context.resourcePath) +
         localName;
@@ -21,11 +19,7 @@ const determineUniqueFileHash = (context: LoaderContext, localName: string) => {
 /**
  * Builds-up a new class name with the name of the module, sub-class and a hash incorporated.
  */
-const determineClassName = (
-    context: LoaderContext,
-    localName: string,
-    options: any
-) => {
+const determineClassName = (context: any, localName: string, options: any) => {
     const hash = determineUniqueFileHash(context, localName);
 
     const className = loaderUtils.interpolateName(
@@ -49,29 +43,31 @@ const determineFileIsCSSOrSCSSModule = (fileBaseName: string): boolean =>
  *
  * @see https://github.com/webpack-contrib/css-loader/issues/1307
  */
-const createClassNameGeneratorForCSSLoader = (builderConfig: BuilderConfig) => (
-    context: LoaderContext,
-    _localIdentName: any,
-    localName: string,
-    options: any
-): string | void => {
-    // only use in dev environment, as it is only useful there to distinguish between
-    // generated class names
-    if (builderConfig.env !== Environment.Dev) {
-        return;
-    }
+const createClassNameGeneratorForCSSLoader =
+    (builderConfig: BuilderConfig) =>
+    (
+        context: any,
+        _localIdentName: any,
+        localName: string,
+        options: any
+    ): string | void => {
+        // only use in dev environment, as it is only useful there to distinguish between
+        // generated class names
+        if (builderConfig.env !== Environment.Dev) {
+            return;
+        }
 
-    const fileBaseName = path.basename(context.resourcePath);
+        const fileBaseName = path.basename(context.resourcePath);
 
-    // make sure custom classNames are only used for css modules otherwise global css will
-    // get changed too, but will not match the class names supplied in the HTML.
-    if (!determineFileIsCSSOrSCSSModule(fileBaseName)) {
-        // when returning undefined, the regular class generation method for css-loader will be used
+        // make sure custom classNames are only used for css modules otherwise global css will
+        // get changed too, but will not match the class names supplied in the HTML.
+        if (!determineFileIsCSSOrSCSSModule(fileBaseName)) {
+            // when returning undefined, the regular class generation method for css-loader will be used
 
-        return localName;
-    }
+            return localName;
+        }
 
-    return determineClassName(context, localName, options);
-};
+        return determineClassName(context, localName, options);
+    };
 
 export default createClassNameGeneratorForCSSLoader;

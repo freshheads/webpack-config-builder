@@ -18,7 +18,6 @@ export { default as FreshheadsLoadReferencedFilesAdapter } from './adapter/fresh
 export { default as FreshheadsCssAdapter } from './adapter/freshheads/CssAdapter';
 export { default as FreshheadsJavascriptAdapter } from './adapter/freshheads/JavascriptAdapter';
 export { default as FreshheadsTypescriptAdapter } from './adapter/freshheads/TypescriptAdapter';
-export { default as FreshheadsCleanBuildDirectoryAdapter } from './adapter/freshheads/CleanBuildDirectoryAdapter';
 export { default as FreshheadsCopyFilesToBuildDirAdapter } from './adapter/freshheads/CopyFilesToBuildDirAdapter';
 export { default as FreshheadsWriteBuildStatsToFileAdapter } from './adapter/freshheads/WriteBuildStatsToFileAdapter';
 export { default as FreshheadsDefineEnvironmentVariablesAdapter } from './adapter/freshheads/DefineEnvironmentVariablesAdapter';
@@ -27,7 +26,7 @@ export { default as FreshheadsDefaultStackAdapter } from './adapter/freshheads/D
 export { default as FreshheadsDefaultAdminStackAdapter } from './adapter/freshheads/DefaultAdminStackAdapter';
 export { default as FreshheadsDefaultSonataAdminStackAdapter } from './adapter/freshheads/DefaultSonataAdminStackAdapter';
 export { default as FreshheadsBabelLoaderAdapter } from './adapter/freshheads/BabelLoaderAdapter';
-export { default as FreshheadsJavascriptMinimizationAdapter } from './adapter/freshheads/JavascriptMinimizationAdapter';
+export { default as FreshheadsMinimizationAdapter } from './adapter/freshheads/MinimizationAdapter';
 export { default as FreshheadsJavascriptJQueryAdapter } from './adapter/freshheads/JavascriptJQueryAdapter';
 export { default as FreshheadsSassLoaderAdapter } from './adapter/freshheads/SassLoaderAdapter';
 

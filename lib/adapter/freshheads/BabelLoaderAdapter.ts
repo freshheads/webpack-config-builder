@@ -45,6 +45,10 @@ export default class BabelLoaderAdapter implements Adapter {
             };
         }
 
+        if (typeof webpackConfig.module.rules === 'undefined') {
+            webpackConfig.module.rules = [];
+        }
+
         const rule: RuleSetRule = {
             test: /\.(ts|js)x?$/,
             include: this.config.include,
@@ -64,7 +68,7 @@ export default class BabelLoaderAdapter implements Adapter {
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules = {
             'babel-loader': '8.1.0',
-            '@babel/preset-env': '7.11.0',
+            '@babel/preset-env': '7.13.0',
         };
 
         iterateObjectValues(requiredModules, (minVersion, module) => {

@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { Configuration, Resolve } from 'webpack';
+import { Configuration, ResolveOptions } from 'webpack';
 import Builder, { BuilderConfig, Environment } from '../../Builder';
 import LoadReferencedFilesAdapter, {
     Config as LoadReferencedFilesConfig,
@@ -13,7 +13,6 @@ import CssAdapter, {
     Config as CssConfig,
     DEFAULT_CONFIG as DEFAULT_CSS_CONFIG,
 } from './CssAdapter';
-import CleanBuildDirectoryAdapter from './CleanBuildDirectoryAdapter';
 import WriteBuildStatsToFileAdapter from './WriteBuildStatsToFileAdapter';
 import DefineEnvironmentVariablesAdapter from './DefineEnvironmentVariablesAdapter';
 import CopyFilesToBuildDirAdapter, {
@@ -29,13 +28,14 @@ import ResolveAdapter, {
 import ModeAdapter from '../ModeAdapter';
 import WatchOptionsAdapter from './WatchOptionsAdapter';
 import { RecursivePartial } from '../../utility/types';
+import MinimizationAdapter from './MinimizationAdapter';
 
 type EnabledConfig = {
     enabled: boolean;
 };
 
 export type Config = {
-    resolve: Resolve;
+    resolve: ResolveOptions;
     loadReferencedFiles: EnabledConfig & LoadReferencedFilesConfig;
     css: EnabledConfig & CssConfig;
     javascript: EnabledConfig & JavascriptConfig;
@@ -88,7 +88,6 @@ export default class DefaultStackAdapter implements Adapter {
             .add(new TargetAdapter('web'))
             .add(new ModeAdapter(isProduction ? 'production' : 'development'))
             .add(new ResolveAdapter(this.config.resolve))
-            .add(new CleanBuildDirectoryAdapter())
             .add(new SourcemapAdapter())
             .add(new DefineEnvironmentVariablesAdapter())
             .add(new WatchOptionsAdapter())
@@ -98,7 +97,8 @@ export default class DefaultStackAdapter implements Adapter {
                         automaticNameDelimiter: '-',
                     },
                 })
-            );
+            )
+            .add(new MinimizationAdapter());
 
         if (this.config.loadReferencedFiles.enabled) {
             builder.add(

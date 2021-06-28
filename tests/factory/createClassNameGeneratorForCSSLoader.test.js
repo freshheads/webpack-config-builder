@@ -32,7 +32,7 @@ describe('createClassNameGeneratorForCSSLoader()', () => {
     });
 
     describe('When in the develop environment', () => {
-        const builderConfig = { env: 'dev' };
+        const builderConfig = { env: 'development' };
 
         let generator;
 
@@ -88,16 +88,18 @@ describe('createClassNameGeneratorForCSSLoader()', () => {
 
         describe('When generating a class name for a global css class', () => {
             it('should return undefined', () => {
+                const className = 'button--primary';
+
                 const generated = generator(
                     {
                         resourcePath: '/home/somewhere/_variables.scss',
                     },
                     undefined,
-                    'button--primary',
+                    className,
                     {}
                 );
 
-                expect(generated).toBeUndefined();
+                expect(generated).toBe(className);
             });
         });
     });

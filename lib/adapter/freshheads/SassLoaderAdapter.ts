@@ -40,6 +40,10 @@ export default class SassLoaderAdapter implements Adapter {
             webpackConfig.module = { rules: [] };
         }
 
+        if (typeof webpackConfig.module.rules === 'undefined') {
+            webpackConfig.module.rules = [];
+        }
+
         webpackConfig.module.rules.push(this.createRule());
 
         next();
@@ -65,9 +69,9 @@ export default class SassLoaderAdapter implements Adapter {
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            'sass-loader': '10.0.0',
+            'sass-loader': '12.0.0',
             'resolve-url-loader': '3.1.0',
-            sass: '1.26.0',
+            sass: '1.35.0',
             fibers: '5.0.0',
         };
 

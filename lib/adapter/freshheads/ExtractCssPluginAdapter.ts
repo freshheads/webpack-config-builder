@@ -1,5 +1,5 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { Configuration, Plugin } from 'webpack';
+import { Configuration, WebpackPluginInstance } from 'webpack';
 import { BuilderConfig, Environment } from '../../Builder';
 import { checkPluginInstanceIsInWebpackConfig } from '../../utility/webpackConfigHelper';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
@@ -14,7 +14,7 @@ export default class ExtractCssPluginAdapter implements Adapter {
             validateIfRequiredModuleIsInstalled(
                 'ExtractCssPluginAdapter',
                 'mini-css-extract-plugin',
-                '0.11.0'
+                '1.3.0'
             );
         }
 
@@ -37,7 +37,7 @@ export default class ExtractCssPluginAdapter implements Adapter {
 
         const isProduction = builderConfig.env === Environment.Production;
 
-        const plugin: Plugin = new MiniCssExtractPlugin({
+        const plugin: WebpackPluginInstance = new MiniCssExtractPlugin({
             filename: isProduction ? '[name].[contenthash].css' : '[name].css',
             chunkFilename: isProduction ? '[id].[contenthash].css' : '[id].css',
         });
