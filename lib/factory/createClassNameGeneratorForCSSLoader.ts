@@ -54,7 +54,7 @@ const createClassNameGeneratorForCSSLoader =
         // only use in dev environment, as it is only useful there to distinguish between
         // generated class names
         if (builderConfig.env !== Environment.Dev) {
-            return;
+            return localName;
         }
 
         const fileBaseName = path.basename(context.resourcePath);

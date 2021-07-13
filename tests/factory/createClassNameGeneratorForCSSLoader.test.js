@@ -11,22 +11,36 @@ describe('createClassNameGeneratorForCSSLoader()', () => {
         });
 
         describe('When generating a class name for a module', () => {
-            it('should return undefined', () => {
-                const generated = generator({
-                    resourcePath: '/home/somewhere/test.module.scss',
-                });
+            it('should return an untouched classname which is a hash', () => {
+                const className = '_3vmfFpd9HwvN6tBfnXFs-_';
 
-                expect(generated).toBeUndefined();
+                const generated = generator(
+                    {
+                        resourcePath: '/home/somewhere/_variables.scss',
+                    },
+                    undefined,
+                    className,
+                    {}
+                );
+
+                expect(generated).toBe(className);
             });
         });
 
         describe('When generating a class name for a regular css class', () => {
-            it('should return undefined', () => {
-                const generated = generator({
-                    resourcePath: '/home/somewhere/_variables.scss',
-                });
+            it('should return an untouched classname', () => {
+                const className = 'button--primary';
 
-                expect(generated).toBeUndefined();
+                const generated = generator(
+                    {
+                        resourcePath: '/home/somewhere/_variables.scss',
+                    },
+                    undefined,
+                    className,
+                    {}
+                );
+
+                expect(generated).toBe(className);
             });
         });
     });
@@ -87,7 +101,7 @@ describe('createClassNameGeneratorForCSSLoader()', () => {
         });
 
         describe('When generating a class name for a global css class', () => {
-            it('should return undefined', () => {
+            it('should return an untouched classname', () => {
                 const className = 'button--primary';
 
                 const generated = generator(
