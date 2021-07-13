@@ -49,29 +49,31 @@ const determineFileIsCSSOrSCSSModule = (fileBaseName: string): boolean =>
  *
  * @see https://github.com/webpack-contrib/css-loader/issues/1307
  */
-const createClassNameGeneratorForCSSLoader = (builderConfig: BuilderConfig) => (
-    context: LoaderContext,
-    _localIdentName: any,
-    localName: string,
-    options: any
-): string | void => {
-    // only use in dev environment, as it is only useful there to distinguish between
-    // generated class names
-    if (builderConfig.env !== Environment.Dev) {
-        return;
-    }
+const createClassNameGeneratorForCSSLoader =
+    (builderConfig: BuilderConfig) =>
+    (
+        context: LoaderContext,
+        _localIdentName: any,
+        localName: string,
+        options: any
+    ): string | void => {
+        // only use in dev environment, as it is only useful there to distinguish between
+        // generated class names
+        if (builderConfig.env !== Environment.Dev) {
+            return localName;
+        }
 
-    const fileBaseName = path.basename(context.resourcePath);
+        const fileBaseName = path.basename(context.resourcePath);
 
-    // make sure custom classNames are only used for css modules otherwise global css will
-    // get changed too, but will not match the class names supplied in the HTML.
-    if (!determineFileIsCSSOrSCSSModule(fileBaseName)) {
-        // when returning undefined, the regular class generation method for css-loader will be used
+        // make sure custom classNames are only used for css modules otherwise global css will
+        // get changed too, but will not match the class names supplied in the HTML.
+        if (!determineFileIsCSSOrSCSSModule(fileBaseName)) {
+            // when returning undefined, the regular class generation method for css-loader will be used
 
-        return localName;
-    }
+            return localName;
+        }
 
-    return determineClassName(context, localName, options);
-};
+        return determineClassName(context, localName, options);
+    };
 
 export default createClassNameGeneratorForCSSLoader;
