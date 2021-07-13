@@ -6,21 +6,25 @@ import loaderUtils from 'loader-utils';
  * Create a hash based on a the file location and class name. Will be unique across a project, and close to globally
  * unique.
  */
-const determineUniqueFileHash = (context: any, localName: string) => {
+const determineUniqueFileHash = (
+    context: any,
+    localName: string,
+    maxLength?: number
+) => {
     const relativePath: string =
         path.posix.relative(context.rootContext, context.resourcePath) +
         localName;
 
     const hashBuffer = Buffer.from(relativePath, 'utf8');
 
-    return loaderUtils.getHashDigest(hashBuffer, 'md5', 'base64', 5);
+    return loaderUtils.getHashDigest(hashBuffer, 'md5', 'base64', maxLength);
 };
 
 /**
  * Builds-up a new class name with the name of the module, sub-class and a hash incorporated.
  */
 const determineClassName = (context: any, localName: string, options: any) => {
-    const hash = determineUniqueFileHash(context, localName);
+    const hash = determineUniqueFileHash(context, localName, 5);
 
     const className = loaderUtils.interpolateName(
         context,
@@ -51,20 +55,18 @@ const createClassNameGeneratorForCSSLoader =
         localName: string,
         options: any
     ): string | void => {
-        // only use in dev environment, as it is only useful there to distinguish between
-        // generated class names
-        if (builderConfig.env !== Environment.Dev) {
-            return localName;
-        }
-
         const fileBaseName = path.basename(context.resourcePath);
 
         // make sure custom classNames are only used for css modules otherwise global css will
         // get changed too, but will not match the class names supplied in the HTML.
         if (!determineFileIsCSSOrSCSSModule(fileBaseName)) {
-            // when returning undefined, the regular class generation method for css-loader will be used
-
             return localName;
+        }
+
+        // only use in dev environment, as it is only useful there to distinguish between
+        // generated class names. In prod we return a unique hash.
+        if (builderConfig.env !== Environment.Dev) {
+            return determineUniqueFileHash(context, localName);
         }
 
         return determineClassName(context, localName, options);
