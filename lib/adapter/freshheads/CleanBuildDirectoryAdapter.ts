@@ -1,19 +1,21 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, Plugin } from 'webpack';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export default class CleanBuildDirectoryAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
-        _builderConfig: BuilderConfig,
+        builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        validateIfRequiredModuleIsInstalled(
-            'CleanBuildDirectoryAdapter',
-            'clean-webpack-plugin',
-            '2.0.1'
-        );
+        if (builderConfig.env === Environment.Dev) {
+            validateIfRequiredModuleIsInstalled(
+                'CleanBuildDirectoryAdapter',
+                'clean-webpack-plugin',
+                '2.0.1'
+            );
+        }
 
         if (typeof webpackConfig.plugins === 'undefined') {
             webpackConfig.plugins = [];

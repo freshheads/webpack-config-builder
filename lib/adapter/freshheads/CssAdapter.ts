@@ -29,7 +29,9 @@ export default class CssAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        if (builderConfig.env === Environment.Dev) {
+            this.validateAllRequiredModulesAreInstalled();
+        }
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = {

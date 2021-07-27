@@ -40,7 +40,9 @@ export default class SassLoaderAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        if (builderConfig.env === Environment.Dev) {
+            this.validateAllRequiredModulesAreInstalled();
+        }
 
         if (typeof webpackConfig.module === 'undefined') {
             webpackConfig.module = { rules: [] };

@@ -10,11 +10,13 @@ export default class ExtractCssPluginAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        validateIfRequiredModuleIsInstalled(
-            'ExtractCssPluginAdapter',
-            'mini-css-extract-plugin',
-            '0.8.0'
-        );
+        if (builderConfig.env === Environment.Dev) {
+            validateIfRequiredModuleIsInstalled(
+                'ExtractCssPluginAdapter',
+                'mini-css-extract-plugin',
+                '0.8.0'
+            );
+        }
 
         const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
