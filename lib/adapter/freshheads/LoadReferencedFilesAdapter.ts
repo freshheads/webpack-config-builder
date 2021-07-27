@@ -1,6 +1,6 @@
 import { Adapter, NextCallback } from '../Adapter';
 import { Configuration, RuleSetRule } from 'webpack';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export type Config = {
@@ -23,14 +23,16 @@ export default class LoadReferencedFilesAdapter implements Adapter {
 
     public apply(
         webpackConfig: Configuration,
-        _builderConfig: BuilderConfig,
+        builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        validateIfRequiredModuleIsInstalled(
-            'LoadReferencedFilesAdapter',
-            'file-loader',
-            '5.1.0'
-        );
+        if (builderConfig.env === Environment.Dev) {
+            validateIfRequiredModuleIsInstalled(
+                'LoadReferencedFilesAdapter',
+                'file-loader',
+                '5.1.0'
+            );
+        }
 
         const rule: RuleSetRule = {
             test: this.config.test,

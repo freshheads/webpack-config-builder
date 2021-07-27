@@ -39,7 +39,9 @@ export default class SassLoaderAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        this.validateAllRequiredModulesAreInstalled();
+        if (builderConfig.env === Environment.Dev) {
+            this.validateAllRequiredModulesAreInstalled();
+        }
         // add implementation here instead of directly in DEFAULT_CONFIG.
         // If added in DEFAULT_CONFIG the require tries to import sass even though sass is disabled.
         // This causes problems when sass isn't installed.
