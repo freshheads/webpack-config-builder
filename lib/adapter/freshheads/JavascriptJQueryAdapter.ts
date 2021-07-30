@@ -1,19 +1,21 @@
 import { Adapter, NextCallback } from '../Adapter';
-import { BuilderConfig } from '../../Builder';
+import { BuilderConfig, Environment } from '../../Builder';
 import { Configuration } from 'webpack';
 import { validateIfRequiredModuleIsInstalled } from '../../utility/moduleHelper';
 
 export default class JavascriptJQueryAdapter implements Adapter {
     public apply(
         webpackConfig: Configuration,
-        _builderConfig: BuilderConfig,
+        builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        validateIfRequiredModuleIsInstalled(
-            'JavascriptJQueryAdapter',
-            'jquery',
-            '3.4.0'
-        );
+        if (builderConfig.env === Environment.Dev) {
+            validateIfRequiredModuleIsInstalled(
+                'JavascriptJQueryAdapter',
+                'jquery',
+                '3.4.0'
+            );
+        }
 
         if (typeof webpackConfig.plugins === 'undefined') {
             webpackConfig.plugins = [];

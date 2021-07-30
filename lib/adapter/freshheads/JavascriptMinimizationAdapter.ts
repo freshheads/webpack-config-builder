@@ -10,11 +10,13 @@ export default class JavascriptMinimizationAdapter implements Adapter {
         builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        validateIfRequiredModuleIsInstalled(
-            'JavascriptMinimizationAdapter',
-            'terser-webpack-plugin',
-            '2.2.1'
-        );
+        if (builderConfig.env === Environment.Dev) {
+            validateIfRequiredModuleIsInstalled(
+                'JavascriptMinimizationAdapter',
+                'terser-webpack-plugin',
+                '2.2.1'
+            );
+        }
 
         if (builderConfig.env !== Environment.Production) {
             next();
