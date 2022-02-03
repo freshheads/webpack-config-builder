@@ -3,11 +3,11 @@ import { Configuration, RuleSetRule } from 'webpack';
 import { BuilderConfig } from '../../Builder';
 
 export type Config = {
-    test: string | RegExp;
+    additionalAssetRules: RuleSetRule[];
 };
 
 export const DEFAULT_CONFIG: Config = {
-    test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.jpe?g$|\.png$|\.gif$/,
+    additionalAssetRules: [],
 };
 
 export default class LoadReferencedFilesAdapter implements Adapter {
@@ -25,13 +25,14 @@ export default class LoadReferencedFilesAdapter implements Adapter {
         _builderConfig: BuilderConfig,
         next: NextCallback
     ) {
-        const rule: RuleSetRule = {
-            test: this.config.test,
-            type: 'asset/resource',
-            generator: {
-                // name must be included so assets can be used by webpack_asset twig extension
-                filename: '[name].[hash][ext][query]',
-            },
+        const rules: RuleSetRule = {
+            oneOf: [
+                ...this.config.additionalAssetRules,
+                {
+                    test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.jpe?g$|\.png$|\.gif$/,
+                    type: 'asset/resource',
+                },
+            ],
         };
 
         if (typeof webpackConfig.module === 'undefined') {
@@ -44,7 +45,7 @@ export default class LoadReferencedFilesAdapter implements Adapter {
             webpackConfig.module.rules = [];
         }
 
-        webpackConfig.module.rules.push(rule);
+        webpackConfig.module.rules.push(rules);
 
         next();
     }

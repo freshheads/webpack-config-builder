@@ -24,7 +24,11 @@ describe('FreshheadsDefaultAdminStackAdapter', () => {
             expect(rules).toHaveLength(4);
 
             rules.forEach((rule) => {
-                expect(rule).toHaveProperty('test');
+                if (rule.oneOf) {
+                    expect(rule.oneOf[0]).toHaveProperty('test');
+                } else {
+                    expect(rule).toHaveProperty('test');
+                }
             });
         });
 
