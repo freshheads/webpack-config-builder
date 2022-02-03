@@ -1,7 +1,7 @@
 import { Configuration } from 'webpack';
 import { BuilderConfig } from '../Builder';
 
-type NextCallback = () => void;
+export type NextCallback = () => void;
 
 export interface Adapter {
     apply: (
