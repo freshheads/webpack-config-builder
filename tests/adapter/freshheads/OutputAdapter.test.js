@@ -17,6 +17,7 @@ describe('FreshheadsOutputAdapter', () => {
 
             expect(webpackConfig).toEqual({
                 output: {
+                    assetModuleFilename: '[name].[hash][ext][query]',
                     chunkFilename: '[name].[contenthash].[id].js',
                     filename: '[name].[contenthash].js',
                     path: './../web/build',
@@ -39,6 +40,7 @@ describe('FreshheadsOutputAdapter', () => {
 
             expect(webpackConfig).toEqual({
                 output: {
+                    assetModuleFilename: '[name].[hash][ext][query]',
                     chunkFilename: '[name].[id].js',
                     filename: '[name].js',
                     path: './../web/build',

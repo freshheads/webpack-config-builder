@@ -38,6 +38,9 @@ export default class OutputAdapter implements Adapter {
                 ? '[name].[id].js'
                 : '[name].[contenthash].[id].js',
 
+            // name must be included so assets can be used by webpack_asset twig extension
+            assetModuleFilename: '[name].[hash][ext][query]',
+
             // In general it's good practice to clean the output folder before each build, so that only used files will be generated.
             clean: true,
         };

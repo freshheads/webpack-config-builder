@@ -26,16 +26,23 @@ describe('FreshheadsLoadReferencedFilesAdapter', () => {
 
             const rule = rules.pop();
 
-            expect(rule).toHaveProperty('test');
-            expect(rule).toHaveProperty('type', 'asset/resource');
+            expect(rule.oneOf).toHaveLength(1);
+
+            expect(rule.oneOf[0]).toHaveProperty('test');
+            expect(rule.oneOf[0]).toHaveProperty('type', 'asset/resource');
         });
     });
 
-    describe('With a configuration override supplied', () => {
+    describe('With a additional asset rules supplied', () => {
         it('should set the correct output configuration', () => {
-            const alternateTest = /.woff2/;
             const alternateAdapter = new FreshheadsLoadReferencedFilesAdapter({
-                test: alternateTest,
+                additionalAssetRules: [
+                    {
+                        test: /\.svg$/i,
+                        issuer: /\.[jt]sx?$/,
+                        use: ['@svgr/webpack'],
+                    },
+                ],
             });
             const webpackConfig = {};
 
@@ -51,8 +58,7 @@ describe('FreshheadsLoadReferencedFilesAdapter', () => {
 
             const rule = rules.pop();
 
-            expect(rule).toHaveProperty('test', alternateTest);
-            expect(rule).toHaveProperty('type', 'asset/resource');
+            expect(rule.oneOf).toHaveLength(2);
         });
     });
 
