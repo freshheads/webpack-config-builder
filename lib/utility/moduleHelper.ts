@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import { gte as versionIsGreaterThanOrEqualTo } from 'semver';
-import { warn } from './messageHelper';
+import { warn, error } from './messageHelper';
 
 type TInstalledModules = {
     [key: string]: string;
@@ -12,10 +12,14 @@ export function validateIfRequiredModuleIsInstalled(
     minVersion?: string
 ): void {
     if (!checkIfModuleIsInstalled(module, minVersion)) {
-        throw new Error(
+        error(
             `Adapter '${adapter}' requires module '${module}' to be installed${
                 minVersion ? ` with min version '${minVersion}'` : ''
             }.`
+        );
+
+        throw new Error(
+            `when validating the required dependencies, please install ${module} >= '${minVersion}'`
         );
     }
 }
