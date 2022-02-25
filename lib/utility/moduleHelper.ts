@@ -66,10 +66,9 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
 
         console.error(error);
 
-        commandOutput =
-            typeof error.stdout !== 'undefined'
-                ? error.stdout.toString()
-                : null;
+        // prettier-ignore
+        // @ts-expect-error of type unknown
+        commandOutput = typeof error.stdout !== 'undefined' ? error.stdout.toString() : null;
     }
 
     if (!commandOutput) {
