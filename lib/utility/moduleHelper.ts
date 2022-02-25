@@ -50,7 +50,7 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
 
     // gets all dependencies (incl. dev) from package-lock.json, not from node_modules folder, as with NPM 7+ the node
     // modules might be stored in the root project node_modules folder and not in a child-project
-    const command = 'npm list --json --package-lock-only';
+    const command = 'npm list --json --package-lock-only --depth=0';
     let commandOutput: string | null;
 
     try {
