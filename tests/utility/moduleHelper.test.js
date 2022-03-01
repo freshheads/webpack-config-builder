@@ -5,7 +5,15 @@ const {
 describe('moduleHelper', () => {
     describe('::checkIfModuleIsInstalled()', () => {
         describe('When applied on an installed module', () => {
-            describe('..without a version', () => {
+            describe('..regular dependency', () => {
+                it('returns true', () => {
+                    const result = checkIfModuleIsInstalled('deepmerge');
+
+                    expect(result).toBe(true);
+                });
+            });
+
+            describe('..dev dependency without a version', () => {
                 it('returns true', () => {
                     const result = checkIfModuleIsInstalled('webpack');
 

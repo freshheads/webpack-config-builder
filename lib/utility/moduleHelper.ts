@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import { gte as versionIsGreaterThanOrEqualTo } from 'semver';
-import { warn } from './messageHelper';
+import { warn, error } from './messageHelper';
 
 type TInstalledModules = {
     [key: string]: string;
@@ -12,10 +12,14 @@ export function validateIfRequiredModuleIsInstalled(
     minVersion?: string
 ): void {
     if (!checkIfModuleIsInstalled(module, minVersion)) {
-        throw new Error(
+        error(
             `Adapter '${adapter}' requires module '${module}' to be installed${
                 minVersion ? ` with min version '${minVersion}'` : ''
             }.`
+        );
+
+        throw new Error(
+            `when validating the required dependencies, please install ${module} >= '${minVersion}'`
         );
     }
 }
@@ -48,9 +52,9 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
         return inMemoryCache;
     }
 
-    // gets all dev dependencies from package.json,
-    // --dev && --prod need to be forced else it would look at NODE_ENV which is nowhere mentioned in docs
-    const command = 'npm list --json --depth=0 --dev=true --prod=true';
+    // gets all dependencies (incl. dev) from package-lock.json, not from node_modules folder, as with NPM 7+ the node
+    // modules might be stored in the root project node_modules folder and not in a child-project
+    const command = 'npm list --json --package-lock-only --depth=0';
     let commandOutput: string | null;
 
     try {
@@ -62,10 +66,9 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
 
         console.error(error);
 
-        commandOutput =
-            typeof error.stdout !== 'undefined'
-                ? error.stdout.toString()
-                : null;
+        // prettier-ignore
+        // @ts-expect-error of type unknown
+        commandOutput = typeof error.stdout !== 'undefined' ? error.stdout.toString() : null;
     }
 
     if (!commandOutput) {

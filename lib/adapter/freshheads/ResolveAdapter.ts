@@ -1,10 +1,18 @@
 import { ResolveOptions } from 'webpack';
-import path from 'path';
 import BaseResolveAdapter from '../ResolveAdapter';
 import deepmerge from 'deepmerge';
 
+/**
+ * Using a relative path here, instead of an absolute path. Webpack will not resolve node modules back the
+ * directory tree when not found in this folder, unless the path is relative. In NPM 7, using workspaces, node
+ * modules are stored in the root project instead of the workspace!
+ *
+ * @see https://webpack.js.org/configuration/resolve/#resolvemodules
+ */
+const nodeModulesFolder = 'node_modules';
+
 export const DEFAULT_CONFIG: ResolveOptions = {
-    modules: [path.resolve(process.cwd(), 'node_modules')],
+    modules: [nodeModulesFolder],
     extensions: ['.js', '.jsx', '.json'],
 };
 
