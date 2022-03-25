@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import { gte as versionIsGreaterThanOrEqualTo } from 'semver';
 import { warn, error } from './messageHelper';
+import { Environment } from '../Builder';
 
 type TInstalledModules = {
     [key: string]: string;
@@ -11,6 +12,12 @@ export function validateIfRequiredModuleIsInstalled(
     module: string,
     minVersion?: string
 ): void {
+    // We don't validate modules in production build
+    // Because it will break in NPM 6 (due changes in version of npm list command)
+    if (process.env.NODE_ENV === Environment.Production) {
+        return;
+    }
+
     if (!checkIfModuleIsInstalled(module, minVersion)) {
         error(
             `Adapter '${adapter}' requires module '${module}' to be installed${
@@ -54,6 +61,8 @@ function resolveListOfInstalledRootModules(): TInstalledModules {
 
     // gets all dependencies (incl. dev) from package-lock.json, not from node_modules folder, as with NPM 7+ the node
     // modules might be stored in the root project node_modules folder and not in a child-project
+    // in NPM 6 this command will only return the packages for the current environment (dev / prod)
+    // so this is why we no longer validate during production builds to keep NPM 6 support for now
     const command = 'npm list --json --package-lock-only --depth=0';
     let commandOutput: string | null;
 
