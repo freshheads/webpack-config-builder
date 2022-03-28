@@ -72,7 +72,6 @@ export default class SassLoaderAdapter implements Adapter {
             'sass-loader': '12.0.0',
             'resolve-url-loader': '3.1.0',
             sass: '1.35.0',
-            fibers: '5.0.0',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {
