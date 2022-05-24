@@ -20,7 +20,6 @@ import CopyFilesToBuildDirAdapter, {
     DEFAULT_CONFIG as DEFAULT_COPY_FILES_CONFIG,
 } from './CopyFilesToBuildDirAdapter';
 import SourcemapAdapter from './SourcemapAdapter';
-import TargetAdapter from '../TargetAdapter';
 import OptimizationAdapter from '../OptimizationAdapter';
 import ResolveAdapter, {
     DEFAULT_CONFIG as DEFAULT_RESOLVE_CONFIG,
@@ -85,7 +84,6 @@ export default class DefaultStackAdapter implements Adapter {
         const isProduction = builderConfig.env === Environment.Production;
 
         builder
-            .add(new TargetAdapter('web'))
             .add(new ModeAdapter(isProduction ? 'production' : 'development'))
             .add(new ResolveAdapter(this.config.resolve))
             .add(new SourcemapAdapter())

@@ -29,7 +29,7 @@ export default class LoadReferencedFilesAdapter implements Adapter {
             oneOf: [
                 ...this.config.additionalAssetRules,
                 {
-                    test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.jpe?g$|\.png$|\.gif$/,
+                    test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.jpe?g$|\.png$|\.gif$|\.webp$|\.avif$/,
                     type: 'asset/resource',
                 },
             ],
