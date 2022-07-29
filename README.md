@@ -164,31 +164,24 @@ For the general, finegrained adapters, see the [Webpack documentation](https://w
 
 The adapters in the [`./freshheads`](https://github.com/freshheads/webpack-config-builder/tree/master/lib/adapter/freshheads) folder of the repository are [Freshheads](https://www.freshheads.com/) specific, and serve as examples and project startup setups.
 
-### Utility functions
+#### CSS Adapter - Readable classnames when using (s)css modules
 
--   **`createClassNameGeneratorForCSSLoader()`**
-
-    When using (S)CSS modules, by default the outputted class name for (S)CSS modules in your HTML, is a hash. This is not very helpful when you are debugging in the browser and are trying to resolve a class name. You can supply this class name generator to the `CSSAdapter` to prepend the generated class name with the module name and sub-class. (i.e. `button_isPrimary_xD3kS` instead of `xD3kS`). The `builderConfig`, that contains the current environment, needs to be supplied to make sure that it is only applied in the dev environment.
+When using (S)CSS modules, by default the outputted class name for (S)CSS modules in your HTML, is a hash.
+This is not very helpful when you are debugging in the browser and are trying to resolve a class name. You can supply this class name generator to the `CSSAdapter` to prepend the generated class name with the module name and sub-class. (i.e. `button_isPrimary_xD3kS` instead of `xD3kS`).
+By configuring the CSS Adapter as follows you will get a readable classname in development
 
     ```js
-    const builderConfig = {
-        env: nodeEnv,
-    };
-
-    $builder = new Builder(builderConfig);
-
-    // ...
-
     new DefaultStackAdapter({
-        css: {
-            enabled: true,
-            cssLoaderOptions: {
-                modules: {
-                    getLocalIdent:
-                        createClassNameGeneratorForCSSLoader(builderConfig),
+            css: {
+                enabled: true,
+                cssLoaderOptions: {
+                    sourceMap: true,
+                    modules: {
+                        auto: true,
+                        localIdentName: nodeEnv === 'production' ? '[hash:base64]' : '[name]__[local]',
+                    },
                 },
             },
-        },
     });
     ```
 
@@ -197,7 +190,8 @@ The adapters in the [`./freshheads`](https://github.com/freshheads/webpack-confi
     ```js
     new CSSAdapter({
         modules: {
-            getLocalIdent: createClassNameGeneratorForCSSLoader(builderConfig),
+            auto: true,
+            localIdentName: nodeEnv === 'production' ? '[hash:base64]' : '[name]__[local]',
         },
     });
     ```

@@ -17,3 +17,5 @@ npm install css-minimizer-webpack-plugin@4 css-loader@6 mini-css-extract-plugin@
     -   More info on this can be found in the [webpack docs](https://webpack.js.org/configuration/output/#outputpublicpath)
 -   [css-loader 6.x](https://github.com/webpack-contrib/css-loader/releases/tag/v6.0.0)
     -   recommendation: remove ~ from app.scss when importing from packages
+
+4. When creating classnames with `createClassNameGeneratorForCSSLoader` replace this with a setting documented in the readme.

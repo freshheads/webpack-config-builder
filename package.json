@@ -76,7 +76,6 @@
     "dependencies": {
         "chalk": "^4.1.1",
         "deepmerge": "^4.2.2",
-        "loader-utils": "^2.0.0",
         "semver": "^7.3.7"
     },
     "peerDependencies": {
