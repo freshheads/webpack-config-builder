@@ -14,7 +14,7 @@ export default class ExtractCssPluginAdapter implements Adapter {
             validateIfRequiredModuleIsInstalled(
                 'ExtractCssPluginAdapter',
                 'mini-css-extract-plugin',
-                '1.3.0'
+                '2.0.0'
             );
         }
 

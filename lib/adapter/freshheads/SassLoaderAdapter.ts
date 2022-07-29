@@ -69,9 +69,9 @@ export default class SassLoaderAdapter implements Adapter {
 
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules: { [module: string]: string } = {
-            'sass-loader': '12.0.0',
-            'resolve-url-loader': '3.1.0',
-            sass: '1.35.0',
+            'sass-loader': '13.0.0',
+            'resolve-url-loader': '5.0.0',
+            sass: '1.54.0',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {
