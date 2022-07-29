@@ -61,7 +61,7 @@ builder
             ],
         })
     )
-    .add(new OutputAdapter(outputPath, '/assets/frontend/build'))
+    .add(new OutputAdapter(outputPath, 'auto'))
     .add(
         new DefaultStackAdapter({
             javascript: {

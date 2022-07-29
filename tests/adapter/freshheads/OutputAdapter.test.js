@@ -26,6 +26,24 @@ describe('FreshheadsOutputAdapter', () => {
                 },
             });
         });
+
+        it('should set a public path of auto when no argument is provided', () => {
+            const adapter = new FreshheadsOutputAdapter('./../web/build');
+            const webpackConfig = {};
+
+            adapter.apply(webpackConfig, { env: 'production' }, () => {});
+
+            expect(webpackConfig).toEqual({
+                output: {
+                    assetModuleFilename: '[name].[hash][ext][query]',
+                    chunkFilename: '[name].[contenthash].[id].js',
+                    filename: '[name].[contenthash].js',
+                    path: './../web/build',
+                    publicPath: 'auto',
+                    clean: true,
+                },
+            });
+        });
     });
 
     describe('For the development environment', () => {
