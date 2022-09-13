@@ -49,8 +49,8 @@ export default class TypescriptAdapter implements Adapter {
     private validateAllRequiredModulesAreInstalled() {
         const requiredModules = {
             'babel-loader': '8.1.0',
-            '@babel/preset-typescript': '7.13.0',
-            typescript: '4.2.0',
+            '@babel/preset-typescript': '7.18.0',
+            typescript: '4.5.0',
         };
 
         iterateObjectValues<string>(requiredModules, (minVersion, module) => {

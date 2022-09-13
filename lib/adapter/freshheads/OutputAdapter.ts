@@ -7,7 +7,7 @@ export default class OutputAdapter implements Adapter {
     private path: string;
     private publicPath: string;
 
-    constructor(path: string, publicPath: string) {
+    constructor(path: string, publicPath: string = 'auto') {
         this.path = path;
         this.publicPath = publicPath;
     }
