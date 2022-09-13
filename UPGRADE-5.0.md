@@ -6,7 +6,7 @@ It does drop support for node 12, we now require a minimum of node 14.
 1. First upgrade to the latest major versions with the following command:
 
 ```
-npm install css-minimizer-webpack-plugin@4 css-loader@6 mini-css-extract-plugin@2 postcss-loader@7 sass-loader@13 copy-webpack-plugin@11 resolve-url-loader@5
+npm install '@freshheads/webpack-config-builder'@5 css-minimizer-webpack-plugin@4 css-loader@6 mini-css-extract-plugin@2 postcss-loader@7 sass-loader@13 copy-webpack-plugin@11 resolve-url-loader@5
 ```
 
 2. After this run webpack and it will hint you for potential minor versions that should be upgraded.
