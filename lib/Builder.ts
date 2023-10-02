@@ -9,10 +9,12 @@ export enum Environment {
 
 export type BuilderConfig = {
     env: Environment;
+    sourceMap: boolean;
 };
 
 const DEFAULT_BUILDER_CONFIG = {
     env: Environment.Production,
+    sourceMap: true, // @todo: Make default false in next major release.
 };
 
 export default class Builder {

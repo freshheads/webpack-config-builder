@@ -11,9 +11,9 @@ export default class SourcemapAdapter implements Adapter {
     ) {
         this.validateNoOtherDevtoolIsApplied(webpackConfig);
 
-        const isDev = builderConfig.env !== Environment.Production;
-
-        webpackConfig.devtool = isDev ? 'eval-source-map' : 'source-map';
+        if (builderConfig.sourceMap) {
+            webpackConfig.devtool = builderConfig.env === Environment.Production ? 'source-map' : 'eval-source-map';
+        }
 
         next();
     }
