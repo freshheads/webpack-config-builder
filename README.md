@@ -49,6 +49,7 @@ const isProduction = nodeEnv !== 'dev';
 
 const builderConfig = {
     env: nodeEnv,
+    sourceMap: !isProduction,
 };
 const builder = new Builder(builderConfig);
 
