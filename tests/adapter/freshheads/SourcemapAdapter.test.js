@@ -10,7 +10,11 @@ describe('FreshheadsSourcemapAdapter', () => {
             const adapter = new FreshheadsSourcemapAdapter();
             const webpackConfig = {};
 
-            adapter.apply(webpackConfig, { env: 'production' }, () => {});
+            adapter.apply(
+                webpackConfig,
+                { env: 'production', sourceMap: true },
+                () => {}
+            );
 
             expect(webpackConfig).toEqual({
                 devtool: 'source-map',
@@ -23,7 +27,11 @@ describe('FreshheadsSourcemapAdapter', () => {
             const adapter = new FreshheadsSourcemapAdapter();
             const webpackConfig = {};
 
-            adapter.apply(webpackConfig, { env: 'dev' }, () => {});
+            adapter.apply(
+                webpackConfig,
+                { env: 'dev', sourceMap: true },
+                () => {}
+            );
 
             expect(webpackConfig).toEqual({
                 devtool: 'eval-source-map',
