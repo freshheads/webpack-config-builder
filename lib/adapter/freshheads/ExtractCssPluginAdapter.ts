@@ -40,7 +40,7 @@ export default class ExtractCssPluginAdapter implements Adapter {
         const plugin: WebpackPluginInstance = new MiniCssExtractPlugin({
             filename: isProduction ? '[name].[contenthash].css' : '[name].css',
             chunkFilename: isProduction ? '[id].[contenthash].css' : '[id].css',
-            ignoreOrder: false, // Because we use CSS modules or BEM naming convention, we can safely ignore the order conflict warnings
+            ignoreOrder: true, // Because we use CSS modules or BEM naming convention, we can safely ignore the order conflict warnings
         });
 
         webpackConfig.plugins.push(plugin);
